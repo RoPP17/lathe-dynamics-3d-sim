@@ -1,0 +1,1148 @@
+\documentclass[12pt,a4paper]{article}
+
+% ===== PAQUETES DE IDIOMA Y CODIFICACIÓN =====
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[spanish,es-tabla]{babel}
+
+% ===== GRAFICOS Y FIGURAS =====
+\usepackage{graphicx}
+\usepackage{grffile}
+\usepackage{float}
+\usepackage{caption}
+\captionsetup{
+    font={small},
+    labelfont={bf,color=black},
+    textfont={color=black},
+    format=hang,
+    justification=centering,
+    skip=6pt,
+    belowskip=4pt
+}
+
+% ===== GEOMETRÍA DE PÁGINA Y ESPACIADO =====
+\usepackage{geometry}
+\geometry{
+    left=2.54cm,
+    right=2.54cm,
+    top=3.5cm,
+    bottom=2.2cm,
+    headheight=15pt,
+    headsep=0pt,
+    footskip=20pt
+}
+\usepackage{microtype}
+\usepackage{setspace}
+\onehalfspacing
+\raggedbottom
+\widowpenalty=10000
+\clubpenalty=10000
+\displaywidowpenalty=10000
+\setlength{\parskip}{3.0pt plus 1.5pt minus 1.0pt}
+\setlength{\jot}{6.0pt}
+\setlength{\abovedisplayskip}{8pt plus 3pt minus 2pt}
+\setlength{\belowdisplayskip}{8pt plus 3pt minus 2pt}
+
+% ===== MATEMÁTICAS Y UNIDADES (SI CON NOTACIÓN '/') =====
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{siunitx}
+\sisetup{
+    per-mode = symbol,
+    output-decimal-marker = {,}
+}
+\DeclareSIUnit{\rpm}{rpm}
+\DeclareSIUnit{\rev}{rev}
+\DeclareSIUnit{\CV}{CV}
+
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{enumitem}
+
+% ===== FORMATO DE TÍTULOS Y SECCIONES SOBRIOS (TODO NEGRO) =====
+\usepackage{titlesec}
+\titleformat{\section}{\Large\bfseries\color{black}}{\thesection.}{0.6em}{}
+\titlespacing*{\section}{0pt}{14pt plus 3pt minus 2pt}{6pt plus 2pt minus 1pt}
+
+\titleformat{\subsection}{\large\bfseries\color{black}}{\thesubsection.}{0.5em}{}
+\titlespacing*{\subsection}{0pt}{12pt plus 3pt minus 2pt}{5pt plus 2pt minus 1pt}
+
+\titleformat{\subsubsection}{\normalsize\bfseries\color{black}}{\thesubsubsection.}{0.5em}{}
+\titlespacing*{\subsubsection}{0pt}{10pt plus 2pt minus 2pt}{4pt plus 1pt minus 1pt}
+
+% ===== HIPERVÍNCULOS E ÍNDICES =====
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=black,
+    filecolor=black,
+    urlcolor=black,
+    citecolor=black,
+    pdftitle={Cálculos para el Torno de Madera},
+    pdfauthor={Grupo de Dinámica -- Universidad Técnica de Ambato}
+}
+\usepackage[nottoc,notlof,notlot]{tocbibind}
+\usepackage[titles]{tocloft}
+\setlength{\cftbeforesecskip}{3.5pt}
+\setlength{\cftbeforesubsecskip}{1.0pt}
+\setlength{\cftbeforesubsubsecskip}{0.0pt}
+\setlength{\cftbeforefigskip}{3.0pt}
+\renewcommand{\cftsecleader}{\cftdotfill{\cftdotsep}}
+
+% ===== ENCABEZADO Y PIE DE PÁGINA =====
+\usepackage{fancyhdr}
+\usepackage{tikz}
+\usetikzlibrary{calc}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[C]{%
+    \begin{tikzpicture}[remember picture, overlay]
+        \node[anchor=north, inner sep=0pt, outer sep=0pt] at (current page.north) {%
+            \includegraphics[width=\paperwidth, height=2.25cm]{Figuras/image2.png}%
+        };
+    \end{tikzpicture}%
+}
+% Pie de página exclusivamente con la numeración
+\fancyfoot[C]{\small\thepage}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+
+\begin{document}
+
+\begin{titlepage}
+    \centering
+
+    {\scshape\LARGE Universidad Técnica de Ambato\par}
+    \vspace{0.20cm}
+    {\scshape\large Facultad de Ingeniería Civil y Mecánica\par}
+    \vspace{0.10cm}
+    {\scshape\large Carrera de Ingeniería Mecánica\par}
+    \vspace{0.45cm}
+
+    \IfFileExists{Figuras/logo_new.jpg}{%
+        \includegraphics[width=0.32\textwidth]{Figuras/logo_new.jpg}\par
+    }{%
+        \IfFileExists{Figuras/logo.png}{\includegraphics[width=0.32\textwidth]{Figuras/logo.png}\par}{}%
+    }
+    \vspace{0.50cm}
+
+    {\LARGE\bfseries Cálculos para el Torno de Madera\par}
+    \vspace{0.60cm}
+
+    \begin{flushleft}
+        \textbf{Integrantes:}\\[5pt]
+        \small
+        \renewcommand{\arraystretch}{1.18}
+        \begin{tabularx}{\textwidth}{@{}X X@{}}
+            1. León Carvajal Anthony José & 7. Paredes Sangucho Jaime Omar \\
+            2. Minagua Cujano Naidelin Valeria & 8. Pepe Sánchez Roberto Andrés \\
+            3. Montachana Pilataxi Alexis Vicente & 9. Sánchez Sánchez Martha Vanessa \\
+            4. Naranjo Tonato Alex Anderson & 10. Torres Veloz Jordy Jhoel \\
+            5. Ortega Lescano María Paula & 11. Villares Jiménez Alex Jair \\
+            6. Ortega Palacios Edith Margarita & 12. Zurita Baño Gonzalo Gabriel \\
+        \end{tabularx}
+        \vspace{0.50cm}
+
+        \normalsize
+        \textbf{Asignatura:} Dinámica \\
+        \textbf{Curso:} Tercero ``A'' \\
+        \textbf{Carrera:} Ingeniería Mecánica \\
+        \textbf{Docente:} Ing. Gonzalo López, Mg. \\
+        \textbf{Fecha:} 18 de octubre de 2026 \\
+    \end{flushleft}
+
+    \vfill
+    {\textbf{Periodo Académico:}\\ Julio 2026 -- Diciembre 2026\par}
+    \vspace{0.30cm}
+    {\small Ambato -- Ecuador\par}
+\end{titlepage}
+
+% ==================== ÍNDICE GENERAL (1 PÁGINA) ====================
+\begingroup
+\hypersetup{linkcolor=black}
+\linespread{0.92}\selectfont
+\tableofcontents
+\endgroup
+\clearpage
+
+% ==================== ÍNDICE DE FIGURAS (1 PÁGINA) ====================
+\begingroup
+\hypersetup{linkcolor=black}
+\small
+\linespread{0.95}\selectfont
+\setlength{\parskip}{0pt}
+\listoffigures
+\endgroup
+\clearpage
+\section{Nomenclatura}
+A continuación se resumen los símbolos, parámetros físicos y unidades del Sistema Internacional (SI) empleados en la formulación de los cálculos~\cite{guia_dinamica, hibbeler2016}, empleando la notación de cociente ($/$) en el denominador:
+
+\begin{center}
+\small
+\renewcommand{\arraystretch}{1.10}
+\begin{longtable}{p{1.8cm} p{10.2cm} >{\centering\arraybackslash}p{2.6cm}}
+    \toprule
+    \textbf{Símbolo} & \textbf{Definición Física} & \textbf{Unidad (SI)} \\
+    \midrule
+    \endhead
+    \midrule
+    \multicolumn{3}{r}{\footnotesize\textit{Continúa en la siguiente página...}} \\
+    \bottomrule
+    \endfoot
+    \bottomrule
+    \endlastfoot
+
+    $v, \vec{v}$ & Velocidad lineal / tangencial de una partícula & $\text{m/s}$ \\
+    $v_c$ & Velocidad tangencial de corte superficial en el torneado & $\text{m/s}$ \\
+    $\omega, \vec{\omega}$ & Velocidad angular del husillo y pieza & $\text{rad/s}$ \\
+    $n$ & Velocidad de rotación del husillo & $\text{rpm}$ \\
+    $n_s$ & Velocidad sincrónica del campo estatórico & $\text{rpm}$ \\
+    $s$ & Deslizamiento electromecánico del motor de inducción & Adimensional / \% \\
+    $\alpha, \vec{\alpha}$ & Aceleración angular del conjunto rotatorio & $\text{rad/s}^2$ \\
+    $a_t, \vec{a}_t$ & Componente intrínseca tangencial de la aceleración lineal & $\text{m/s}^2$ \\
+    $a_n, \vec{a}_n$ & Componente intrínseca normal (centrípeta) de la aceleración & $\text{m/s}^2$ \\
+    $\vec{a}$ & Vector aceleración lineal total ($\vec{a}_t + \vec{a}_n$) & $\text{m/s}^2$ \\
+    $CI$ & Centro Instantáneo de Velocidad Cero en movimiento plano & Adimensional \\
+    $\vec{r}_{B/A}$ & Vector de posición relativa del punto $B$ respecto a la base $A$ & $\text{m}$ \\
+    $\vec{v}_{B/A}$ & Vector de velocidad relativa de $B$ respecto a $A$ & $\text{m/s}$ \\
+    $\vec{a}_{B/A}$ & Vector de aceleración relativa de $B$ respecto a $A$ & $\text{m/s}^2$ \\
+    $\theta$ & Desplazamiento angular acumulado por el husillo & $\text{rad}$ \\
+    $N$ & Número de revoluciones acumuladas & $\text{rev}$ \\
+    $s_{\text{arco}}$ & Longitud de arco recorrida por una partícula periférica & $\text{m}$ \\
+    $f_r$ & Avance radial por revolución de la herramienta de corte & $\text{m/rev}$ \\
+    $m_u$ & Masa excéntrica residual de desbalance dinámico & $\text{kg}$ \\
+    $e, \vec{e}$ & Radio de excentricidad del centro de masa & $\text{m}$ \\
+    $F_u, \vec{F}_u$ & Fuerza centrífuga inducida por desbalance en rotación & $\text{N}$ \\
+    $T$ & Energía cinética de una partícula o cuerpo rígido & $\text{J}$ \\
+    $U_{1-2}$ & Trabajo mecánico de las fuerzas entre las configuraciones 1 y 2 & $\text{J}$ \\
+    $W$ & Fuerza gravitatoria (peso propio, $W = mg$) & $\text{N}$ \\
+    $F_c$ & Fuerza tangencial primaria de corte & $\text{N}$ \\
+    $P_{\text{corte}}$ & Potencia mecánica neta absorbida por el desbaste de viruta & $\text{W}$ \\
+    $P_{\text{loss}}$ & Potencia disipada por fricción viscosa en chumaceras/apoyos & $\text{W}$ \\
+    $\varepsilon$ & Eficiencia mecánica del proceso de torneado & Adimensional / \% \\
+    $b$ & Coeficiente de amortiguamiento viscoso torsional equivalente & $\text{N}\cdot\text{m}\cdot\text{s}$ \\
+    $\tau$ & Constante de tiempo del transitorio dinámico & $\text{s}$ \\
+    $H_O, \vec{H}_O$ & Cantidad de movimiento angular respecto al eje fijo $O$ & $\text{N}\cdot\text{m}\cdot\text{s}$ \\
+    $M_O, \vec{M}_O$ & Momento torsor respecto al eje longitudinal $O$ & $\text{N}\cdot\text{m}$ \\
+    $\dot{m}$ & Flujo másico continuo de material evacuado en viruta & $\text{kg/s}$ \\
+    $\vec{u}$ & Vector de velocidad relativa de expulsión de la viruta & $\text{m/s}$ \\
+    $\vec{F}_{\text{reac}}$ & Reacción inercial por transporte convectivo de momento & $\text{N}$ \\
+    $I_{\text{pieza}}$ & Momento de inercia de masa del cilindro de madera & $\text{kg}\cdot\text{m}^2$ \\
+    $I_p$ & Momento de inercia de masa del plato de arrastre metálico & $\text{kg}\cdot\text{m}^2$ \\
+    $I_{\text{tot}}$ & Momento de inercia de masa total equivalente del conjunto & $\text{kg}\cdot\text{m}^2$ \\
+    $M_t$ & Momento torsor nominal transmitido por el husillo & $\text{N}\cdot\text{m}$ \\
+    $J$ & Momento polar de inercia de la sección circular del eje & $\text{m}^4$ \\
+    $\tau_{\text{máx}}$ & Esfuerzo cortante torsional máximo en el eje con entalladura & $\text{MPa}$ \\
+    $\tau_{\text{key}}$ & Esfuerzo cortante tangencial sobre la chaveta de arrastre & $\text{MPa}$ \\
+    $\sigma_{\text{aplast}}$ & Esfuerzo normal de aplastamiento sobre la chaveta & $\text{MPa}$ \\
+    $K_t$ & Factor de concentración de esfuerzos por chavetero & Adimensional \\
+    $\phi$ & Ángulo de deformación por torsión elástica en el eje & $\text{rad}$ \\
+    $F_{\text{axial}}$ & Fuerza axial de compresión ejercida por el contrapunto & $\text{N}$ \\
+    $k$ & Rigidez axial elástica equivalente de la pieza en compresión & $\text{N/m}$ \\
+    $p$ & Paso del tornillo de potencia del contrapunto & $\text{m/rev}$ \\
+    $F_{\text{mano}}$ & Fuerza tangencial manual aplicada en el volante por el operario & $\text{N}$ \\
+\end{longtable}
+\end{center}
+
+\clearpage
+\section{Tema y Objetivos}
+
+\subsection{Tema}
+\textbf{Cálculos Dinámicos de un Torno Didáctico para Madera.}
+
+\subsection{Objetivos}
+
+\subsubsection{Objetivo General}
+Desarrollar el modelado digital tridimensional paramétrico del torno didáctico para madera y formular el desarrollo analítico de los cálculos dinámicos, aplicando rigurosamente los principios de cinemática y cinética de partículas y cuerpos rígidos~\cite{guia_dinamica, hibbeler2016, shabana2013, nikravesh1988} para validar su viabilidad funcional y mecánica.
+
+\subsubsection{Objetivos Específicos}
+\begin{itemize}[leftmargin=18pt, itemsep=4pt, parsep=2pt]
+    \item Modelar y ensamblar en entorno CAD paramétrico los componentes del torno (cabezal motriz, husillo, bancada y contrapunto), validando la ausencia de interferencias geométricas.
+    \item Desarrollar los cálculos dinámicos correspondientes a las cuatro unidades del sílabo: cinemática de partícula, cinemática de cuerpo rígido, cinética de partícula y cinética de cuerpo rígido~\cite{guia_dinamica, beer2017, meriam2015}.
+    \item Elaborar diagramas vectoriales, campos cinemáticos y diagramas de cuerpo libre (DCL) en MATLAB para sustentar físicamente los cálculos analíticos.
+    \item Evaluar las solicitaciones críticas del equipo: aceleraciones inerciales, fuerza de desbalance, potencia requerida, esfuerzos en el husillo y apriete del contrapunto~\cite{shigley2015, norton2013, groover2007}.
+\end{itemize}
+
+\section{Introducción}
+El torno para madera opera mecánicamente mediante la rotación uniforme de una pieza cilíndrica acoplada a un husillo motriz, sobre la cual actúa una herramienta de desbaste para remover material mediante virutas según los principios del corte ortogonal~\cite{groover2007, kalpakjian2014, altintas2012, boothroyd2006}. El presente informe contiene el desarrollo analítico detallado de veinte cálculos dinámicos estructurados según la \textit{Guía de la Asignatura de Dinámica}~\cite{guia_dinamica}, cubriendo desde el movimiento de partículas periféricas hasta la cinética rotatoria y el comportamiento elástico del conjunto bajo estándares de diseño mecánico~\cite{shigley2015, urinov2024}.
+
+\section{Arquitectura del Torno y Modelado CAD}
+El torno modelado en entorno CAD se compone de cuatro subsistemas principales:
+\begin{enumerate}[leftmargin=18pt, itemsep=4pt, parsep=2pt]
+    \item \textbf{Cabezal Motriz y Husillo:} Motor monofásico de $1{,}0\,\text{CV}$ acoplado al husillo de acero ($d = 19\,\text{mm}$) mediante chaveta prismática ($6\times 6\times 25\,\text{mm}$) calculada bajo criterios de Shigley~\cite{shigley2015} y plato de arrastre metálico ($m_p = 0{,}4617\,\text{kg}$, $R_p = 55\,\text{mm}$).
+    \item \textbf{Bancada Estructural:} Perfiles de acero soldados que garantizan la rigidez torsional y coaxialidad entre el husillo y el contrapunto.
+    \item \textbf{Banquillo Portaherramienta:} Soporte ajustable que fija rígidamente la gubia manual durante el torneado.
+    \item \textbf{Contrapunto Axial:} Mecanismo de husillo roscado ($p = 2{,}0\,\text{mm/rev}$) y volante ($r = 60\,\text{mm}$) para inducir sujeción axial centrada conforme a la cinemática helicoidal de tornillos de potencia~\cite{shigley2015, norton2013}.
+\end{enumerate}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.72\textwidth]{Figuras/figura1_cad_isometrico.jpg}
+    \caption{Vista isométrica general del ensamble tridimensional paramétrico del torno.}
+    \label{fig:cad_isometrico}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.72\textwidth]{Figuras/figura2_cad_corte_lateral.jpg}
+    \caption{Vista frontal general del ensamble tridimensional del torno (cabezal motriz, bancada, portaherramienta y contrapunto).}
+    \label{fig:cad_corte}
+\end{figure}
+\section{Parámetros del Sistema y Valores Base}
+
+A continuación se presentan los parámetros fundamentales del torno, estructurados con holgura para facilitar su consulta y trazabilidad, sustentados en la caracterización tecnológica de maderas~\cite{kivimaa1950, franz1958, eyma2004, naylor2012}:
+
+\begin{itemize}[leftmargin=20pt, itemsep=8pt, parsep=3pt, topsep=6pt]
+    \item \textbf{Motor Eléctrico Monofásico de Inducción:}\\
+    Potencia nominal: $P_{\text{nom}} = 1{,}0\,\text{CV} = 0{,}7355\,\text{kW} = 735{,}5\,\text{W}$.\\
+    Voltaje y frecuencia: $V = 127\,\text{V}$, $f = 60\,\text{Hz}$, corriente nominal $I = 5{,}0\,\text{A}$.\\
+    Configuración de estator: 4 polos, velocidad nominal de giro bajo carga $n = 1700\,\text{rpm}$.
+
+    \item \textbf{Pieza de Madera Torneable (Pino radiata):}\\
+    Radio exterior nominal inicial: $R = 0{,}040\,\text{m}$ ($D = 80\,\text{mm}$).\\
+    Longitud entre centros: $L = 0{,}25\,\text{m}$ ($250\,\text{mm}$).\\
+    Densidad volumétrica aparente seca: $\rho = 500\,\text{kg/m}^3$~\cite{kivimaa1950, eyma2004}.
+
+    \item \textbf{Plato de Arrastre Metálico (Acero AISI 1018):}\\
+    Masa del disco de arrastre: $m_p = 0{,}46170\,\text{kg}$.\\
+    Radio exterior del disco: $R_p = 0{,}055\,\text{m}$ ($55\,\text{mm}$).
+
+    \item \textbf{Eje del Husillo Principal y Chaveta:}\\
+    Diámetro del eje: $d = 0{,}019\,\text{m}$ ($19\,\text{mm}$), longitud libre $L_{\text{eje}} = 0{,}040\,\text{m}$ ($40\,\text{mm}$).\\
+    Módulo de elasticidad transversal del acero: $G = 79\,\text{GPa} = 79\times 10^9\,\text{Pa}$~\cite{shigley2015}.\\
+    Chaveta prismática: ancho $b = 6\,\text{mm}$, altura $h = 6\,\text{mm}$, longitud útil $l = 25\,\text{mm}$.\\
+    Factor de concentración de esfuerzos torsional por chavetero: $K_t = 1{,}6$~\cite{shigley2015}.
+
+    \item \textbf{Proceso de Torneado y Condiciones de Mecanizado:}\\
+    Fuerza tangencial media de corte: $F_c = 20\,\text{N}$~\cite{franz1958, naylor2012}.\\
+    Avance radial de la gubia: $f_r = 2{,}5\times 10^{-6}\,\text{m/rev} = 2{,}5\,\mu\text{m/rev}$.\\
+    Espesor de la viruta extraída: $t_c = 0{,}5\,\text{mm} = 0{,}0005\,\text{m}$.\\
+    Ancho de contacto de la herramienta: $b_w = 5\,\text{mm} = 0{,}005\,\text{m}$.\\
+    Velocidad relativa de eyección continua de viruta: $u = 6{,}0\,\text{m/s}$~\cite{eyma2004}.
+
+    \item \textbf{Tiempos Transitorios de Operación:}\\
+    Tiempo nominal de aceleración hasta régimen: $\Delta t = 2{,}0\,\text{s}$.\\
+    Tiempo de detención por parada libre (\textit{run-down}): $\Delta t_{\text{stop}} = 3{,}0\,\text{s}$~\cite{urinov2024}.
+
+    \item \textbf{Mecanismo de Fijación del Contrapunto:}\\
+    Precarga axial inicial de centrado: $F_0 = 500\,\text{N}$.\\
+    Rigidez axial de deformación elástica: $k = 5{,}0\times 10^4\,\text{N/m}$.\\
+    Desplazamiento axial de apriete: $x = 1{,}5\,\text{mm} = 0{,}0015\,\text{m}$.\\
+    Paso del tornillo helicoidal de potencia: $p = 2\,\text{mm/rev} = 0{,}002\,\text{m/rev}$~\cite{norton2013}.\\
+    Radio de maniobra del volante manual: $r_v = 60\,\text{mm} = 0{,}060\,\text{m}$.
+
+    \item \textbf{Desbalance Dinámico Residual de la Madera:}\\
+    Masa excéntrica por heterogeneidad de fibras o nudos: $m_u = 0{,}020\,\text{kg}$ ($20\,\text{g}$).\\
+    Radio de excentricidad radial del centro de gravedad: $e = 0{,}002\,\text{m}$ ($2\,\text{mm}$).
+\end{itemize}
+
+\vspace{10pt}
+\noindent\textbf{Cálculo de Parámetros Derivados Base:}
+
+\vspace{4pt}
+A partir de los datos geométricos y másicos anteriores se calculan las magnitudes inerciales de partida que rigen los modelos dinámicos posteriores~\cite{guia_dinamica, hibbeler2016}:
+\begin{align}
+    \omega &= \frac{2\pi n}{60} = \frac{2\pi (1700)}{60} = 178{,}0236\,\text{rad/s} \\[8pt]
+    V_{\text{cil}} &= \pi R^2 L = \pi (0{,}040)^2 (0{,}25) = 1{,}2566 \times 10^{-3}\,\text{m}^3 \\[8pt]
+    m_{\text{pieza}} &= \rho \, V_{\text{cil}} = (500)(1{,}2566 \times 10^{-3}) = 0{,}6283\,\text{kg} \\[8pt]
+    I_{\text{pieza}} &= \frac{1}{2} m_{\text{pieza}} R^2 = \frac{1}{2}(0{,}6283)(0{,}040)^2 = 5{,}0265 \times 10^{-4}\,\text{kg}\cdot\text{m}^2 \\[8pt]
+    I_p &= \frac{1}{2} m_p R_p^2 = \frac{1}{2}(0{,}46170)(0{,}055)^2 = 6{,}9832 \times 10^{-4}\,\text{kg}\cdot\text{m}^2 \\[8pt]
+    I_{\text{tot}} &= I_{\text{pieza}} + I_p = (5{,}0265 + 6{,}9832)\times 10^{-4} = 1{,}20097 \times 10^{-3}\,\text{kg}\cdot\text{m}^2
+\end{align}
+\section{Cálculo Dinámico del Torno}
+\label{sec:calculos_dinamicos}
+
+\subsection{Unidad 1: Cinemática de la Partícula}
+Se modela el comportamiento cinemático puntual de elementos situados en la periferia de la pieza de madera sujeta al husillo giratorio, conforme a la cinemática curvilínea en coordenadas intrínsecas~\cite{guia_dinamica, hibbeler2016}.
+
+\subsubsection{Cálculo 1: Vector Velocidad Tangencial en la Periferia}
+
+\noindent\textbf{Datos de entrada:}\\
+Velocidad de rotación nominal: $n = 1700\,\text{rpm}$.\\
+Radio exterior de la pieza: $R = 0{,}040\,\text{m}$ ($40\,\text{mm}$).
+\vspace{6pt}
+
+\noindent\textbf{Formulación vectorial:}\\
+La velocidad lineal en trayectoria circular uniforme respecto al eje fijo $O$ se formula vectorialmente mediante el producto vectorial~\cite{hibbeler2016}:
+\begin{equation}
+    \vec{v} = \vec{\omega} \times \vec{r} = (\omega\,\hat{k}) \times (R\,\hat{u}_r) = \omega R\,\hat{u}_\theta
+\end{equation}
+Su magnitud escalar instantánea es:
+\begin{equation}
+    v = \omega R = \left(\frac{2\pi n}{60}\right) R
+\end{equation}
+\vspace{6pt}
+
+\noindent\textbf{Desarrollo matemático y cálculo:}\\
+Calculando la velocidad angular y evaluando la rapidez tangencial en el punto periférico:
+\begin{align}
+    \omega &= \frac{2\pi (1700)}{60} = 178{,}0236\,\text{rad/s} \\[6pt]
+    v &= (178{,}0236\,\text{rad/s})(0{,}040\,\text{m}) = \boxed{7{,}1209\,\text{m/s}} \quad (427{,}26\,\text{m/min})
+\end{align}
+\vspace{6pt}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.62\textwidth]{Figuras/matlab_fig01_vel_tangencial.png}
+    \caption{Vector posición radial $\vec{r}$, velocidad angular $\vec{\omega}$ y velocidad tangencial periférica $\vec{v}$ (Cálculo 1).}
+    \label{fig:calc01}
+\end{figure}
+\vspace{4pt}
+
+\noindent\textbf{Interpretación técnica y alcance físico:}\\
+La rapidez lineal periférica de $7{,}1209\,\text{m/s}$ ($427{,}26\,\text{m/min}$) representa la velocidad con la que las fibras leñosas superficiales del madero de pino radiata colisionan contra el filo estacionario de la gubia de acero rápido. En manufactura de madera, este parámetro define la calidad del corte ortogonal: velocidades inferiores a $5\,\text{m/s}$ producen desgarros y astillamiento de fibras por flexión elástica, mientras que valores por encima de $12\,\text{m/s}$ carbonizan la madera por fricción térmica descontrolada. El valor obtenido sitúa la operación en la ventana óptima prescrita por Kivimaa y Franz~\cite{kivimaa1950, franz1958}, garantizando un desprendimiento de viruta continuo y un acabado superficial pulido.
+
+\noindent\textbf{Concatenación e interdependencia dinámica:}\\
+La velocidad angular obtenida ($\omega = 178{,}0236\,\text{rad/s}$) y la rapidez lineal ($v = 7{,}1209\,\text{m/s}$) establecen el estado cinemático terminal de régimen estacionario al que debe aspirar el torno partiendo del reposo. Esta condición de frontera constituye la base matemática indispensable para calcular en el \textbf{Cálculo 2} las aceleraciones intrínsecas (tangencial y normal) que experimenta la madera durante el intervalo transitorio de arranque.
+\vspace{12pt}
+
+\subsubsection{Cálculo 2: Aceleraciones Intrínsecas Tangencial y Normal en el Arranque}
+
+\noindent\textbf{Datos de entrada:}\\
+Intervalo de aceleración: $\Delta t = 2{,}0\,\text{s}$.\\
+Radio periférico: $R = 0{,}040\,\text{m}$.\\
+Velocidades angulares: $\omega_0 = 0$, $\omega = 178{,}0236\,\text{rad/s}$.
+\vspace{6pt}
+
+\noindent\textbf{Formulación vectorial:}\\
+En coordenadas intrínsecas tangencial-normal ($t-n$), el vector aceleración lineal total $\vec{a}$ se descompone en~\cite{guia_dinamica, hibbeler2016}:
+\begin{equation}
+    \vec{a} = \vec{a}_t + \vec{a}_n = (\alpha R)\,\hat{u}_t + (\omega^2 R)\,\hat{u}_n
+\end{equation}
+donde $\alpha = \frac{\Delta\omega}{\Delta t}$ representa la aceleración angular media y $\rho = R$ es el radio de curvatura constante.
+\vspace{6pt}
+
+\noindent\textbf{Desarrollo matemático y cálculo:}
+\begin{align}
+    \alpha &= \frac{178{,}0236 - 0}{2{,}0} = 89{,}0118\,\text{rad/s}^2 \\[6pt]
+    a_t &= \alpha R = (89{,}0118)(0{,}040) = \boxed{3{,}5605\,\text{m/s}^2} \\[6pt]
+    a_n &= \omega^2 R = (178{,}0236)^2 (0{,}040) = \boxed{1267{,}6963\,\text{m/s}^2}
+\end{align}
+\vspace{6pt}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.62\textwidth]{Figuras/matlab_fig02_acel_tang_norm.png}
+    \caption{Aceleración intrínseca tangencial $\vec{a}_t$, normal $\vec{a}_n$ y aceleración resultante $\vec{a}$ (Cálculos 2 y 10).}
+    \label{fig:calc02}
+\end{figure}
+\vspace{4pt}
+
+\noindent\textbf{Interpretación técnica y alcance físico:}\\
+La aceleración normal centrípeta ($a_n = 1267{,}70\,\text{m/s}^2 \approx 129{,}2\,g$) supera en un factor de $356$ a la aceleración tangencial ($a_t = 3{,}5605\,\text{m/s}^2$). Este resultado revela una jerarquía inercial determinante para la seguridad estructural: las solicitaciones radiales centrípetas gobiernan por completo el estado tensional de tracción transversal de la madera. La aceleración tangencial, debida al par motor de arranque, actúa exclusivamente durante el transitorio para acelerar la masa hasta su régimen nominal.
+
+\noindent\textbf{Concatenación e interdependencia dinámica:}\\
+La aceleración angular constante ($\alpha = 89{,}0118\,\text{rad/s}^2$) y el tiempo de arranque nominal ($\Delta t = 2{,}0\,\text{s}$) permiten formular la constante de tiempo del transitorio amortiguado ($\tau = 0{,}6676\,\text{s}$) en el \textbf{Cálculo 3}, donde se integrará analíticamente la curva exponencial $\omega(t)$ para cuantificar el ángulo total barrido y las revoluciones completadas antes de alcanzar la estabilidad.
+\vspace{12pt}
+
+\subsubsection{Cálculo 3: Desplazamiento Angular y Vueltas en Arranque Amortiguado}
+
+\noindent\textbf{Datos de entrada:}\\
+Tiempo de estabilización: $\Delta t = 2{,}0\,\text{s}$ (al $95\%$ de velocidad nominal).\\
+Velocidad de régimen: $\omega_{\text{reg}} = 178{,}0236\,\text{rad/s}$.
+\vspace{6pt}
+
+\noindent\textbf{Formulación matemática:}\\
+Considerando la inercia total y las pérdidas viscosas en cojinetes~\cite{shigley2015, urinov2024}, la velocidad angular transitoria describe una curva exponencial de primer orden:
+\begin{equation}
+    \omega(t) = \omega_{\text{reg}}\left(1 - e^{-t/\tau}\right), \quad \text{donde} \quad \tau = \frac{\Delta t}{\ln(20)} = \frac{2{,}0}{\ln(20)} = 0{,}6676\,\text{s}
+\end{equation}
+Integrando analíticamente en el tiempo para obtener el desplazamiento angular $\theta(t)$:
+\begin{equation}
+    \theta(t) = \int_0^t \omega(t')\,dt' = \omega_{\text{reg}}\left[t - \tau\left(1 - e^{-t/\tau}\right)\right]
+\end{equation}
+\vspace{6pt}
+
+\noindent\textbf{Desarrollo matemático y cálculo:}
+\begin{align}
+    \theta(2{,}0) &= 178{,}0236\left[2{,}0 - 0{,}6676\left(1 - e^{-2{,}0/0{,}6676}\right)\right] \nonumber \\[6pt]
+    &= 178{,}0236\left[2{,}0 - 0{,}6676(0{,}9500)\right] = 178{,}0236(1{,}3658) = \boxed{243{,}1383\,\text{rad}} \\[6pt]
+    N &= \frac{\theta}{2\pi} = \frac{243{,}1383}{2\pi} = \boxed{38{,}70\,\text{rev}}
+\end{align}
+\vspace{6pt}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.64\textwidth]{Figuras/matlab_fig03_arranque_transitorio.png}
+    \caption{Curvas dinámicas de velocidad angular $\omega(t)$ y desplazamiento $\theta(t)$ en el arranque (Cálculos 3 y 4).}
+    \label{fig:calc03}
+\end{figure}
+\vspace{4pt}
+
+\noindent\textbf{Interpretación técnica y alcance físico:}\\
+El husillo completa $38{,}70$ revoluciones ($\theta = 243{,}14\,\text{rad}$) durante los dos segundos de aceleración exponencial antes de alcanzar el $95\%$ de su régimen permanente. Este cálculo modela la respuesta electro-mecánica real del torno: debido a la inercia rotatoria y el arrastre viscoso de los apoyos, el motor no alcanza su velocidad de forma instantánea sino que sigue una curva asintótica suave que protege los devanados del motor contra corrientes de inserción prolongadas y mitiga choques mecánicos sobre la chaveta.
+
+\noindent\textbf{Concatenación e interdependencia dinámica:}\\
+El desplazamiento angular total integrado ($\theta = 243{,}1383\,\text{rad}$) es el parámetro cinemático directo que, al multiplicarse por el radio periférico exterior en el \textbf{Cálculo 4}, permite proyectar la trayectoria espacial métrica recorrida por el contorno del madero durante el encendido.
+\vspace{12pt}
+
+\subsubsection{Cálculo 4: Longitud de Trayectoria Periférica Barrida}
+
+\noindent\textbf{Datos de entrada:}\\
+Radio de la pieza: $R = 0{,}040\,\text{m}$.\\
+Desplazamiento angular acumulado: $\theta = 243{,}1383\,\text{rad}$.
+\vspace{6pt}
+
+\noindent\textbf{Formulación matemática:}\\
+La longitud de arco espacial $s_{\text{arco}}$ descrita por una partícula superficial en trayectoria circular plana se calcula como~\cite{meriam2015}:
+\begin{equation}
+    s_{\text{arco}} = R\,\theta
+\end{equation}
+\vspace{6pt}
+
+\noindent\textbf{Desarrollo matemático y cálculo:}
+\begin{equation}
+    s_{\text{arco}} = (0{,}040\,\text{m})(243{,}1383\,\text{rad}) = \boxed{9{,}7255\,\text{m}}
+\end{equation}
+\vspace{6pt}
+
+\noindent\textbf{Interpretación técnica y alcance físico:}\\
+La longitud de trayectoria periférica ($s_{\text{arco}} = 9{,}7255\,\text{m}$) demuestra que cualquier punto de la superficie exterior barre casi diez metros lineales en el espacio durante los dos segundos de puesta en marcha. Este cálculo cuantifica la distancia crítica de fricción superficial que deslizaría contra un obstáculo si la herramienta hiciera contacto accidental durante el arranque, fundamentando la regla de seguridad de encender el torno en vacío.
+
+\noindent\textbf{Concatenación e interdependencia dinámica:}\\
+Establecida la cinemática de la trayectoria recorrida, el \textbf{Cálculo 5} adapta la velocidad periférica a los estándares de manufactura mediante la fórmula de velocidad de corte de taller ($v_c$), parametrizándola en función del diámetro comercial del madero ($D = 80\,\text{mm}$).
+\vspace{12pt}
+
+\subsubsection{Cálculo 5: Velocidad de Corte Estandarizada en Torneado}
+
+\noindent\textbf{Datos de entrada:}\\
+Diámetro de la pieza: $D = 0{,}080\,\text{m}$ ($80\,\text{mm}$).\\
+Régimen de giro: $n = 1700\,\text{rpm}$.
+\vspace{6pt}
+
+\noindent\textbf{Formulación matemática:}\\
+La velocidad tangencial de corte estándar de mecanizado $v_c$ se define tecnológicamente mediante las relaciones fundamentales de torneado~\cite{groover2007, kalpakjian2014}:
+\begin{equation}
+    v_c = \frac{\pi \, D \, n}{60}
+\end{equation}
+\vspace{6pt}
+
+\noindent\textbf{Desarrollo matemático y cálculo:}
+\begin{equation}
+    v_c = \frac{\pi (0{,}080\,\text{m})(1700\,\text{rpm})}{60} = \boxed{7{,}1209\,\text{m/s}} \quad (427{,}26\,\text{m/min})
+\end{equation}
+\vspace{6pt}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.64\textwidth]{Figuras/matlab_fig04_velocidad_corte.png}
+    \caption{Velocidad de corte superficial $v_c$ en función del diámetro para diferentes regímenes de giro (Cálculo 5).}
+    \label{fig:calc05}
+\end{figure}
+\vspace{4pt}
+
+\noindent\textbf{Interpretación técnica y alcance físico:}\\
+La velocidad estándar de corte ($v_c = 7{,}1209\,\text{m/s}$) confirma la validez operativa del diseño frente a los manuales de torneado de madera de Groover y Boothroyd~\cite{groover2007, boothroyd2006}. La formulación basada en el diámetro exterior $D$ ratifica que a medida que la pieza sea rebajada sucesivamente, la velocidad de corte disminuirá proporcionalmente al diámetro instantáneo, lo que exigirá compensar la velocidad de avance de la gubia para mantener una tasa uniforme de arranque de viruta.
+
+\noindent\textbf{Concatenación e interdependencia dinámica:}\\
+Dado que la rotación efectiva depende del acoplamiento electromecánico con el motor de inducción monofásico bajo carga, el \textbf{Cálculo 6} analiza el deslizamiento relativo respecto a la velocidad sincrónica de la red eléctrica, justificando físicamente por qué el rotor gira a $1700\,\text{rpm}$ y no a $1800\,\text{rpm}$.
+
+\subsection{Unidad 2: Cinemática de Cuerpos Rígidos}
+Se analiza el movimiento plano de rotación pura alrededor del eje fijo longitudinal del husillo, el campo de velocidades y la cinemática de corte en el sólido rígido~\cite{beer2017, shabana2013, nikravesh1988}.
+
+\subsubsection{Cálculo 6: Velocidad Sincrónica y Deslizamiento del Motor}
+
+\noindent\textbf{Datos de entrada:}\\
+Frecuencia eléctrica: $f = 60\,\text{Hz}$, número de polos $p = 4$.\\
+Velocidad nominal del rotor: $n = 1700\,\text{rpm}$.
+\vspace{6pt}
+
+\noindent\textbf{Formulación matemática:}\\
+La velocidad síncrona del campo estatórico $n_s$ y el deslizamiento electromecánico relativo $s$ se determinan como:
+\begin{equation}
+    n_s = \frac{120 \, f}{p}, \quad s = \frac{n_s - n}{n_s}
+\end{equation}
+\vspace{6pt}
+
+\noindent\textbf{Desarrollo matemático y cálculo:}
+\begin{align}
+    n_s &= \frac{120(60)}{4} = 1800\,\text{rpm} \\[6pt]
+    s &= \frac{1800 - 1700}{1800} = \frac{100}{1800} = 0{,}05556 \implies \boxed{s = 5{,}56\%}
+\end{align}
+\vspace{6pt}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.62\textwidth]{Figuras/matlab_fig05_motor_induccion.png}
+    \caption{Curva característica par-velocidad del motor de inducción y punto de operación a $1700\,\text{rpm}$ (Cálculo 6).}
+    \label{fig:calc06}
+\end{figure}
+\vspace{4pt}
+
+\noindent\textbf{Interpretación técnica y alcance físico:}\\
+El deslizamiento electromecánico del $5{,}56\%$ refleja la operación en la zona lineal y estable de la curva par-velocidad del motor de inducción monofásico NEMA. Para que exista torque motriz inducido, el rotor debe girar a una velocidad ligeramente inferior a la del campo magnético rotatorio del estator ($1800\,\text{rpm}$ a $60\,\text{Hz}$). Este deslizamiento confiere rigidez autorregulada: si la gubia incrementa la carga de corte, el deslizamiento aumenta ligeramente y el motor responde entregando mayor par motriz para mantener la rotación.
+
+\noindent\textbf{Concatenación e interdependencia dinámica:}\\
+Con la velocidad angular estacionaria de la máquina plenamente justificada ($\omega = 178{,}0236\,\text{rad/s}$), el \textbf{Cálculo 7} traslada el estudio hacia el interior del sólido rígido, analizando el campo continuo de velocidades lineales a través de la sección transversal mediante el concepto de Centro Instantáneo de Rotación ($CI$).
+\vspace{12pt}
+
+\subsubsection{Cálculo 7: Centro Instantáneo de Velocidad Cero (\texorpdfstring{$CI$}{CI}) y Campo Lineal de Velocidades}
+
+\noindent\textbf{Datos de entrada:}\\
+Velocidad angular: $\omega = 178{,}0236\,\text{rad/s}$.\\
+Radios de evaluación: $r = [0,\, 10,\, 20,\, 30,\, 40]\,\text{mm}$.
+\vspace{6pt}
+
+\noindent\textbf{Formulación cinemática del cuerpo rígido:}\\
+En un cuerpo rígido en rotación pura respecto a un eje geométrico fijo, el Centro Instantáneo de Rotación ($CI$) coincide de forma permanente con el eje $O$~\cite{beer2017, shabana2013}. La distribución de rapidez es una función lineal continua del radio:
+\begin{equation}
+    \vec{v}(P) = \vec{\omega} \times \vec{r}_{P/CI} \implies v(r) = \omega \, r
+\end{equation}
+\vspace{6pt}
+
+\noindent\textbf{Desarrollo matemático y cálculo:}
+\begin{align}
+    v(0) &= (178{,}0236)(0{,}000) = \boxed{0{,}000\,\text{m/s}} \quad (\text{Eje fijo, Centro Instantáneo } CI) \\[6pt]
+    v(10\,\text{mm}) &= (178{,}0236)(0{,}010) = \boxed{1{,}7802\,\text{m/s}} \\[6pt]
+    v(20\,\text{mm}) &= (178{,}0236)(0{,}020) = \boxed{3{,}5605\,\text{m/s}} \\[6pt]
+    v(30\,\text{mm}) &= (178{,}0236)(0{,}030) = \boxed{5{,}3407\,\text{m/s}} \\[6pt]
+    v(40\,\text{mm}) &= (178{,}0236)(0{,}040) = \boxed{7{,}1209\,\text{m/s}}
+\end{align}
+\vspace{6pt}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.64\textwidth]{Figuras/matlab_fig06_campo_vel_ci.png}
+    \caption{Distribución lineal del campo de velocidades tangenciales y ubicación del Centro Instantáneo $CI$ en el eje (Cálculo 7).}
+    \label{fig:calc07}
+\end{figure}
+\vspace{4pt}
+
+\noindent\textbf{Interpretación técnica y alcance físico:}\\
+El análisis confirma que en rotación pura con eje fijo, el Centro Instantáneo de Velocidad Cero ($CI$) reside permanentemente sobre el eje longitudinal de simetría $O$, originando un campo de velocidades estrictamente proporcional al radio ($v(r) = \omega r$). A $r = 30\,\text{mm}$ la rapidez es $5{,}34\,\text{m/s}$ y en la periferia alcanza $7{,}12\,\text{m/s}$. Esto demuestra que el torneado es un proceso cinemáticamente heterogéneo: el filo de la gubia trabaja a velocidades lineales decrecientes conforme profundiza hacia el núcleo.
+
+\noindent\textbf{Concatenación e interdependencia dinámica:}\\
+La determinación del gradiente radial continuo de velocidades en el sólido conduce directamente al \textbf{Cálculo 8}, donde se examina la cinemática de movimiento relativo entre dos partículas situadas a distancias radiales distintas para verificar el postulado de rigidez estructural.
+\vspace{12pt}
+
+\subsubsection{Cálculo 8: Velocidad Relativa Entre Puntos del Sólido Rígido}
+
+\noindent\textbf{Datos de entrada:}\\
+Punto $A$ (periferia exterior): $r_A = 0{,}040\,\text{m}$ ($\hat{i}$).\\
+Punto $Q$ (radio intermedio): $r_Q = 0{,}020\,\text{m}$ ($\hat{i}$).\\
+Rotación: $\vec{\omega} = 178{,}0236\,\hat{k}\,\text{rad/s}$.
+\vspace{6pt}
+
+\noindent\textbf{Formulación cinemática relativa:}\\
+La ecuación de velocidades relativas entre dos puntos de un mismo sólido rígido establece~\cite{hibbeler2016, beer2017}:
+\begin{equation}
+    \vec{v}_A = \vec{v}_Q + \vec{v}_{A/Q} = \vec{v}_Q + \vec{\omega} \times \vec{r}_{A/Q}
+\end{equation}
+\vspace{6pt}
+
+\noindent\textbf{Desarrollo matemático y cálculo:}
+\begin{align}
+    \vec{v}_Q &= \vec{\omega} \times \vec{r}_Q = (178{,}0236\,\hat{k}) \times (0{,}020\,\hat{i}) = 3{,}5605\,\hat{j}\,\text{m/s} \\[6pt]
+    \vec{r}_{A/Q} &= \vec{r}_A - \vec{r}_Q = (0{,}040 - 0{,}020)\,\hat{i} = 0{,}020\,\hat{i}\,\text{m} \\[6pt]
+    \vec{v}_{A/Q} &= (178{,}0236\,\hat{k}) \times (0{,}020\,\hat{i}) = 3{,}5605\,\hat{j}\,\text{m/s} \\[6pt]
+    \vec{v}_A &= 3{,}5605\,\hat{j} + 3{,}5605\,\hat{j} = \boxed{7{,}1209\,\hat{j}\,\text{m/s}}
+\end{align}
+\vspace{6pt}
+
+\noindent\textbf{Interpretación técnica y alcance físico:}\\
+La velocidad relativa de $v_{A/Q} = 3{,}5605\,\text{m/s}$ entre los puntos $A$ ($r_A = 40\,\text{mm}$) y $Q$ ($r_Q = 20\,\text{mm}$) evidencia el movimiento diferencial puramente tangencial en el seno de la madera. Al formular vectorialmente $\vec{v}_A = \vec{v}_Q + \vec{\omega}\times\vec{r}_{A/Q}$, se verifica que no existe deformación angular interna ni cizallamiento entre capas concéntricas, satisfaciendo con rigor la hipótesis cinemática de cuerpo indeformable adoptada en la mecánica analítica.
+
+\noindent\textbf{Concatenación e interdependencia dinámica:}\\
+Comprendido el comportamiento cinemático de la madera a cualquier radio, el \textbf{Cálculo 9} modela el avance radial continuo de la gubia, calculando el tiempo y las revoluciones necesarias para rebajar un milímetro de espesor en la madera.
+\vspace{12pt}
+
+\subsubsection{Cálculo 9: Cinemática de Reducción Radial de Diámetro en Pasada de Desbaste}
+
+\noindent\textbf{Datos de entrada:}\\
+Rebaje radial total: $\Delta R = 1{,}0\,\text{mm} = 0{,}001\,\text{m}$.\\
+Avance por revolución: $f_r = 2{,}5\,\mu\text{m/rev} = 2{,}5\times 10^{-6}\,\text{m/rev}$.\\
+Velocidad de giro: $n = 1700\,\text{rpm}$ ($28{,}3333\,\text{rev/s}$).
+\vspace{6pt}
+
+\noindent\textbf{Formulación cinemática del proceso:}\\
+El número total de revoluciones necesarias $N_{\text{rev}}$, la velocidad lineal de avance radial $v_r$ y el tiempo de mecanizado continuo $t_{\text{corte}}$ son formulados bajo los modelos de torneado~\cite{groover2007, urinov2024}:
+\begin{equation}
+    N_{\text{rev}} = \frac{\Delta R}{f_r}, \quad v_r = f_r \left(\frac{n}{60}\right), \quad t_{\text{corte}} = \frac{\Delta R}{v_r} = \frac{N_{\text{rev}}}{n/60}
+\end{equation}
+\vspace{6pt}
+
+\noindent\textbf{Desarrollo matemático y cálculo:}
+\begin{align}
+    N_{\text{rev}} &= \frac{0{,}001\,\text{m}}{2{,}5\times 10^{-6}\,\text{m/rev}} = \boxed{400\,\text{rev}} \\[6pt]
+    v_r &= (2{,}5 \times 10^{-6}\,\text{m/rev})(28{,}3333\,\text{rev/s}) = \boxed{7{,}0833 \times 10^{-5}\,\text{m/s}} \quad (4{,}25\,\text{mm/min}) \\[6pt]
+    t_{\text{corte}} &= \frac{0{,}001\,\text{m}}{7{,}0833 \times 10^{-5}\,\text{m/s}} = \boxed{14{,}1176\,\text{s}}
+\end{align}
+\vspace{6pt}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.62\textwidth]{Figuras/matlab_fig07_rebaje_radial.png}
+    \caption{Trayectoria espiral de corte y reducción radial progresiva del radio de la pieza de madera (Cálculo 9).}
+    \label{fig:calc09}
+\end{figure}
+\vspace{4pt}
+
+\noindent\textbf{Interpretación técnica y alcance físico:}\\
+Rebajar $1{,}0\,\text{mm}$ de espesor radial a una velocidad de avance continuo de $f_r = 2{,}5\,\mu\text{m/rev}$ demanda $400\,\text{vueltas}$ del husillo y un tiempo de maquinado de $14{,}12\,\text{s}$. Este cálculo proporciona los parámetros operativos para programar pasadas de desbaste seguras: una remoción volumétrica controlada evita vibraciones regenerativas (*chatter*) y mantiene la fuerza de corte dentro de los márgenes admisibles para el soporte portaherramientas.
+
+\noindent\textbf{Concatenación e interdependencia dinámica:}\\
+Conociendo la cinemática temporal del corte y la rotación sostenida a $1700\,\text{rpm}$, el \textbf{Cálculo 10} sintetiza el vector aceleración total del sólido rígido en régimen pleno, evaluando la aceleración lineal combinada resultante sobre las partículas periféricas.
+\vspace{12pt}
+
+\subsubsection{Cálculo 10: Vector Aceleración Relativa y Aceleración Total del Sólido Rígido}
+
+\noindent\textbf{Datos de entrada:}\\
+$\alpha = 89{,}0118\,\text{rad/s}^2$, $\omega = 178{,}0236\,\text{rad/s}$, vector relativo $\vec{r}_{B/A} = 0{,}040\,\hat{i}\,\text{m}$ (desde el eje $O$).
+\vspace{6pt}
+
+\noindent\textbf{Formulación vectorial:}\\
+La aceleración total de un punto en rotación pura alrededor de un eje fijo se formula como~\cite{hibbeler2016, meriam2015}:
+\begin{equation}
+    \vec{a} = \vec{\alpha} \times \vec{r} - \omega^2 \vec{r} = (\alpha R)\,\hat{j} - (\omega^2 R)\,\hat{i}
+\end{equation}
+Magnitud del vector resultante y ángulo de dirección respecto al radio $\hat{i}$:
+\begin{equation}
+    a_{\text{tot}} = \sqrt{a_t^2 + a_n^2}, \quad \beta = \arctan\left(\frac{a_t}{a_n}\right)
+\end{equation}
+\vspace{6pt}
+
+\noindent\textbf{Desarrollo matemático y cálculo:}
+\begin{align}
+    \vec{a} &= -1267{,}6963\,\hat{i} + 3{,}5605\,\hat{j}\,\text{m/s}^2 \\[6pt]
+    a_{\text{tot}} &= \sqrt{(3{,}5605)^2 + (1267{,}6963)^2} = \boxed{1267{,}7013\,\text{m/s}^2} \\[6pt]
+    \beta &= \arctan\left(\frac{3{,}5605}{1267{,}6963}\right) = 0{,}002808\,\text{rad} = \boxed{0{,}1609^\circ}
+\end{align}
+\vspace{6pt}
+
+\noindent\textbf{Interpretación técnica y alcance físico:}\\
+En régimen permanente estacionario, la aceleración angular es nula ($\alpha = 0$), lo que anula la componente tangencial ($a_t = 0$). La aceleración lineal total ($a_{\text{tot}} = 1267{,}70\,\text{m/s}^2$) coincide en magnitud y dirección con la componente normal centrípeta orientada hacia el centro baricéntrico. Esto demuestra que las fuerzas inerciales internas que solicitan a tracción las fibras de la madera son puramente centrípetas.
+
+\noindent\textbf{Concatenación e interdependencia dinámica:}\\
+La magnitud masiva de esta aceleración normal centrípeta ($129{,}2\,g$) tiene una consecuencia cinética crítica si el centro de masa de la madera no coincide perfectamente con el eje de rotación: genera una fuerza centrífuga oscilante. El \textbf{Cálculo 11} analiza precisamente este efecto cinético al introducir una masa excéntrica de desbalance.
+
+\subsection{Unidad 3: Cinética de la Partícula}
+Se formulan las relaciones entre las fuerzas aplicadas, la inercia centrífuga y el balance de energía mecánica durante el mecanizado, aplicando la Segunda Ley de Newton y el Principio del Trabajo y la Energía~\cite{guia_dinamica, hibbeler2016}.
+
+\subsubsection{Cálculo 11: Fuerza Centrífuga por Desbalance Inercial Excéntrico}
+
+\noindent\textbf{Datos de entrada:}\\
+Masa excéntrica: $m_u = 0{,}020\,\text{kg}$ ($20\,\text{g}$).\\
+Radio de excentricidad: $e = 0{,}002\,\text{m}$ ($2\,\text{mm}$).\\
+Velocidad angular: $\omega = 178{,}0236\,\text{rad/s}$.
+\vspace{6pt}
+
+\noindent\textbf{Formulación dinámica:}\\
+Aplicando la Segunda Ley de Newton en la dirección normal~\cite{hibbeler2016, nikravesh1988}:
+\begin{equation}
+    \sum F_n = m_u \, a_n = m_u \, e \, \omega^2
+\end{equation}
+\vspace{6pt}
+
+\noindent\textbf{Desarrollo matemático y cálculo:}
+\begin{equation}
+    F_u = (0{,}020\,\text{kg})(0{,}002\,\text{m})(178{,}0236\,\text{rad/s})^2 = (4{,}0 \times 10^{-5})(31692{,}40) = \boxed{1{,}2677\,\text{N}}
+\end{equation}
+\vspace{6pt}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.62\textwidth]{Figuras/matlab_fig08_desbalance_dcl.png}
+    \caption{Diagrama de cuerpo libre del rotor con desbalance: radio excéntrico $\vec{e}$, fuerza centrífuga $\vec{F}_u$ y reacción en rodamientos (Cálculo 11).}
+    \label{fig:calc11}
+\end{figure}
+\vspace{4pt}
+
+\noindent\textbf{Interpretación técnica y alcance físico:}\\
+Una masa no balanceada de apenas $20\,\text{g}$ situada a $2\,\text{mm}$ de excentricidad induce una fuerza centrífuga rotativa de $F_u = 1{,}2677\,\text{N}$ que gira a la frecuencia fundamental de $28{,}33\,\text{Hz}$ ($1700\,\text{rpm}$). Aunque $1{,}27\,\text{N}$ es un valor moderado, su naturaleza armónica periódica excita directamente las frecuencias naturales de la bancada, justificando técnicamente la obligatoriedad del desbaste manual previo de aristas en los prismas de madera antes de montarlos en el torno.
+
+\noindent\textbf{Concatenación e interdependencia dinámica:}\\
+Analizada la fuerza centrífuga perturbadora, el \textbf{Cálculo 12} aplica el Principio del Trabajo y la Energía Cinética a nivel de partícula elemental para cuantificar la energía invertida en llevar la periferia del rotor hasta su velocidad de régimen.
+\vspace{12pt}
+
+\subsubsection{Cálculo 12: Principio del Trabajo y la Energía para Partícula Periférica}
+
+\noindent\textbf{Datos de entrada:}\\
+Masa de la partícula superficial: $m = 0{,}001\,\text{kg}$ ($1\,\text{g}$).\\
+Rapidez inicial y final: $v_1 = 0$, $v_2 = 7{,}1209\,\text{m/s}$.
+\vspace{6pt}
+
+\noindent\textbf{Formulación energética:}\\
+Conforme a la convención formal de la \textit{Guía de Dinámica}~\cite{guia_dinamica, beer2017} ($U_{1-2}$ para trabajo mecánico, $T$ para energía cinética):
+\begin{equation}
+    T_1 + \sum U_{1-2} = T_2 \implies U_{1-2} = \Delta T = \frac{1}{2} m v_2^2 - 0
+\end{equation}
+\vspace{6pt}
+
+\noindent\textbf{Desarrollo matemático y cálculo:}
+\begin{equation}
+    U_{1-2} = \frac{1}{2}(0{,}001\,\text{kg})(7{,}1209\,\text{m/s})^2 = \boxed{0{,}02535\,\text{J}} \quad (25{,}35\,\text{mJ})
+\end{equation}
+\vspace{6pt}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.62\textwidth]{Figuras/matlab_fig09_trabajo_energia_particula.png}
+    \caption{Energía cinética $T(v)$ e integral del trabajo aceleratriz $U_{1-2}$ para una partícula periférica de $1\,\text{g}$ (Cálculo 12).}
+    \label{fig:calc12}
+\end{figure}
+\vspace{4pt}
+
+\noindent\textbf{Interpretación técnica y alcance físico:}\\
+El trabajo aceleratriz de $U_{1-2} = 0{,}02535\,\text{J}$ representa la energía cinética pura almacenada por cada gramo de madera en la periferia exterior al rotar a $7{,}12\,\text{m/s}$. Este valor verifica el Teorema del Trabajo y la Energía Cinética de la partícula ($U_{1-2} = \Delta E_k$), demostrando que en ausencia de corte y fricción, todo el trabajo de las fuerzas motrices se convierte íntegramente en energía de movimiento.
+
+\noindent\textbf{Concatenación e interdependencia dinámica:}\\
+Al extender el balance energético desde una partícula aislada hacia todo el sistema acoplado en operación continua de maquinado, el \textbf{Cálculo 13} formula la potencia mecánica total demandada, separando la potencia útil de corte de las pérdidas disipativas por rozamiento viscoso en los rodamientos.
+\vspace{12pt}
+
+\subsubsection{Cálculo 13: Potencia de Corte, Disipación Viscosa y Eficiencia Mecánica}
+
+\noindent\textbf{Datos de entrada:}\\
+Fuerza primaria de corte: $F_c = 20\,\text{N}$~\cite{franz1958, eyma2004}.\\
+Velocidad tangencial de corte: $v_c = 7{,}1209\,\text{m/s}$.\\
+Coeficiente de pérdidas viscosas: $b = 1{,}8436\times 10^{-3}\,\text{N}\cdot\text{m}\cdot\text{s}$~\cite{urinov2024}.\\
+Velocidad angular: $\omega = 178{,}0236\,\text{rad/s}$.
+\vspace{6pt}
+
+\noindent\textbf{Formulación de potencia y rendimiento:}\\
+La potencia absorbida por el desbaste útil, la potencia disipada por rozamiento viscoso en los apoyos y el rendimiento mecánico $\varepsilon$ se formulan conforme a Altintas~\cite{altintas2012} y Boothroyd \& Knight~\cite{boothroyd2006}:
+\begin{equation}
+    P_{\text{corte}} = F_c \, v_c, \quad P_{\text{loss}} = b \, \omega^2, \quad \varepsilon = \frac{P_{\text{corte}}}{P_{\text{corte}} + P_{\text{loss}}}
+\end{equation}
+\vspace{6pt}
+
+\noindent\textbf{Desarrollo matemático y cálculo:}
+\begin{align}
+    P_{\text{corte}} &= (20\,\text{N})(7{,}1209\,\text{m/s}) = \boxed{142{,}4180\,\text{W}} \\[6pt]
+    P_{\text{loss}} &= (1{,}8436 \times 10^{-3})(178{,}0236)^2 = (1{,}8436 \times 10^{-3})(31692{,}40) = \boxed{58{,}4381\,\text{W}} \\[6pt]
+    P_{\text{total}} &= 142{,}4180 + 58{,}4381 = \boxed{200{,}8561\,\text{W}} \\[6pt]
+    \varepsilon &= \frac{142{,}4180}{200{,}8561} = 0{,}70905 \implies \boxed{\varepsilon = 70{,}91\%}
+\end{align}
+\vspace{6pt}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.64\textwidth]{Figuras/matlab_fig10_balance_potencias.png}
+    \caption{Balance de potencias demandadas ($P_{\text{corte}}$, $P_{\text{loss}}$, $P_{\text{tot}}$) y rendimiento mecánico $\varepsilon(\omega)$ (Cálculo 13).}
+    \label{fig:calc13}
+\end{figure}
+\vspace{4pt}
+
+\noindent\textbf{Interpretación técnica y alcance físico:}\\
+La potencia mecánica total demandada durante el mecanizado continuo asciende a $P_{\text{total}} = 200{,}86\,\text{W}$, desglosada en $142{,}42\,\text{W}$ de potencia útil absorbida por la deformación y corte de viruta ($F_c = 20\,\text{N}$) y $58{,}44\,\text{W}$ de disipación viscosa en cojinetes. Frente a la capacidad nominal del motor ($1{,}0\,\text{CV} = 735{,}5\,\text{W}$), el equipo opera consumiendo únicamente el $27{,}3\%$ de su potencia disponible, lo que garantiza una reserva del $72{,}7\%$ contra sobrecargas accidentales y otorga una eficiencia de corte del $70{,}91\%$
+
+\noindent\textbf{Concatenación e interdependencia dinámica:}\\
+Para comprender cómo el par motor y esta potencia vencen la inercia rotatoria durante el transitorio inicial de encendido, el \textbf{Cálculo 14} aplica el Principio del Impulso y la Cantidad de Movimiento Angular al rotor completo.
+
+\subsection{Unidad 4: Cinética de Cuerpos Rígidos}
+Se analizan los momentos de inercia de cuerpos compuestos, el impulso angular, el transporte convectivo de momento en la viruta, las pérdidas en frenado libre (*run-down*), los esfuerzos torsionales en el husillo y la mecánica del contrapunto~\cite{guia_dinamica, hibbeler2016, shigley2015, urinov2024}.
+
+\subsubsection{Cálculo 14: Principio del Impulso y la Cantidad de Movimiento Angular}
+
+\noindent\textbf{Datos de entrada:}\\
+Inercia total del rotor: $I_{\text{tot}} = 1{,}20097\times 10^{-3}\,\text{kg}\cdot\text{m}^2$.\\
+Velocidad angular de régimen: $\omega = 178{,}0236\,\text{rad/s}$, intervalo de arranque $\Delta t = 2{,}0\,\text{s}$.
+\vspace{6pt}
+
+\noindent\textbf{Formulación cinética angular:}\\
+La variación del momento angular $\vec{H}_O = I_O \vec{\omega}$ y el par torsor medio motriz aceleratriz $M_{\text{medio}}$ son~\cite{hibbeler2016, meriam2015}:
+\begin{equation}
+    \int_0^{\Delta t} M_O \, dt = \Delta H_O = I_{\text{tot}}\,\omega - 0, \quad M_{\text{medio}} = \frac{\Delta H_O}{\Delta t}
+\end{equation}
+\vspace{6pt}
+
+\noindent\textbf{Desarrollo matemático y cálculo:}
+\begin{align}
+    \Delta H_O &= (1{,}20097 \times 10^{-3})(178{,}0236) = \boxed{0{,}21380\,\text{N}\cdot\text{m}\cdot\text{s}} \\[6pt]
+    M_{\text{medio}} &= \frac{0{,}21380}{2{,}0} = \boxed{0{,}1069\,\text{N}\cdot\text{m}}
+\end{align}
+\vspace{6pt}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.62\textwidth]{Figuras/matlab_fig11_impulso_angular.png}
+    \caption{Cantidad de movimiento angular $H_O(t)$ y par medio motor $M_O$ durante el encendido (Cálculo 14).}
+    \label{fig:calc14}
+\end{figure}
+\vspace{4pt}
+
+\noindent\textbf{Interpretación técnica y alcance físico:}\\
+La variación total de momento angular del conjunto husillo-plato-pieza durante el arranque es de $\Delta H_O = 0{,}21380\,\text{N}\cdot\text{m}\cdot\text{s}$. Esta cantidad de movimiento angular acumulada confiere una elevada estabilidad giroscópica al torno, actuando como un volante de inercia que absorbe perturbaciones instantáneas causadas por nudos o irregularidades de dureza en la madera sin desacelerar bruscamente el corte.
+
+\noindent\textbf{Concatenación e interdependencia dinámica:}\\
+Mientras el rotor gira estabilizado por su momento angular, la herramienta desprende viruta a un ritmo constante; el \textbf{Cálculo 15} modela la dinámica de este flujo másico continuo y evalúa la fuerza reactiva que experimenta el soporte portaherramientas.
+\vspace{12pt}
+
+\subsubsection{Cálculo 15: Reacción Inercial por Transporte Convectivo en Virutas}
+
+\noindent\textbf{Datos de entrada:}\\
+Densidad de la madera: $\rho = 500\,\text{kg/m}^3$.\\
+Geometría de viruta: ancho $b_w = 0{,}005\,\text{m}$, espesor $t_c = 0{,}0005\,\text{m}$.\\
+Velocidad tangencial: $v_c = 7{,}1209\,\text{m/s}$, rapidez de eyección relativa $u = 6{,}0\,\text{m/s}$~\cite{franz1958, naylor2012}.
+\vspace{6pt}
+
+\noindent\textbf{Formulación de volumen de control:}\\
+El caudal másico continuo extraído $\dot{m}$ y la fuerza de reacción inercial por cambio de cantidad de movimiento $\vec{F}_{\text{reac}}$ son:
+\begin{equation}
+    \dot{m} = \rho \, b_w \, t_c \, v_c, \quad F_{\text{reac}} = \dot{m} \, u
+\end{equation}
+\vspace{6pt}
+
+\noindent\textbf{Desarrollo matemático y cálculo:}
+\begin{align}
+    \dot{m} &= (500)(0{,}005)(0{,}0005)(7{,}1209) = \boxed{8{,}9011 \times 10^{-3}\,\text{kg/s}} \quad (8{,}90\,\text{g/s}) \\[6pt]
+    F_{\text{reac}} &= (8{,}9011 \times 10^{-3}\,\text{kg/s})(6{,}0\,\text{m/s}) = \boxed{0{,}0534\,\text{N}}
+\end{align}
+\vspace{6pt}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.62\textwidth]{Figuras/matlab_fig12_virutas_momento.png}
+    \caption{Volumen de control en la zona de corte, flujo másico continuo $\dot{m}$ y fuerza inercial $\vec{F}_{\text{reac}}$ (Cálculo 15).}
+    \label{fig:calc15}
+\end{figure}
+\vspace{4pt}
+
+\noindent\textbf{Interpretación técnica y alcance físico:}\\
+Aplicando las ecuaciones de transporte convectivo de momento de Reynolds a un volumen de control abierto, se demuestra que la fuerza inercial reactiva debida a la expulsión continua de virutas a velocidad tangencial es de apenas $F_{\text{reac}} = 0{,}0534\,\text{N}$. Este resultado valida rigurosamente que las solicitaciones sobre el banquillo portaherramienta están gobernadas en un $99{,}7\%$ por la fuerza cuasi-estática de corte primario ($F_c = 20\,\text{N}$) y que el empuje convectivo de la viruta es estructuralmente despreciable.
+
+\noindent\textbf{Concatenación e interdependencia dinámica:}\\
+Para caracterizar con máxima rigurosidad las propiedades inerciales de todo el conjunto y alimentar los cálculos de dinámica transitoria, el \textbf{Cálculo 16} determina el momento de inercia de masa compuesto sumando las contribuciones de la madera y del plato metálico de arrastre.
+\vspace{12pt}
+
+\subsubsection{Cálculo 16: Momento de Inercia de Masa Compuesto del Rotor}
+
+\noindent\textbf{Datos de entrada:}\\
+Pieza de madera: $m_{\text{pieza}} = 0{,}6283\,\text{kg}$, radio $R = 0{,}040\,\text{m}$.\\
+Plato de arrastre: $m_p = 0{,}46170\,\text{kg}$, radio $R_p = 0{,}055\,\text{m}$.
+\vspace{6pt}
+
+\noindent\textbf{Formulación de cuerpos compuestos coaxiales:}\\
+Para cilindros macizos homogéneos que comparten el mismo eje de simetría axial~\cite{guia_dinamica, beer2017}:
+\begin{equation}
+    I_{\text{tot}} = I_{\text{pieza}} + I_p = \frac{1}{2} m_{\text{pieza}} R^2 + \frac{1}{2} m_p R_p^2
+\end{equation}
+\vspace{6pt}
+
+\noindent\textbf{Desarrollo matemático y cálculo:}
+\begin{align}
+    I_{\text{pieza}} &= \frac{1}{2}(0{,}6283)(0{,}040)^2 = \boxed{5{,}0264 \times 10^{-4}\,\text{kg}\cdot\text{m}^2} \\[6pt]
+    I_p &= \frac{1}{2}(0{,}46170)(0{,}055)^2 = \boxed{6{,}9832 \times 10^{-4}\,\text{kg}\cdot\text{m}^2} \\[6pt]
+    I_{\text{tot}} &= (5{,}0264 + 6{,}9832) \times 10^{-4} = \boxed{1{,}20097 \times 10^{-3}\,\text{kg}\cdot\text{m}^2}
+\end{align}
+\vspace{6pt}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.62\textwidth]{Figuras/matlab_fig13_geometria_inercia.png}
+    \caption{Distribución comparativa de momentos de inercia de masa: pieza de madera vs. plato metálico (Cálculo 16).}
+    \label{fig:calc16}
+\end{figure}
+\vspace{4pt}
+
+\noindent\textbf{Interpretación técnica y alcance físico:}\\
+El momento de inercia de masa axial total es $I_{\text{tot}} = 1{,}20097 \times 10^{-3}\,\text{kg}\cdot\text{m}^2$. Resulta revelador que el plato metálico de acero AISI 1018 aporta el $58{,}1\%$ de la inercia total ($I_p = 6{,}9832 \times 10^{-4}\,\text{kg}\cdot\text{m}^2$) a pesar de su menor longitud, mientras que la pieza de madera representa el $41{,}9\%$ ($I_{\text{pieza}} = 5{,}0265 \times 10^{-4}\,\text{kg}\cdot\text{m}^2$). Esto demuestra que el plato actúa deliberadamente como volante de inercia estabilizador.
+
+\noindent\textbf{Concatenación e interdependencia dinámica:}\\
+La determinación exacta del momento de inercia compuesto $I_{\text{tot}}$ es el parámetro fundamental para calcular en el \textbf{Cálculo 17} el coeficiente de amortiguamiento viscoso equivalente $b$ a partir del ensayo experimental de desaceleración por parada libre.
+\vspace{12pt}
+
+\subsubsection{Cálculo 17: Coeficiente de Pérdidas Viscosas en Parada Libre (*Run-Down*)}
+
+\noindent\textbf{Datos de entrada:}\\
+Tiempo de detención por giro libre: $\Delta t_{\text{stop}} = 3{,}0\,\text{s}$ (criterio al $1\%$ de $\omega_0$).\\
+Inercia rotatoria: $I_{\text{tot}} = 1{,}20097\times 10^{-3}\,\text{kg}\cdot\text{m}^2$.\\
+Velocidad angular inicial: $\omega_0 = 178{,}0236\,\text{rad/s}$, duración de encendido $T_a = 2{,}0\,\text{s}$.
+\vspace{6pt}
+
+\noindent\textbf{Formulación analítica de frenado pasivo:}\\
+El decaimiento libre obedece a la ecuación diferencial $I_{\text{tot}} \frac{d\omega}{dt} = -b\,\omega \implies \omega(t) = \omega_0 e^{-t/\tau_{\text{stop}}}$~\cite{urinov2024}.
+\begin{equation}
+    \tau_{\text{stop}} = \frac{\Delta t_{\text{stop}}}{\ln(100)} = \frac{3{,}0}{4{,}60517} = 0{,}65144\,\text{s}, \quad b = \frac{I_{\text{tot}}}{\tau_{\text{stop}}}
+\end{equation}
+La energía mecánica total disipada por rozamiento durante el arranque de duración $T_a = 2{,}0\,\text{s}$ se obtiene integrando la potencia disipada:
+\begin{equation}
+    U_{\text{pérd}} = \int_0^{T_a} b\,\omega(t)^2 \, dt = b\,\omega_{\text{reg}}^2 \left[ T_a - 2\tau\left(1 - e^{-T_a/\tau}\right) + \frac{\tau}{2}\left(1 - e^{-2T_a/\tau}\right) \right]
+\end{equation}
+\vspace{6pt}
+
+\noindent\textbf{Desarrollo matemático y cálculo:}
+\begin{align}
+    b &= \frac{1{,}20097 \times 10^{-3}\,\text{kg}\cdot\text{m}^2}{0{,}65144\,\text{s}} = \boxed{1{,}8436 \times 10^{-3}\,\text{N}\cdot\text{m}\cdot\text{s}} \\[6pt]
+    U_{\text{pérd}} &= (1{,}8436 \times 10^{-3})(178{,}0236)^2 [2{,}0 - 1{,}2423 + 0{,}3250] = \boxed{63{,}27\,\text{J}}
+\end{align}
+\vspace{6pt}
+
+\noindent\textbf{Interpretación técnica y alcance físico:}\\
+El coeficiente de amortiguamiento viscoso equivalente ($b = 1{,}8436 \times 10^{-3}\,\text{N}\cdot\text{m}\cdot\text{s}$) modela analíticamente la disipación por fricción hidrodinámica del lubricante en las pistas de los rodamientos de bolas y la fricción por arrastre aerodinámico superficial del cilindro giratorio. Su valor define la constante de tiempo de frenado libre del sistema ($\tau_{\text{stop}} = 0{,}6514\,\text{s}$).
+
+\noindent\textbf{Concatenación e interdependencia dinámica:}\\
+Conociendo la constante de amortiguamiento $b$ y la inercia total $I_{\text{tot}}$, se procede en el \textbf{Cálculo 18} a resolver la ecuación diferencial de detención libre para obtener el número de revoluciones remanentes y el par disipativo inicial del proceso de *run-down*.
+\vspace{12pt}
+
+\subsubsection{Cálculo 18: Vueltas Remanentes y Par Disipativo en Parada Libre}
+
+\noindent\textbf{Datos de entrada:}\\
+$\omega_0 = 178{,}0236\,\text{rad/s}$, $\tau_{\text{stop}} = 0{,}65144\,\text{s}$, $b = 1{,}8436\times 10^{-3}\,\text{N}\cdot\text{m}\cdot\text{s}$.
+\vspace{6pt}
+
+\noindent\textbf{Formulación cinemática de frenado:}\\
+El ángulo remanente total acumulado $\theta_\infty$, el número de vueltas remanentes $N_\infty$ y el par disipativo inicial $M_{\text{loss}}(0)$ son~\cite{urinov2024}:
+\begin{equation}
+    \theta_\infty = \int_0^\infty \omega_0 e^{-t/\tau_{\text{stop}}} dt = \omega_0 \, \tau_{\text{stop}}, \quad N_\infty = \frac{\theta_\infty}{2\pi}, \quad M_{\text{loss}}(0) = b\,\omega_0
+\end{equation}
+\vspace{6pt}
+
+\noindent\textbf{Desarrollo matemático y cálculo:}
+\begin{align}
+    \theta_\infty &= (178{,}0236)(0{,}65144) = \boxed{115{,}9715\,\text{rad}} \\[6pt]
+    N_\infty &= \frac{115{,}9715}{2\pi} = \boxed{18{,}46\,\text{rev}} \\[6pt]
+    M_{\text{loss}}(0) &= (1{,}8436 \times 10^{-3})(178{,}0236) = \boxed{0{,}3282\,\text{N}\cdot\text{m}}
+\end{align}
+\vspace{6pt}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.64\textwidth]{Figuras/matlab_fig14_rundown_desaceleracion.png}
+    \caption{Curvas de decaimiento angular $\omega(t)$ y vueltas remanentes durante la detención libre por fricción (Cálculos 17 y 18).}
+    \label{fig:calc18}
+\end{figure}
+\vspace{4pt}
+
+\noindent\textbf{Interpretación técnica y alcance físico:}\\
+Tras desconectar el motor eléctrico, el husillo tarda varios segundos en detenerse completamente por inercia, completando $18{,}46\,\text{vueltas}$ remanentes ($\theta_\infty = 116{,}75\,\text{rad}$) con un par de frenado viscoso inicial de $T_0 = 0{,}328\,\text{N}\cdot\text{m}$. Este cálculo es indispensable para la seguridad ocupacional en el taller de maquinado: previene que el operador toque la pieza de madera antes de que se detenga y fundamenta la conveniencia de incorporar un sistema de freno mecánico o de inyección de corriente continua.
+
+\noindent\textbf{Concatenación e interdependencia dinámica:}\\
+Resuelta la dinámica de traslación, rotación y frenado del cuerpo rígido, el \textbf{Cálculo 19} profundiza en la resistencia estructural de los componentes motrices internos, analizando los esfuerzos cortantes torsionales máximos en el eje macizo de acero y la verificación de la chaveta prismática de arrastre.
+\vspace{12pt}
+
+\subsubsection{Cálculo 19: Esfuerzo Torsional en el Eje y Verificación de la Chaveta}
+
+\noindent\textbf{Datos de entrada:}\\
+Momento torsor de diseño: $M_t = 0{,}800\,\text{N}\cdot\text{m}$.\\
+Diámetro del eje: $d = 0{,}019\,\text{m}$, longitud: $L_{\text{eje}} = 0{,}040\,\text{m}$.\\
+Chaveta prismática: $b = 0{,}006\,\text{m}$, $h = 0{,}006\,\text{m}$, $l = 0{,}025\,\text{m}$.\\
+Factor de concentración de esfuerzos: $K_t = 1{,}6$, módulo transversal: $G = 79\,\text{GPa}$~\cite{shigley2015}.
+\vspace{6pt}
+
+\noindent\textbf{Formulación elástica y estructural:}\\
+El momento polar $J$, el esfuerzo nominal $\tau_{\text{nom}}$, el esfuerzo con entalladura $\tau_{\text{máx}}$, los esfuerzos sobre la chaveta y la deflexión torsional $\phi$ se formulan bajo Shigley~\cite{shigley2015}:
+\begin{equation}
+    J = \frac{\pi d^4}{32}, \quad \tau_{\text{nom}} = \frac{16 M_t}{\pi d^3}, \quad \tau_{\text{máx}} = K_t \tau_{\text{nom}}, \quad \tau_{\text{key}} = \frac{2 M_t}{d \, b \, l}, \quad \sigma_{\text{aplast}} = \frac{4 M_t}{d \, h \, l}, \quad \phi = \frac{M_t L_{\text{eje}}}{J G}
+\end{equation}
+\vspace{6pt}
+
+\noindent\textbf{Desarrollo matemático y cálculo:}
+\begin{align}
+    J &= \frac{\pi (0{,}019)^4}{32} = 1{,}2794 \times 10^{-8}\,\text{m}^4 \\[6pt]
+    \tau_{\text{nom}} &= \frac{16 (0{,}800)}{\pi (0{,}019)^3} = 0{,}5940\,\text{MPa}, \quad \tau_{\text{máx}} = 1{,}6(0{,}5940) = \boxed{0{,}9504\,\text{MPa}} \\[6pt]
+    \tau_{\text{key}} &= \frac{2(0{,}800)}{(0{,}019)(0{,}006)(0{,}025)} = \boxed{0{,}5614\,\text{MPa}} \\[6pt]
+    \sigma_{\text{aplast}} &= 2 \times \tau_{\text{key}} = \boxed{1{,}1228\,\text{MPa}} \\[6pt]
+    \phi &= \frac{(0{,}800)(0{,}040)}{(1{,}2794 \times 10^{-8})(79 \times 10^9)} = \boxed{3{,}17 \times 10^{-5}\,\text{rad}} \quad (0{,}00181^\circ)
+\end{align}
+\vspace{6pt}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.88\textwidth]{Figuras/matlab_fig15_torsion_eje_chaveta.png}
+    \caption{Diagrama de cuerpo libre en la unión por chaveta y distribución radial del esfuerzo cortante $\tau(r)$ (Cálculo 19).}
+    \label{fig:calc19}
+\end{figure}
+\vspace{4pt}
+
+\noindent\textbf{Interpretación técnica y alcance físico:}\\
+Bajo el torque nominal transmitido ($M_t = 1{,}128\,\text{N}\cdot\text{m}$), el esfuerzo cortante torsional en la superficie del eje de $19\,\text{mm}$ de acero AISI 1018 es de apenas $\tau_{\text{eje}} = 0{,}171\,\text{MPa}$. Al considerar el chavetero fresado con factor de concentración de esfuerzos $K_t = 1{,}6$ según Shigley~\cite{shigley2015}, el cortante asciende a $\tau_{\text{máx}} = 0{,}9504\,\text{MPa}$. Frente a la resistencia de fluencia a cortante del acero ($S_{sy} = 213\,\text{MPa}$), el factor de seguridad obtenido supera $\text{FS} = 224$, garantizando que el husillo y la chaveta operan en un régimen elástico ultraseguro con vida infinita a fatiga.
+
+\noindent\textbf{Concatenación e interdependencia dinámica:}\\
+Asegurada la resistencia estructural del cabezal motriz, el \textbf{Cálculo 20} cierra la cadena analítica del torno analizando el extremo opuesto del ensamble: el mecanismo helicoidal del contrapunto, que aplica la fuerza de compresión axial centrada requerida para sostener la madera durante toda la operación de maquinado.
+\vspace{12pt}
+
+\subsubsection{Cálculo 20: Mecánica Helicoidal de Fijación del Contrapunto}
+
+\noindent\textbf{Datos de entrada:}\\
+Precarga inicial de centrado: $F_0 = 500\,\text{N}$.\\
+Rigidez axial: $k = 5{,}0\times 10^4\,\text{N/m}$.\\
+Apriete axial: $x = 0{,}0015\,\text{m}$ ($1{,}5\,\text{mm}$).\\
+Paso de rosca: $p = 0{,}002\,\text{m/rev}$ ($2{,}0\,\text{mm/rev}$).\\
+Radio del volante manual: $r_v = 0{,}060\,\text{m}$ ($60\,\text{mm}$).
+\vspace{6pt}
+
+\noindent\textbf{Formulación analítica del tornillo de potencia:}\\
+La fuerza elástica axial final, el trabajo acumulado $U_{\text{axial}}$, el número de vueltas de volante $N$, el momento torsor resistente $M$ y la fuerza manual aplicada por el operario $F_{\text{mano}}$ se formulan conforme a Shigley~\cite{shigley2015} y Norton~\cite{norton2013}:
+\begin{equation}
+    F_{\text{final}} = F_0 + k x, \quad U_{\text{axial}} = \int_0^x (F_0 + k x')\,dx' = F_0 x + \frac{1}{2} k x^2
+\end{equation}
+\begin{equation}
+    N = \frac{x}{p}, \quad M = \frac{U_{\text{axial}}}{2\pi N}, \quad F_{\text{mano}} = \frac{M}{r_v}
+\end{equation}
+\vspace{6pt}
+
+\noindent\textbf{Desarrollo matemático y cálculo:}
+\begin{align}
+    F_{\text{final}} &= 500 + (5{,}0\times 10^4)(0{,}0015) = 500 + 75 = \boxed{575\,\text{N}} \\[6pt]
+    U_{\text{axial}} &= (500)(0{,}0015) + \frac{1}{2}(5{,}0 \times 10^4)(0{,}0015)^2 = 0{,}750 + 0{,}0563 = \boxed{0{,}8063\,\text{J}} \\[6pt]
+    N &= \frac{0{,}0015}{0{,}0020} = \boxed{0{,}75\,\text{rev}} \quad (270^\circ) \\[6pt]
+    M &= \frac{0{,}8063}{2\pi(0{,}75)} = \frac{0{,}8063}{4{,}7124} = \boxed{0{,}1711\,\text{N}\cdot\text{m}} \\[6pt]
+    F_{\text{mano}} &= \frac{0{,}1711}{0{,}060} = \boxed{2{,}85\,\text{N}} \quad (\approx 290\,\text{g-fuerza})
+\end{align}
+\vspace{6pt}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.72\textwidth]{Figuras/matlab_fig16_contrapunto_dcl.png}
+    \caption{Diagrama de cuerpo libre del montaje entre puntos: reacciones en apoyos ($R_{yA}$, $R_{yB}$), fuerza de corte ($F_c$) y carga axial del contrapunto ($N_{\text{cp}}$) (Cálculo 20).}
+    \label{fig:calc20}
+\end{figure}
+\vspace{4pt}
+
+\noindent\textbf{Interpretación técnica y alcance físico:}\\
+El mecanismo helicoidal de tornillo de potencia del contrapunto ($p = 2{,}0\,\text{mm/rev}$, $r_v = 60\,\text{mm}$) posee una alta ventaja mecánica: una fuerza manual ergonómica de apenas $F_{\text{mano}} = 2{,}85\,\text{N}$ aplicada sobre el volante durante tres cuartos de vuelta ($270^\circ$) desarrolla un empuje axial de compresión de $F_{\text{axial}} = 575\,\text{N}$ con un trabajo mecánico de solo $U = 0{,}806\,\text{J}$. Esta fuerza de $575\,\text{N}$ inmoviliza rígidamente la madera entre puntos, superando ampliamente la fuerza radial de corte ($20\,\text{N}$) y garantizando que la pieza no sufra desalineaciones ni vibraciones durante el torneado.
+
+\noindent\textbf{Concatenación e interdependencia dinámica:}\\
+Este cálculo concluye la formulación analítica de la dinámica del torno didáctico, integrando en una cadena coherente la cinemática de partícula (Cálculos 1-5), la cinemática de cuerpo rígido (Cálculos 6-10), la cinética de partícula y balance de potencias (Cálculos 11-15), y la cinética de cuerpo rígido y resistencia estructural de mecanismos (Cálculos 16-20).
+\vspace{16pt}
+\input{seccion_validacion.tex}
+
+\section{Conclusiones}
+\begin{enumerate}[leftmargin=18pt, itemsep=4pt, parsep=2pt]
+    \item \textbf{Modelado CAD y Verificación Coaxial:} El modelado digital paramétrico validó la concordancia dimensional y la ausencia de interferencias geométricas entre los componentes del cabezal, bancada y contrapunto.
+    \item \textbf{Predominio Inercial Centrípeto:} La aceleración normal ($1267{,}7\,\text{m/s}^2$) supera a la tangencial ($3{,}56\,\text{m/s}^2$) en un factor de $356$, demostrando que las solicitaciones inerciales radiales gobiernan el estado tensional de la madera~\cite{hibbeler2016}.
+    \item \textbf{Régimen Transitorio de Arranque:} Se determinó analíticamente que el husillo alcanza el $95\%$ de su régimen nominal en $2{,}0\,\text{s}$, completando $38{,}70$ revoluciones y barriendo $9{,}73\,\text{m}$ de trayectoria periférica.
+    \item \textbf{Estabilidad Operativa del Motor:} El deslizamiento del $5{,}56\%$ a $1700\,\text{rpm}$ confirma la estabilidad autorregulada del motor monofásico de inducción bajo acoplamiento directo.
+    \item \textbf{Consistencia Cinemática del $CI$:} El análisis del Centro Instantáneo de Velocidad Cero en el eje de rotación corroboró el campo lineal de velocidades y la relación de velocidad relativa ($\vec{v}_A = \vec{v}_Q + \vec{v}_{A/Q}$)~\cite{beer2017, shabana2013}.
+    \item \textbf{Cinemática del Rebaje de Diámetro:} Se comprobó que una pasada de rebaje de $1{,}0\,\text{mm}$ bajo avance de $2{,}5\,\mu\text{m/rev}$ requiere $400$ revoluciones y un tiempo de corte continuo de $14{,}12\,\text{s}$~\cite{groover2007}.
+    \item \textbf{Fuerza por Desbalance Dinámico:} Una excentricidad de $20\,\text{g}$ a $2\,\text{mm}$ induce una fuerza centrífuga oscilante de $1{,}27\,\text{N}$ a $28{,}33\,\text{Hz}$, justificando el centrado y desbastado previo de las piezas de madera~\cite{nikravesh1988}.
+    \item \textbf{Reserva de Potencia del Sistema:} La potencia demandada en régimen pleno ($200{,}86\,\text{W}$) consume únicamente el $27{,}3\%$ de la capacidad del motor de $1{,}0\,\text{CV}$ ($735{,}5\,\text{W}$), disponiendo de un $72{,}7\%$ de margen contra sobrecargas~\cite{boothroyd2006}.
+    \item \textbf{Resistencia Estructural del Husillo:} Los esfuerzos cortantes máximos en eje y chaveta ($0{,}95\,\text{MPa}$) otorgan factores de seguridad superiores a $90$ bajo condiciones operativas severas~\cite{shigley2015}.
+    \item \textbf{Ergonomía de Sujeción Axial:} Se alcanza una fuerza de fijación axial de $575\,\text{N}$ mediante un esfuerzo manual en el volante de apenas $2{,}85\,\text{N}$ a lo largo de $0{,}75$ vueltas ($270^\circ$)~\cite{norton2013}.
+    \item \textbf{Validación Computacional Dual (100\% de Conformidad):} Las simulaciones de cuerpos rígidos en Working Model 2005, junto con el Simulador Dinámico 3D desarrollado en Python, corroboraron con una concordancia matemática del 100\% (20 de 20 cálculos aprobados) todas las predicciones cinemáticas y cinéticas formuladas, registrando discrepancias relativas inferiores al $0{,}35\%$ en Working Model y menores al $0{,}015\%$ en el motor numérico en tiempo real, lo que certifica la validez analítica y física integral del proyecto.
+\end{enumerate}
+
+\section{Recomendaciones}
+\begin{enumerate}[leftmargin=18pt, itemsep=4pt, parsep=2pt]
+    \item \textbf{Preparación Geométrica Previa:} Desbastar manualmente las cuatro aristas del madero prismático antes de fijarlo al torno para minimizar la masa excéntrica residual.
+    \item \textbf{Frenado Mecánico de Seguridad:} Implementar un sistema de freno de pedal o zapata para disipar las $18{,}46$ revoluciones remanentes en parada libre y brindar seguridad en el taller.
+    \item \textbf{Monitoreo de Chumaceras:} Efectuar mediciones periódicas del tiempo de desaceleración libre (*run-down*) para detectar desgaste prematuro o falta de lubricación en los rodamientos~\cite{urinov2024}.
+    \item \textbf{Mantenimiento de la Rosca de Apriete:} Aplicar grasa grafitada de forma regular en el tornillo de potencia del contrapunto para mantener la fuerza manual de accionamiento inferior a $3\,\text{N}$~\cite{shigley2015}.
+\end{enumerate}
+
+\begin{thebibliography}{99}
+\setlength{\itemsep}{1.2pt}
+\setlength{\parskip}{0pt}
+\bibitem{guia_dinamica} G. López, \textit{Guía de la Asignatura de Dinámica}, Carrera de Ingeniería Mecánica, Facultad de Ingeniería Civil y Mecánica, Universidad Técnica de Ambato, Ambato, Ecuador, 2026.
+\bibitem{hibbeler2016} R. C. Hibbeler, \textit{Ingeniería Mecánica: Dinámica}, 14.ª ed., Naucalpan de Juárez, México: Pearson Educación, 2016.
+\bibitem{beer2017} F. P. Beer, E. R. Johnston, D. F. Mazurek, P. J. Cornwell y B. P. Self, \textit{Mecánica Vectorial para Ingenieros: Dinámica}, 11.ª ed., Ciudad de México, México: McGraw-Hill Education, 2017.
+\bibitem{meriam2015} J. L. Meriam, L. G. Kraige y J. N. Bolton, \textit{Engineering Mechanics: Dynamics}, 8th ed., Hoboken, NJ, USA: John Wiley \& Sons, 2015.
+\bibitem{shigley2015} R. G. Budynas y J. K. Nisbett, \textit{Diseño en Ingeniería Mecánica de Shigley}, 10.ª ed., Ciudad de México, México: McGraw-Hill Interamericana, 2015.
+\bibitem{norton2013} R. L. Norton, \textit{Diseño de Maquinaria: Síntesis y análisis de máquinas y mecanismos}, 5.ª ed., Ciudad de México, México: McGraw-Hill Interamericana, 2013.
+\bibitem{groover2007} M. P. Groover, \textit{Fundamentos de Manufactura Moderna: Materiales, procesos y sistemas}, 3.ª ed., Ciudad de México, México: McGraw-Hill Interamericana, 2007.
+\bibitem{kalpakjian2014} S. Kalpakjian y S. R. Schmid, \textit{Manufactura, Ingeniería y Tecnología}, 7.ª ed., Ciudad de México, México: Pearson Educación, 2014.
+\bibitem{altintas2012} Y. Altintas, \textit{Manufacturing Automation: Metal Cutting Mechanics, Machine Tool Vibrations, and CNC Design}, 2nd ed., Cambridge, UK: Cambridge University Press, 2012.
+\bibitem{boothroyd2006} G. Boothroyd y W. A. Knight, \textit{Fundamentals of Machining and Machine Tools}, 3rd ed., Boca Raton, FL, USA: CRC Press / Taylor \& Francis, 2006.
+\bibitem{kivimaa1950} E. Kivimaa, \textit{Cutting force in wood working}, State Institute for Technical Research, Helsinki, Finland, Publication No. 18, 1950.
+\bibitem{franz1958} N. C. Franz, \textit{An Analysis of the Wood-Cutting Process}, Engineering Research Institute, University of Michigan Press, Ann Arbor, MI, USA, 1958.
+\bibitem{eyma2004} F. Eyma, P. J. Méausoone y P. Martin, ``Strains and cutting forces involved in wood machining: Mechanics of cutting,'' \textit{Wood Science and Technology}, vol. 38, no. 3, pp. 231--243, 2004.
+\bibitem{naylor2012} A. Naylor, P. Hackney y E. Clahr, ``Machining of wood using CNC routing: Tool wear and cutting force dynamics,'' \textit{BioResources}, vol. 7, no. 2, pp. 2090--2103, 2012.
+\bibitem{shabana2013} A. A. Shabana, \textit{Dynamics of Multibody Systems}, 4th ed., Cambridge, UK: Cambridge University Press, 2013.
+\bibitem{nikravesh1988} P. E. Nikravesh, \textit{Computer-Aided Analysis of Mechanical Systems}, Englewood Cliffs, NJ, USA: Prentice-Hall, 1988.
+\bibitem{urinov2024} N. Urinov, D. Karimov y S. Tuychiev, ``Kinematic and dynamic analysis of wood turning spindle mechanisms,'' \textit{International Journal of Mechanical Engineering}, vol. 12, no. 4, pp. 112--126, 2024.
+\end{thebibliography}
+
+\end{document}

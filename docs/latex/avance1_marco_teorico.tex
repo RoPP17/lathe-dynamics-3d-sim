@@ -1,0 +1,1337 @@
+\documentclass[12pt,a4paper]{article}
+
+% ===== PAQUETES =====
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[spanish,es-tabla]{babel}
+\usepackage{graphicx}
+\usepackage{grffile}
+\usepackage{geometry}
+\usepackage{microtype}
+\usepackage{setspace}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{booktabs}
+\usepackage{siunitx}
+\DeclareSIUnit{\rpm}{rpm}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage{xcolor}
+\usepackage{float}
+\usepackage{caption}
+\captionsetup{
+    font={small},
+    labelfont={bf,color=utadark},
+    textfont={color=captiongray},
+    format=hang,
+    justification=centering,
+    skip=8pt,
+    belowskip=4pt
+}
+\usepackage{hyperref}
+\usepackage[nottoc,notlof,notlot]{tocbibind}
+\usepackage[titles]{tocloft}
+\setlength{\cftbeforesecskip}{3.0pt}
+\setlength{\cftbeforesubsecskip}{1.0pt}
+\setlength{\cftbeforesubsubsecskip}{0.0pt}
+\setlength{\cftbeforefigskip}{0.8pt}
+\setlength{\cftbeforetabskip}{1.5pt}
+\renewcommand{\cftsecleader}{\cftdotfill{\cftdotsep}}
+\renewcommand{\cftsecfont}{\bfseries\color{black}}
+\renewcommand{\cftsecpagefont}{\bfseries\color{black}}
+\renewcommand{\cftsubsecfont}{\color{black}}
+\renewcommand{\cftsubsecpagefont}{\color{black}}
+\renewcommand{\cftsubsubsecfont}{\color{black}}
+\renewcommand{\cftsubsubsecpagefont}{\color{black}}
+\renewcommand{\cftfigfont}{\color{black}}
+\renewcommand{\cftfigpagefont}{\color{black}}
+\renewcommand{\cfttabfont}{\color{black}}
+\renewcommand{\cfttabpagefont}{\color{black}}
+\usepackage{tabularx}
+\usepackage{longtable}
+\usepackage{cite}
+\usepackage{mathtools}
+\usepackage{array}
+\usepackage{tcolorbox}
+\tcbuselibrary{skins,breakable,listings}
+\usepackage{tikz}
+\usetikzlibrary{babel}
+\usetikzlibrary{calc,patterns,angles,quotes,arrows.meta,decorations.pathmorphing}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\usepackage{multicol}
+\usepackage{gensymb}
+
+% ===== CONFIGURACIÓN DE PÁGINA Y MÁRGENES =====
+% Se fija top=3.8cm y bottom=2.5cm para dar espacio al banner institucional de borde a borde (full-width)
+\geometry{
+    left=2.54cm,
+    right=2.54cm,
+    top=3.6cm,
+    bottom=2.3cm,
+    headheight=0pt,
+    headsep=0pt,
+    footskip=20pt
+}
+\onehalfspacing
+\raggedbottom
+\widowpenalty=10000
+\clubpenalty=10000
+\displaywidowpenalty=10000
+\setlength{\parskip}{2pt plus 1pt minus 0pt}
+\setlength{\jot}{6pt}
+\setlength{\abovedisplayskip}{10pt plus 3pt minus 3pt}
+\setlength{\belowdisplayskip}{10pt plus 3pt minus 3pt}
+
+% ===== ESTÉTICA DE TÍTULOS =====
+\titleformat{\section}{\Large\bfseries\color{utadark}}{\thesection.}{0.6em}{}
+\titlespacing*{\section}{0pt}{18pt plus 4pt minus 2pt}{8pt plus 2pt minus 1pt}
+
+\titleformat{\subsection}{\large\bfseries\color{secgray}}{\thesubsection.}{0.5em}{}
+\titlespacing*{\subsection}{0pt}{14pt plus 3pt minus 2pt}{6pt plus 2pt minus 1pt}
+
+\titleformat{\subsubsection}{\normalsize\bfseries\color{secgray}}{\thesubsubsection.}{0.5em}{}
+\titlespacing*{\subsubsection}{0pt}{10pt plus 2pt minus 1pt}{4pt plus 1pt minus 1pt}
+
+% ===== ENCABEZADO DE BORDE A BORDE (FULL-BLEED INSTITUCIONAL) =====
+% El banner image2.png cubre el ancho total de la hoja (\paperwidth = 210mm) en la parte superior
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[C]{%
+    \begin{tikzpicture}[remember picture, overlay]
+        \node[anchor=north, inner sep=0pt, outer sep=0pt] at (current page.north) {%
+            \includegraphics[width=\paperwidth, height=2.25cm]{Figuras/image2.png}%
+        };
+    \end{tikzpicture}%
+}
+\fancyfoot[C]{\small Página \thepage\ de \pageref{LastPage}}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+
+% ===== HYPERSETUP =====
+\hypersetup{
+    colorlinks=true,
+    linkcolor=black,
+    filecolor=black,
+    urlcolor=linkblue,
+    citecolor=linkblue,
+    pdftitle={Análisis Dinámico del Torno - Marco Teórico (Avance 1)},
+    pdfauthor={Grupo de Dinámica -- UTA}
+}
+
+% ===== COLORES PERSONALIZADOS =====
+\definecolor{utablue}{RGB}{0,71,133}
+\definecolor{utadark}{RGB}{33,37,41}
+\definecolor{secgray}{RGB}{68,68,68}
+\definecolor{linkblue}{RGB}{0,83,155}
+\definecolor{captiongray}{RGB}{88,88,88}
+
+% ====================================================
+\begin{document}
+% ====================================================
+
+% ================= CARÁTULA EN UNA SOLA HOJA =================
+\begin{titlepage}
+    \centering
+
+    {\scshape\LARGE Universidad Técnica de Ambato\par}
+    \vspace{0.15cm}
+    {\scshape\large Facultad de Ingeniería Civil y Mecánica\par}
+    \vspace{0.10cm}
+    {\scshape\large Carrera de Mecánica\par}
+    \vspace{0.35cm}
+
+    \IfFileExists{Figuras/logo_new.jpg}{\includegraphics[width=0.33\textwidth]{Figuras/logo_new.jpg}\par}{}
+    \vspace{0.35cm}
+
+    {\LARGE\bfseries\color{black} Análisis Dinámico de un Torno para Madera \par}
+    \vspace{0.50cm}
+
+    \begin{flushleft}
+        \textbf{Integrantes:}\\[4pt]
+        \small
+        \renewcommand{\arraystretch}{1.18}
+        \begin{tabularx}{\textwidth}{@{}X X@{}}
+            1. León Carvajal Anthony José & 7. Paredes Sangucho Jaime Omar \\
+            2. Minagua Cujano Naidelin Valeria & 8. Pepe Sánchez Roberto Andrés \\
+            3. Montachana Pilataxi Alexis Vicente & 9. Sánchez Sánchez Martha Vanessa \\
+            4. Naranjo Tonato Alex Anderson & 10. Torres Veloz Jordy Jhoel \\
+            5. Ortega Lescano María Paula & 11. Villares Jiménez Alex Jair \\
+            6. Ortega Palacios Edith Margarita & 12. Zurita Baño Gonzalo Gabriel \\
+        \end{tabularx}
+        \vspace{0.65cm}
+        
+        \normalsize
+        \textbf{Asignatura:} Dinámica \\
+        \textbf{Curso:} Tercero ``E'' \\
+        \textbf{Carrera:} Ingeniería Mecánica \\
+        \textbf{Docente:} Ing. Gonzalo López, Mg. \\
+        \textbf{Fecha:} 21 de agosto de 2026 \\
+    \end{flushleft}
+
+    \vfill
+    {\color{utablue}\rule{0.6\textwidth}{0.5pt}}\\[6pt]
+    {\textbf{Periodo Académico:}\\ Julio 2026 -- Diciembre 2026\par}
+\end{titlepage}
+
+% ================= ÍNDICES =================
+\begingroup
+\hypersetup{linkcolor=black}
+\linespread{0.95}\selectfont
+{\color{black}\rule{\textwidth}{0.8pt}}\\[2pt]
+\tableofcontents
+{\color{black}\rule{\textwidth}{0.8pt}}
+\endgroup
+\clearpage
+
+\begingroup
+\hypersetup{linkcolor=black}
+\small
+\linespread{0.85}\selectfont
+\setlength{\parskip}{0pt}
+\setlength{\cftbeforefigskip}{0.5pt}
+\setlength{\cftbeforetabskip}{0.8pt}
+\let\clearpage\relax
+\listoffigures
+\vspace{0.5cm}
+\listoftables
+\endgroup
+\clearpage
+
+% ================= NOMENCLATURA CONTINUA =================
+\section{Nomenclatura}
+Para facilitar el seguimiento de las ecuaciones y análisis a lo largo del documento, se presenta la siguiente tabla de variables, parámetros y constantes. Todas las unidades corresponden al Sistema Internacional (SI), requisito fundamental para garantizar la coherencia en los cálculos dinámicos y cinemáticos del torneado. Si el contenido excede el espacio de una página, la tabla continúa fluidamente en la siguiente con encabezados repetidos.
+
+\begin{center}
+\small
+\renewcommand{\arraystretch}{1.05}
+\begin{longtable}{p{2.0cm} p{10.0cm} >{{\centering\arraybackslash}}p{2.5cm}}
+    \toprule
+    \textbf{Símbolo} & \textbf{Descripción} & \textbf{Unidad (SI)} \\
+    \midrule
+    \endhead
+    \midrule
+    \multicolumn{3}{r}{\footnotesize\textit{Continúa en la siguiente página...}} \\
+    \bottomrule
+    \endfoot
+    \bottomrule
+    \endlastfoot
+    $V_c$ & Velocidad de corte (velocidad tangencial en la superficie de la pieza) & $\si{\meter\per\second}$ \\
+    $n$ & Velocidad de rotación del husillo & $\si{\text{RPM}}$ \\
+    $f$ & Avance por revolución & $\si{\milli\meter\per\text{rev}}$ \\
+    $a_p$ & Profundidad de pasada (penetración radial) & $\si{\milli\meter}$ \\
+    $D$ & Diámetro de la pieza de trabajo & $\si{\milli\meter}$ \\
+    $F_c$ & Fuerza de corte principal (tangencial) & $\si{\newton}$ \\
+    $F_f$ & Fuerza de avance (axial) & $\si{\newton}$ \\
+    $F_r$ & Fuerza de empuje radial (pasiva) & $\si{\newton}$ \\
+    $J$ & Momento de inercia de masa del conjunto husillo--pieza & $\si{\kilo\gram\cdot\meter\squared}$ \\
+    $\omega$ & Velocidad angular del husillo & $\si{\radian\per\second}$ \\
+    $\alpha$ & Aceleración angular del husillo & $\si{\radian\per\second\squared}$ \\
+    $\theta$ & Posición angular del eje del motor & $\si{\radian}$ \\
+    $b$ & Coeficiente de amortiguamiento viscoso (fricción) & $\si{\newton\cdot\meter\cdot\second}$ \\
+    $k$ & Coeficiente de rigidez torsional del sistema & $\si{\newton\cdot\meter\per\radian}$ \\
+    $K$ & Factor de amplificación del motor eléctrico & adimensional \\
+    $u(t)$ & Señal o acción de control (par electromagnético del motor) & $\si{\newton\cdot\meter}$ \\
+    $M(t)$ & Par motor o torque instantáneo & $\si{\newton\cdot\meter}$ \\
+    $M_L(t)$ & Par de carga resistivo (torque de corte) & $\si{\newton\cdot\meter}$ \\
+    $P(t)$ & Potencia mecánica instantánea & $\si{\watt}$ \\
+    $P_{\text{avg}}$ & Potencia media consumida por la máquina & $\si{\watt}$ \\
+    $E$ & Energía total consumida durante el mecanizado & $\si{\joule}$ \\
+    $\eta$ & Eficiencia o rendimiento energético de la máquina & adimensional \\
+    $F_0$ & Componente constante de la carga sobre la máquina & $\si{\newton}$ \\
+    $A$ & Amplitud de la oscilación de carga & $\si{\newton}$ \\
+    $\omega_f$ & Frecuencia angular de oscilación de la fuerza de corte & $\si{\radian\per\second}$ \\
+    $\mu_s$, $\mu_k$ & Coeficientes de fricción estática y cinética en guías & adimensional \\
+    $Ra$ & Rugosidad superficial media aritmética & $\si{\micro\meter}$ \\
+    $D_1, D_2$       & Diámetros primitivos de poleas motriz y conducida & $\si{\milli\meter}$ \\
+    $i$              & Relación de transmisión cinemática de velocidad & adimensional \\
+    $T_1, T_2$       & Tensiones en ramal tenso y flojo de la correa trapecial & $\si{\newton}$ \\
+    $\beta$          & Semiángulo de la garganta de polea en V & $\si{\radian}$ \\
+    $\theta_1$       & Ángulo de contacto de la correa en la polea menor & $\si{\radian}$ \\
+    $\mu'$           & Coeficiente de fricción aparente en garganta en V & adimensional \\
+    $p$              & Paso helicoidal del tornillo de potencia / tornillo patrón & $\si{\milli\meter}$ \\
+    $\lambda$        & Ángulo de avance de la hélice del tornillo de potencia & $\si{\radian}$ \\
+    $\alpha_n$       & Ángulo del flanco normal de la rosca trapecial/ACME & $\si{\degree}$ \\
+    $T_{\text{rosca}}$ & Par de accionamiento torsor en el tornillo de potencia & $\si{\newton\cdot\meter}$ \\
+    $\eta_{\text{rosca}}$ & Rendimiento mecánico del tornillo de potencia & adimensional \\
+    $r_p$            & Radio primitivo del piñón del mecanismo piñón--cremallera & $\si{\milli\meter}$ \\
+    $k_{c1}$         & Fuerza específica unitaria de corte de la madera & $\si{\newton\per\milli\meter\squared}$ \\
+    $C_u, C_\rho$    & Factores de corrección por contenido de humedad y densidad & adimensional \\
+    $e_0$            & Excentricidad radial inicial de la pieza bruta de madera & $\si{\milli\meter}$ \\
+    $m_{\text{mad}}$ & Masa de la pieza de madera sujeta en el husillo & $\si{\kilogram}$ \\
+    $\mathbf{q}, \dot{\mathbf{q}}, \ddot{\mathbf{q}}$ & Vector de coordenadas generalizadas, velocidades y aceleraciones & -- \\
+    $\boldsymbol{\Phi}$ & Vector de restricciones algebraicas cinemáticas de posición & -- \\
+    $\boldsymbol{\lambda}$ & Vector de multiplicadores de Lagrange (fuerzas de enlace) & $\si{\newton}\text{ o }\si{\newton\cdot\meter}$ \\
+    $\mathbf{M}$     & Matriz simétrica de masas e inercias generalizadas del ensamblaje & $\si{\kilogram}\text{ y }\si{\kilogram\cdot\meter\squared}$ \\
+\end{longtable}
+\end{center}
+\setcounter{table}{0}
+
+\newpage
+
+% ===========================================================================
+%                           CONTENIDO PRINCIPAL
+% ===========================================================================
+
+\section{Introducción}
+\label{sec:introduccion}
+
+En este proyecto se utilizará como objeto de análisis el torno, una máquina herramienta que permite eliminar material sobrante de una pieza en bruto mediante el uso de una herramienta de corte mientras esta gira alrededor de un eje. El propósito principal es analizar diversos temas estudiados a lo largo del semestre, tales como la cinemática de la partícula y del cuerpo rígido, así como la cinética de la partícula y del cuerpo rígido.
+
+Esta máquina herramienta fue seleccionada debido a que integra diversos mecanismos y procesos que requieren un análisis dinámico detallado. De esta manera, es posible vincular los principios de la dinámica con aplicaciones prácticas del mundo real y del entorno laboral profesional.
+
+\subsection{Objetivos}
+
+\subsubsection{Objetivo General}
+Conformar piezas cilíndricas y de geometría rotacional mediante la técnica de mecanizado por arranque de viruta en torno.
+
+\subsubsection{Objetivos Específicos}
+\begin{enumerate}[itemsep=2pt, topsep=2pt, parsep=0pt]
+    \item Comprender de manera integral la estructura, los componentes, el principio de operación y los usos prácticos del torno.
+    \item Ajustar el proceso de trabajo para garantizar el cumplimiento de las dimensiones y tolerancias requeridas.
+    \item Calcular e implementar los parámetros de velocidad de corte óptimos según el material y la operación a realizar.
+\end{enumerate}
+
+\clearpage
+% ===========================================================================
+\noindent{\color{utablue!30}\rule{\textwidth}{0.5pt}}
+\vspace{2pt}
+\section{Fundamentos Teóricos}
+\label{sec:fundamentos}
+% ===========================================================================
+
+\subsection{¿Qué es un torno?}
+El torno se posiciona como una de las máquinas herramientas más longevas, cruciales y adaptables en el ámbito de la manufactura. Su objetivo primordial radica en la conformación de piezas de revolución a través del desbaste o desprendimiento de viruta, transformando un bloque inicial de material en una geometría definida \cite{groover2020}.
+
+El procedimiento ejecutado recibe el nombre de torneado, el cual involucra la remoción progresiva de sobrantes mediante un útil de corte rígido mientras el elemento gira uniformemente sobre un eje central. La precisión alcanzada por este movimiento permite generar geometrías cilíndricas, cónicas, esféricas o roscadas de alta calidad dimensional \cite{kalpakjian2020}.
+
+Esta tecnología es compatible con diversos insumos, tales como aleaciones metálicas, polímeros, madera y cerámicos, por lo que resulta imprescindible tanto en esquemas de producción artesanal como en líneas industriales a gran escala. Aparte de dar forma a las partes, posibilita la ejecución de acabados como el pulido, mejorando la textura exterior, el desempeño técnico y la apariencia del producto final \cite{groover2020}.
+
+Asimismo, el torneado es concebido como el pilar fundamental del mecanizado tradicional, habiendo servido de base para el desarrollo de la maquinaria industrial contemporánea. Entre las tareas más comunes que se pueden llevar a cabo con esta herramienta destacan:
+\begin{multicols}{3}
+\begin{itemize}[itemsep=1pt, topsep=1pt, parsep=0pt]
+    \item Refrentado
+    \item Ranurado
+    \item Roscado
+    \item Tronzado (corte)
+    \item Taladrado
+    \item Mandrinado
+    \item Rectificado
+\end{itemize}
+\end{multicols}
+
+Esta versatilidad consolida al torno como una unidad indispensable en cualquier taller técnico o centro de producción mecánica.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.40\textwidth]{Figuras/figura1_torno_banco.jpg}
+    \caption{Ejemplo de torno de taller tipo banco \cite{redeweb2021}.}
+    \label{fig:torno_banco}
+\end{figure}
+
+\subsection{¿Cómo da forma un torno?}
+El torneado se inicia al sujetar un bloque de material ---por lo general cilíndrico--- en el plato o mandril de la máquina. Al quedar asegurada, la pieza empieza a girar rápidamente mientras el útil de corte avanza progresivamente para remover el exceso de material.
+
+\paragraph{Movimientos fundamentales del torneado.}
+Para comprender la cinemática de esta técnica de mecanizado, es indispensable considerar tres desplazamientos fundamentales:
+\begin{enumerate}[itemsep=2pt, topsep=2pt, parsep=0pt]
+    \item \textbf{Rotación (Movimiento principal de corte):} El elemento gira acoplado al eje central a velocidades ajustables (desde muy bajas revoluciones hasta miles por minuto), en función del tipo de material y la tarea a realizar.
+    \item \textbf{Avance:} La herramienta realiza un movimiento lineal, ya sea longitudinal (a lo largo del eje del componente) o transversal (de forma perpendicular a este), definiendo así la geometría del producto.
+    \item \textbf{Penetración:} La cuchilla entra en el material, extrayendo el exceso en forma de virutas espirales o pequeños fragmentos.
+\end{enumerate}
+
+Ajustar correctamente estos tres movimientos es imprescindible. Un desequilibrio en la velocidad, la profundidad o la trayectoria puede generar variaciones dimensionales, vibraciones molestas, acabados deficientes o incluso el quiebre del componente o de la herramienta \cite{altintas2012}.
+
+Mediante este mecanismo, el torno facilita la elaboración de piezas complejas y variadas, tales como ejes, pernos, engranajes, poleas, casquillos, roscas, piezas cónicas y elementos de alta precisión. Por esta razón, se utiliza ampliamente en talleres mecánicos, industrias automotrices, navales, plantas metalúrgicas, carpinterías e incluso en la alfarería artesanal \cite{groover2020}.
+
+% ===========================================================================
+\subsection{Clases de tornos}
+\label{subsec:clases_tornos}
+Con el desarrollo tecnológico, se han creado distintas versiones del torno adaptadas a necesidades específicas. Aunque todos comparten la función básica de dar forma a las piezas mediante el desprendimiento de viruta, difieren en su estructura, dimensión y grado de automatización \cite{kalpakjian2020}.
+
+\subsubsection{Torno paralelo o universal}
+Es el modelo más habitual y el punto de partida en la formación técnica y profesional. Se aplica sobre todo en mecánica general para tareas fundamentales como:
+\begin{itemize}[itemsep=0pt, topsep=1pt, parsep=0pt]
+    \item \textbf{Cilindrado:} dar forma cilíndrica a la pieza.
+    \item \textbf{Refrentado:} aplanar la cara frontal del material.
+    \item \textbf{Taladrado:} realizar perforaciones mediante brocas instaladas en el contrapunto.
+    \item \textbf{Roscado:} tallar roscas interiores o exteriores en tuercas y tornillos.
+\end{itemize}
+Su mayor fortaleza radica en su versatilidad y costo accesible, siendo la opción predilecta para reparaciones, piezas únicas o tiradas de producción pequeñas \cite{torno_protocolo}.
+
+\begin{figure}[H]
+    \vspace{-2pt}
+    \centering
+    \includegraphics[height=2.3cm, keepaspectratio]{Figuras/figura2_torno_universal.jpg}
+    \vspace{-2pt}
+    \caption{Modelo de torno paralelo o universal \cite{torno_protocolo}.}
+    \label{fig:torno_universal}
+    \vspace{-2pt}
+\end{figure}
+
+\subsubsection{Torno automático o revólver}
+Diseñada específicamente para la fabricación a gran escala, esta máquina integra una torreta giratoria que permite montar varias herramientas de corte de forma simultánea. Este mecanismo posibilita el cambio continuo entre operaciones sin interrupciones, optimizando los tiempos de trabajo y elevando el rendimiento general \cite{kalpakjian2020}.
+
+Es indispensable en sectores de producción masiva ---como el automotriz o el eléctrico---, donde la automatización de la secuencia operativa asegura un alto nivel de precisión y homogeneidad en toda la serie de piezas.
+
+\begin{figure}[H]
+    \vspace{-2pt}
+    \centering
+    \includegraphics[height=2.3cm, keepaspectratio]{Figuras/figura3_torno_revolver.jpg}
+    \vspace{-2pt}
+    \caption{Modelo de torno revólver \cite{torno_protocolo}.}
+    \label{fig:torno_revolver}
+    \vspace{-2pt}
+\end{figure}
+
+\clearpage
+\subsubsection{Torno vertical}
+A diferencia de otros tornos, este modelo tiene el eje de giro dispuesto en posición vertical. Su diseño le permite trabajar con piezas de gran tamaño, peso o diámetro, que serían muy difíciles de manipular en un torno horizontal \cite{chapman2006}. Es especialmente útil para mecanizar elementos como:
+\begin{itemize}[itemsep=0pt, topsep=1pt, parsep=0pt]
+    \item Discos de gran diámetro.
+    \item Ruedas de tren o maquinaria pesada.
+    \item Componentes de turbinas y generadores industriales.
+\end{itemize}
+Gracias a su robustez y estabilidad, el torno vertical es esencial en la industria pesada y energética, donde se requiere manipular piezas voluminosas con total seguridad.
+
+\begin{figure}[H]
+    \vspace{-2pt}
+    \centering
+    \includegraphics[height=2.5cm, keepaspectratio]{Figuras/figura4_torno_vertical.jpg}
+    \vspace{-2pt}
+    \caption{Torno vertical industrial \cite{chapman2006}.}
+    \label{fig:torno_vertical}
+    \vspace{-2pt}
+\end{figure}
+
+\subsubsection{Torno copiador}
+Este torno cuenta con un mecanismo que le permite reproducir la forma de una plantilla o patrón en otra pieza, logrando que varias piezas resulten idénticas entre sí. Se emplea principalmente en producciones medianas, donde es necesario obtener copias fieles de una misma geometría sin recurrir todavía a los CNC. Fue muy popular antes de la llegada de los sistemas de control numérico, aunque aún se utiliza en talleres que requieren series cortas con buena precisión \cite{degarmo2011}.
+
+Un ejemplo de uso es la fabricación de mangos de herramientas, piezas ornamentales en madera o ejes metálicos con formas específicas.
+
+\begin{figure}[H]
+    \vspace{-2pt}
+    \centering
+    \includegraphics[height=2.5cm, keepaspectratio]{Figuras/figura5_torno_copiador.png}
+    \vspace{-2pt}
+    \caption{Torno copiador \cite{degarmo2011}.}
+    \label{fig:torno_copiador}
+    \vspace{-2pt}
+\end{figure}
+
+\clearpage
+\subsubsection{Torno CNC (Control Numérico por Computadora)}
+Es la versión más moderna y avanzada del torno. Funciona mediante programas informáticos que controlan los movimientos de la máquina con exactitud milimétrica. Estos programas permiten mecanizar piezas muy complejas que serían imposibles de realizar de forma manual \cite{altintas2012}. Las principales ventajas del torno CNC son:
+\begin{itemize}[itemsep=0pt, topsep=1pt, parsep=0pt]
+    \item Alta precisión y repetitividad, ya que cada pieza es idéntica a la anterior.
+    \item Rapidez, optimizando los tiempos de mecanizado.
+    \item Versatilidad, ya que un mismo torno CNC puede realizar múltiples operaciones con solo cambiar el programa.
+\end{itemize}
+Se utilizan ampliamente en industrias de alta tecnología, como la aeronáutica, automotriz, médica y electrónica, donde se requieren componentes de máxima calidad y tolerancias muy estrictas \cite{kalpakjian2020}.
+
+\begin{figure}[H]
+    \vspace{-2pt}
+    \centering
+    \includegraphics[height=2.5cm, keepaspectratio]{Figuras/figura6_torno_cnc.jpg}
+    \vspace{-2pt}
+    \caption{Torno de control numérico por computadora (CNC) \cite{kalpakjian2020}.}
+    \label{fig:torno_cnc}
+    \vspace{-2pt}
+\end{figure}
+
+\subsubsection{Tornos especializados}
+Además de los modelos mencionados, existen tornos diseñados para aplicaciones específicas \cite{lascano2015}:
+\begin{itemize}[itemsep=2pt, topsep=2pt, parsep=0pt]
+    \item \textbf{Tornos para madera:} empleados en carpintería, ebanistería y decoración. Permiten elaborar patas de mesas, barandales, molduras, columnas y piezas ornamentales.
+    \item \textbf{Tornos de alfarería:} utilizados desde la antigüedad, sirven para moldear objetos de cerámica como vasijas, platos y jarrones. Son uno de los ejemplos más tradicionales de torno, ya que todavía se emplean de manera artesanal.
+    \item \textbf{Tornos industriales especiales:} fabricados para responder a necesidades muy concretas, como los que se usan en la industria automotriz para fabricar cigüeñales, o en la industria aeronáutica, donde se producen piezas de precisión que deben soportar grandes esfuerzos y temperaturas \cite{torno_protocolo}.
+\end{itemize}
+
+\begin{table}[H]
+    \centering
+    \small
+    \renewcommand{\arraystretch}{1.25}
+    \begin{tabularx}{\textwidth}{l X c c}
+        \toprule
+        \textbf{Tipo de Torno} & \textbf{Aplicación Principal} & \textbf{Precisión} & \textbf{Automatización} \\
+        \midrule
+        Paralelo/Universal & Uso general, reparaciones, piezas únicas & Media--Alta & Manual \\
+        Revólver & Producción en serie, piezas repetitivas & Alta & Semiautomático \\
+        Vertical & Piezas de gran diámetro y peso & Alta & Manual/CNC \\
+        Copiador & Reproducción de formas desde plantillas & Media & Semiautomático \\
+        CNC & Alta precisión, geometrías complejas, producción masiva & Muy alta & Totalmente automático \\
+        Especializados & Madera, alfarería, cigüeñales, aeronáutica & Variable & Variable \\
+        \bottomrule
+    \end{tabularx}
+    \caption{Clasificación comparativa de los principales tipos de torno.}
+    \label{tab:clasificacion_tornos}
+\end{table}
+
+% ===========================================================================
+\vspace{4pt}
+\noindent{\color{utablue!30}\rule{\textwidth}{0.5pt}}
+\vspace{2pt}
+\section{Funcionamiento del Torno}
+\label{sec:funcionamiento}
+% ===========================================================================
+
+El torneado es un proceso de mecanizado por arranque de viruta mediante el cual se moldean superficies de revolución. Su principio de funcionamiento se basa en la remoción de material excedente mediante una herramienta de corte sobre una pieza que gira alrededor de su propio eje \cite{groover2020}.
+
+El proceso se fundamenta en la interacción de dos movimientos fundamentales:
+\begin{enumerate}[itemsep=3pt, topsep=2pt, parsep=0pt]
+    \item \textbf{Movimiento principal (de corte):} Consiste en la rotación de la pieza fijada en el cabezal de la máquina, acción que aporta la mayor parte de la energía cinética requerida para el mecanizado.
+    \item \textbf{Movimientos secundarios (de avance y penetración):} Ejecutados por la herramienta de corte montada de forma rígida sobre el carro móvil. El movimiento de avance establece el desplazamiento lineal continuo a lo largo o a lo ancho de la pieza, mientras que la penetración determina la profundidad del material extraído en cada pasada.
+\end{enumerate}
+
+\paragraph{Relación cinemática fundamental del torneado.}
+La velocidad de corte $V_c$ se relaciona directamente con la velocidad de rotación angular del husillo $n$ y el diámetro instantáneo $D$ de la pieza de trabajo mediante la expresión cinemática clásica:
+\begin{equation}
+    V_c = \frac{\pi \cdot D \cdot n}{1000} \quad [\si{\meter\per\minute}]
+    \label{eq:velocidad_corte}
+\end{equation}
+donde $D$ se expresa en $\si{\milli\meter}$ y $n$ en RPM. Esta relación matemática constituye el vínculo directo entre la cinemática de rotación del cuerpo rígido y la velocidad tangencial de contacto en la interfaz herramienta--pieza \cite{hibbeler2016}.
+
+La selección técnica de la velocidad de rotación (RPM) y la velocidad de avance resulta crítica para el proceso. La tasa de giro condiciona directamente el rendimiento: una velocidad insuficiente resta eficiencia a la operación, mientras que un valor excesivo acelera el desgaste y la pérdida de filo en la herramienta. La correcta interrelación de estos parámetros garantiza la precisión dimensional, la rugosidad superficial deseada, la integridad estructural del material y la eficiencia global de la producción \cite{boothroyd2006}.
+
+A diferencia de otros sistemas de mecanizado como la fresadora ---donde la herramienta es el elemento rotativo sobre una pieza estática---, el torno opera con la pieza en rotación continua. Esta dinámica lo consolida como el equipo ideal para la fabricación de componentes con simetría axial (ejes, pernos, bujes, bridas y tornillos), indispensables en sectores como el automotriz, el minero y el energético \cite{kalpakjian2020}.
+
+El procedimiento operativo inicia con la fijación rigurosa del material en el plato o mandril acoplado al eje principal. Tras poner en marcha el sistema, los carros desplazan la herramienta hasta entrar en contacto con el material para definir la geometría requerida. En equipos modernos de Control Numérico Computarizado (CNC), la gestión de los ejes ($X$, $Y$, $Z$) y la regulación de los parámetros de corte son controlados mediante programación informática, lo que asegura un alto estándar de precisión y repetibilidad en la producción en serie \cite{altintas2012}.
+
+\subsection{Operaciones comunes en el torno}
+\label{subsec:operaciones_comunes}
+\begin{table}[H]
+    \centering
+    \small
+    \renewcommand{\arraystretch}{1.25}
+    \begin{tabularx}{\textwidth}{l X}
+        \toprule
+        \textbf{Operación} & \textbf{Descripción} \\
+        \midrule
+        Cilindrado & Reducción del diámetro para obtener un cilindro uniforme. \\
+        Torneado cónico & Conformado de conos mediante desplazamiento angular de la herramienta. \\
+        Contorneado y perfilado & Creación de superficies con formas específicas. \\
+        Achaflanado & Corte en ángulo en los bordes de una pieza. \\
+        Trozado & Separación de la pieza trabajada del material excedente. \\
+        Roscado & Elaboración de roscas externas o internas. \\
+        Mandrinado & Ampliación de agujeros existentes con precisión. \\
+        Taladrado & Perforación de piezas mediante brocas en el contrapunto. \\
+        Moleteado & Grabado superficial mediante rodillos para mejorar el agarre. \\
+        Refrentado & Creación de superficies planas en los extremos de la pieza. \\
+        \bottomrule
+    \end{tabularx}
+    \caption{Operaciones fundamentales realizables en un torno convencional.}
+    \label{tab:operaciones_torno}
+\end{table}
+
+\subsection{Normas de seguridad en el torno}
+\label{subsec:seguridad}
+El torno, aunque muy útil, también implica riesgos. Algunas precauciones básicas son \cite{lascano2015}:
+\begin{enumerate}[itemsep=1pt, topsep=1pt, parsep=0pt]
+    \item Utilizar ropa adecuada y evitar objetos sueltos como anillos o relojes.
+    \item Detener la máquina antes de realizar ajustes.
+    \item No cambiar la velocidad hasta que el torno esté completamente detenido.
+    \item Mantener las herramientas bien afiladas.
+    \item Retirar siempre la llave del portabrocas antes de operar.
+    \item Usar protección ocular obligatoria.
+    \item No retirar virutas con la mano; emplear un cepillo o pinzas.
+    \item Identificar el botón de parada de emergencia antes de usar el torno.
+    \item No apoyarse ni colocar herramientas directamente sobre la máquina.
+    \item No medir piezas mientras están girando.
+    \end{enumerate}
+El respeto a estas medidas reduce considerablemente los accidentes en el trabajo con tornos.
+
+% ===========================================================================
+\vspace{4pt}
+\noindent{\color{utablue!30}\rule{\textwidth}{0.5pt}}
+\vspace{2pt}
+\section{Aplicaciones del Torno}
+\label{sec:aplicaciones}
+% ===========================================================================
+
+\subsection{Aplicaciones primarias y operaciones básicas}
+Las operaciones realizadas en un torno convencional forman la base de la mayoría de los procesos de fabricación de componentes rotativos \cite{chapman2006, degarmo2011}.
+
+\subsubsection{Cilindrado exterior}
+Es la operación más característica del torno. Consiste en reducir el diámetro de una pieza cilíndrica a una medida específica a lo largo de su longitud. La herramienta, con un ángulo de ataque adecuado, se desplaza paralela al eje de rotación de la pieza. Esta aplicación es fundamental para la producción de ejes, pasadores, casquillos y cualquier componente que requiera un diámetro uniforme o escalonado \cite{groover2020, lascano2015}.
+
+\subsubsection{Refrentado}
+En esta operación, la herramienta se desplaza perpendicularmente al eje de rotación de la pieza, mecanizando su extremo para crear una superficie plana. El objetivo es lograr una cara terminal perfectamente plana y perpendicular al eje, lo cual es esencial para asientos de engranajes, poleas o para simplemente cortar la pieza a la longitud correcta \cite{groover2020, arango2012}.
+
+\subsubsection{Ranurado y tronzado}
+El ranurado implica el corte de una ranura estrecha (de un ancho específico y una profundidad definida) en la superficie exterior, interior o en la cara de la pieza. Estas ranuras se utilizan para alojar anillos de retención (seguros), juntas tóricas o para proporcionar un escape para herramientas de roscado. El tronzado (o corte) es una operación similar que se utiliza para separar una parte ya terminada del material excedente (la palanquilla) \cite{torno_protocolo, lascano2015}.
+
+\subsubsection{Taladrado, escariado y moleteado}
+Aunque el taladrado se asocia comúnmente con el taladro de banco, el torno es excelente para esta tarea. La broca se sujeta en el contrapunto o en el portaherramientas y se avanza hacia la pieza giratoria, garantizando un agujero perfectamente coaxial. Operaciones subsiguientes como el escariado (para mejorar la precisión dimensional y el acabado de un agujero) y el avellanado (para crear un asiento cónico para tornillos) también se realizan fácilmente. El moleteado es un proceso de conformado (no de arranque de viruta) donde se presiona una herramienta de rodillos con un patrón diamantado o recto contra la pieza giratoria para crear una superficie rugosa que facilite el agarre, común en perillas y tapas \cite{degarmo2011, quintero2018}.
+
+\subsubsection{Roscado}
+El torno es una máquina excepcional para cortar roscas internas (tuercas) y externas (tornillos). La herramienta de roscado, con un perfil específico, se sincroniza con el giro de la pieza mediante el husillo patrón o control CNC para avanzar la distancia exacta por revolución (paso de la rosca). Se pueden producir una amplia variedad de perfiles de rosca (métrica, Whitworth, trapezoidal, etc.) \cite{torno_protocolo, groover2020}.
+
+\subsection{Aplicaciones avanzadas y especializadas}
+Con el advenimiento del control numérico por computadora (CNC), las capacidades del torno se han expandido enormemente \cite{torno_protocolo, altintas2012}.
+
+\subsubsection{Torneado cónico y de formas contorneadas}
+Mientras que en un torno manual se requiere un accesorio especial (como la aproximación del contrapunto o un carro cónico), un torno CNC puede mecanizar conos y perfiles curvos complejos de forma automática y extremadamente precisa mediante la interpolación simultánea de los ejes $X$ (transversal) y $Z$ (longitudinal). Esto es vital para la fabricación de componentes aerodinámicos, esferas y transiciones cónicas \cite{altintas2012}.
+
+\subsubsection{Torneado excéntrico}
+Permite mecanizar piezas cuyo eje de simetría no coincide con el eje de rotación del plato del torno. Esto se logra mediante platos de garras independientes, platos de cuatro mordazas o utilizando contrapesos para equilibrar la pieza. Es esencial para la fabricación de cigüeñales, levas y componentes de motores de combustión \cite{chapman2006, quintero2018}.
+
+\subsubsection{Torneado de acabado de precisión}
+Los tornos de alta precisión, especialmente los tornos suizos y los de control CNC, pueden lograr tolerancias dimensionales muy estrechas (del orden de micras) y acabados superficiales de excelente calidad (bajo valor de rugosidad $Ra$). Esto elimina o reduce la necesidad de operaciones secundarias de rectificado y es crucial para la industria aeroespacial, médica (prótesis, instrumentos quirúrgicos) y óptica \cite{torno_protocolo, degarmo2011}.
+
+\subsubsection{Torneado en duro}
+Consiste en mecanizar materiales endurecidos (con durezas superiores a 45 HRC) directamente con herramientas de cerámica o carburo de tungsteno (carburo cementado) de punta redonda (CBN o PCBN), evitando el proceso tradicional de temple después del mecanizado en blando y posterior rectificado. Esto reduce tiempos de ciclo y costos en la producción de moldes, matrices y componentes de alta resistencia \cite{redeweb2021, quintero2018}.
+
+\subsubsection{Centros de maquinado de torneado}
+Las máquinas más avanzadas, conocidas como centros de torneado, incorporan capacidades de fresado y taladrado mediante cabezales motorizados (eje $Y$ y/o $C$). Esto permite completar una pieza compleja (con agujeros laterales, ranuras chaveteras, superficies planas) en una sola sujeción (``done-in-one''), maximizando la precisión y minimizando los tiempos de manipulación y setup \cite{torno_protocolo, degarmo2011}.
+
+\subsection{Aplicaciones industriales específicas}
+\label{subsec:aplicaciones_industriales}
+
+El torno también es una herramienta muy útil en ciertas áreas específicas como:
+
+\subsubsection{Industria automotriz}
+El torno se utiliza para crear una amplia variedad de componentes esenciales en un automóvil \cite{cmz_automocion}. Algunos de los más importantes son:
+\begin{itemize}[itemsep=2pt, topsep=2pt, parsep=0pt]
+    \item \textbf{Cigüeñales:} El torno da forma, las dimensiones exactas, y crea los alojamientos de los cojinetes.
+    \item \textbf{Pistones:} La superficie del pistón debe ser perfectamente cilíndrica para sellar la cámara de combustión. El torno garantiza las tolerancias micrométricas necesarias para este propósito.
+    \item \textbf{Árbol de levas:} Este componente controla la apertura y cierre de las válvulas del motor. Aunque la forma de las levas es compleja, el torno es fundamental para dar forma al eje principal y a los alojamientos de los cojinetes.
+    \item \textbf{Bujes y cojinetes:} Estas piezas, a menudo cilíndricas, se utilizan para reducir la fricción entre partes móviles. El torno es ideal para fabricar estas piezas con las tolerancias requeridas.
+    \item \textbf{Engranajes:} Aunque a menudo se usa una fresadora para los dientes, el torno es esencial para dar forma al cuerpo cilíndrico del engranaje antes de tallar los dientes.
+    \item \textbf{Tornillos y tuercas especiales:} El torno puede fabricar tornillos y tuercas con roscas no estándar, o piezas de unión complejas para aplicaciones específicas dentro del vehículo.
+\end{itemize}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.48\textwidth]{Figuras/figura_extra_ciguenal.jpg}
+    \caption{Mecanizado excéntrico de muñones en un cigüeñal automotriz mediante torno \cite{cmz_automocion}.}
+    \label{fig:mecanizado_ciguenal}
+\end{figure}
+
+\subsubsection{Industria aeroespacial}
+La versatilidad del torno permite la producción de una gran variedad de piezas críticas en la industria aeroespacial \cite{cmz_ingenieria}:
+\begin{itemize}[itemsep=2pt, topsep=2pt, parsep=0pt]
+    \item \textbf{Componentes de turbinas:} Los discos, ejes y álabes de las turbinas de los motores a reacción se fabrican con tornos de alta precisión. La forma y el equilibrio de estas piezas son cruciales para el rendimiento y la seguridad del motor.
+    \item \textbf{Piezas para trenes de aterrizaje:} Los cilindros hidráulicos y los pistones del tren de aterrizaje son torneados para garantizar un funcionamiento suave y sin fallos.
+    \item \textbf{Sistemas de control de vuelo:} Componentes como los servomotores y los actuadores que controlan las superficies de vuelo (timones, alerones) se producen con tolerancias extremadamente pequeñas para asegurar una respuesta precisa.
+    \item \textbf{Conectores y sujetadores:} Los pernos, tuercas y conectores especializados, utilizados en todo el fuselaje, se fabrican con tornos para garantizar su resistencia y ajuste perfecto.
+    \item \textbf{Componentes para cohetes y satélites:} Piezas para los sistemas de propulsión, estructuras y carcasas de instrumentos delicados requieren la precisión del torno para su correcto funcionamiento en el vacío del espacio.
+\end{itemize}
+
+\subsubsection{Producción de herramientas y moldes}
+El torno se utiliza para dar forma a una variedad de componentes cilíndricos que forman parte de herramientas y moldes \cite{cmz_ingenieria}:
+\begin{itemize}[itemsep=2pt, topsep=2pt, parsep=0pt]
+    \item \textbf{Matrices y punzones:} Se emplean tornos para crear los punzones y matrices circulares que se utilizan en el conformado y corte de metal. La precisión en el torneado asegura que estas piezas encajen perfectamente y realicen el corte o la deformación deseados sin fallos.
+    \item \textbf{Insertos y cavidades de moldes:} Los moldes de inyección, que a menudo tienen cavidades de formas complejas, pueden requerir insertos cilíndricos que se mecanizan en el torno. Estas piezas se diseñan para crear geometrías específicas, como orificios o salientes, en el producto final.
+    \item \textbf{Componentes de herramientas de corte:} Las herramientas de corte para otras máquinas, como las fresas de ranurado o las brocas, a menudo tienen cuerpos cilíndricos que se fabrican en el torno. Esto asegura que la herramienta esté perfectamente centrada y equilibrada al momento de usarse.
+    \item \textbf{Bujes y guías:} En la construcción de moldes, los bujes y pasadores guía son esenciales para alinear las dos mitades del molde (macho y hembra). El torno es la herramienta principal para fabricar estos componentes con las tolerancias exactas que garantizan una alineación precisa y el buen funcionamiento del molde.
+\end{itemize}
+
+% ===========================================================================
+\vspace{4pt}
+\noindent{\color{utablue!30}\rule{\textwidth}{0.5pt}}
+\vspace{2pt}
+\section{Componentes y Especificaciones del Torno}
+\label{sec:componentes}
+% ===========================================================================
+
+\subsection{Partes principales del torno --- La base de la precisión}
+
+La eficacia, precisión y durabilidad de un torno dependen de la robustez y calidad de sus componentes estructurales. Cada parte está diseñada meticulosamente para soportar, absorber y controlar las inmensas fuerzas y vibraciones que se generan durante el corte de materiales, aun en las condiciones más exigentes \cite{chapman2006}.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.62\textwidth]{Figuras/figura7_partes_torno.jpg}
+    \caption{Componentes y partes principales del torno paralelo \cite{lascano2015}.}
+    \label{fig:partes_torno}
+\end{figure}
+
+\subsubsection{La bancada: el cimiento de la máquina}
+La bancada es la estructura principal y más pesada del torno, actuando como la base rígida que sostiene y alinea todos sus componentes. Por lo general, se fabrica con hierro fundido gris o nodular, materiales elegidos por su gran capacidad para absorber vibraciones; esto evita el efecto \textit{chatter}, un tipo de vibración que arruina el acabado de las piezas, genera ruido y desgasta rápidamente las herramientas \cite{altintas2012}.
+
+Para asegurar que no se deforme con el tiempo, la bancada pasa por un proceso de alivio de tensiones térmicas que elimina los esfuerzos internos del metal. En su parte superior se ubican las guías planas y prismáticas, las cuales se endurecen mediante tratamientos térmicos (temple por inducción o a la llama) y se rectifican con precisión milimétrica. La rectitud y el paralelismo de estas guías son fundamentales, ya que cualquier desgaste o desalineación en ellas se traduce directamente en errores de forma en la pieza mecanizada, como problemas de conicidad o cilindricidad.
+
+\paragraph{Dinámica estructural y amortiguamiento de vibraciones (\textit{chatter}).}
+El fenómeno de \textit{chatter} constituye una vibración regenerativa autoexcitada generada por la interacción dinámica entre el proceso de corte y la estructura mecánica del torno. La bancada de hierro fundido actúa como un elemento disipador de energía vibratoria, donde su elevado amortiguamiento estructural interno ($b$) resulta crítico para preservar la estabilidad del mecanizado. El límite de estabilidad depende directamente de la rigidez dinámica global del conjunto máquina--herramienta--pieza y se evalúa rigurosamente mediante diagramas de lóbulos de estabilidad \cite{altintas2012}.
+
+\subsubsection{El cabezal fijo: el centro de potencia y control}
+El cabezal fijo, situado en el extremo izquierdo de la bancada, funciona como el centro de potencia y control del torno. Contiene el motor eléctrico principal y el sistema de transmisión ---basado en poleas y engranajes--- encargado de transmitir la rotación al husillo \cite{degarmo2011}.
+
+En su interior se aloja la caja de velocidades, un mecanismo de engranajes que permite al operador elegir dentro de un amplio rango de revoluciones por minuto. Esta selección se ajusta según el diámetro de la pieza, la dureza del material (acero, bronce, aluminio) y el tipo de herramienta de corte (acero rápido, carburo, cerámica).
+
+El componente central de este sistema es el husillo, un eje fabricado en acero aleado y sometido a tratamientos térmicos de temple y revenido para combinar dureza exterior con tenacidad interior. Este eje se apoya en rodamientos de alta precisión diseñados para soportar fuertes cargas radiales y axiales sin perder el centro. Además, su interior hueco permite introducir barras largas, lo que facilita el trabajo continuo \cite{lascano2015}.
+
+La calidad del husillo es vital: su rotación debe carecer de juegos o movimientos indeseados (axiales o radiales) para garantizar que las piezas queden perfectamente concéntricas, mantengan su geometría exacta y presenten un acabado superficial de alta calidad.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.48\textwidth]{Figuras/figura_extra_cabezal.jpg}
+    \caption{Detalle constructivo del cabezal fijo, selectores de velocidad y tren de engranajes del husillo \cite{degarmo2011}.}
+    \label{fig:cabezal_fijo}
+\end{figure}
+
+\paragraph{Cinemática y dinámica de la transmisión por poleas escalonadas y correas trapeciales.}
+En los tornos para madera y tornos de taller convencionales, la transmisión primaria entre el eje del motor eléctrico y el husillo principal se implementa mediante un sistema de poleas escalonadas múltiples conectadas por una correa en V (trapecial). Esta configuración permite seleccionar velocidades discretas modificando manualmente o mediante variador la posición de la correa entre los escalones de diámetros primitivos $D_{1,k}$ (polea motriz) y $D_{2,k}$ (polea conducida) \cite{shigley2020}:
+\begin{equation}
+    i_k = \frac{\omega_{\text{motor}}}{\omega_{h,k}} = \frac{D_{2,k}}{D_{1,k} (1 - s)}
+    \label{eq:relacion_poleas}
+\end{equation}
+donde $s \approx 0.01\text{--}0.02$ representa el factor de deslizamiento elástico intrínseco de la correa bajo carga nominal.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.50\textwidth]{Figuras/figura_mecanismo_poleas.png}
+    \caption{Esquema cinemático y geométrico de la transmisión por correa y poleas escalonadas en el cabezal fijo \cite{shigley2020}.}
+    \label{fig:esquema_poleas}
+\end{figure}
+
+El arco de contacto efectivo $\theta_1$ en la polea motriz menor (determinante para el límite de transmisión de potencia sin patinamiento) se obtiene a partir de la distancia entre centros de ejes $C$ mediante la relación trigonométrica:
+\begin{equation}
+    \theta_1 = \pi - 2 \arcsin\left( \frac{D_2 - D_1}{2C} \right) \quad [\si{\radian}]
+    \label{eq:angulo_contacto_correa}
+\end{equation}
+
+Debido a la geometría en cuña de las correas trapeciales con un semiángulo de garganta $\beta \approx 17^\circ\text{--}20^\circ$, la fuerza normal de contacto se amplifica significativamente. Aplicando la ecuación generalizada de Euler--Eytelwein con corrección por fuerza centrífuga debida a la densidad lineal de masa de la correa $m'$ ($\si{\kilogram\per\meter}$) y velocidad lineal de la correa $v = \frac{\pi D_1 n_1}{60}$ ($\si{\meter\per\second}$), la relación límite entre la tensión en el ramal tenso $T_1$ y en el ramal flojo $T_2$ se formula rigurosamente como \cite{shigley2020, hibbeler2016}:
+\begin{equation}
+    \frac{T_1 - m' v^2}{T_2 - m' v^2} = e^{\mu' \theta_1}, \quad \text{donde} \quad \mu' = \frac{\mu}{\sin \beta}
+    \label{eq:euler_eytelwein}
+\end{equation}
+donde $\mu \approx 0.30$ es el coeficiente de rozamiento caucho--fundición, lo que genera un coeficiente de fricción aparente $\mu' \approx 0.85\text{--}1.05$. 
+
+La fuerza tangencial neta transmitida al husillo $F_t = T_1 - T_2$ genera la potencia mecánica disponible y el par motor efectivo en el husillo $T_h$:
+\begin{equation}
+    P_{\text{mec}} = (T_1 - T_2) \cdot v \quad [\si{\watt}], \qquad T_h = (T_1 - T_2) \cdot \frac{D_2}{2} \cdot \eta_{\text{trans}} \quad [\si{\newton\cdot\meter}]
+    \label{eq:par_husillo_poleas}
+\end{equation}
+donde $\eta_{\text{trans}} \approx 0.94\text{--}0.97$ es el rendimiento mecánico del accionamiento por correa trapecial.
+
+\subsubsection{La contrapunta o cabezal móvil: soporte coaxial y mecanismo de apriete}
+La contrapunta es un cuerpo móvil que se desliza longitudinalmente sobre las guías prismáticas de la bancada, pudiendo fijarse rígidamente en cualquier posición mediante una palanca excéntrica o perno de anclaje \cite{quintero2018}. Su función primaria es proporcionar un soporte coaxial de alta rigidez en el extremo libre de piezas esbeltas mediante un punto giratorio o punto fijo templado alojado en un cono Morse (típicamente MT2 o MT3), evitando la deflexión elástica y vibraciones que inducirían conicidades indeseadas. Además, permite alojar brocas de centrar, escariadores y machuelos para mecanizado interior sobre el eje de simetría \cite{kalpakjian2020, altintas2012}.
+
+\paragraph{Mecanismo de avance axial por tornillo--tuerca de la pínula.}
+El desplazamiento axial de la pínula cilíndrica se efectúa mediante un mecanismo interno de tornillo helicoidal accionado por un volante manual. Para un tornillo de rosca métrica o cuadrada con paso $p$ ($\si{\milli\meter}$), el avance axial $s_{\text{ax}}$ en función del ángulo de rotación del volante $\theta_v$ ($\si{\radian}$) está regido por la cinemática directa:
+\begin{equation}
+    s_{\text{ax}} = \frac{p}{2\pi} \cdot \theta_v \quad [\si{\milli\meter}]
+    \label{eq:avance_pinula}
+\end{equation}
+
+Al penetrar el punto en el centro cónico de la pieza, se genera una fuerza axial de fijación $F_{\text{apriete}}$. El par torsor manual requerido en el volante $T_{\text{manivela}}$ para vencer la fricción en los filetes (ángulo de avance $\lambda = \arctan(p / \pi d_m)$ y ángulo de fricción $\phi' = \arctan(\mu / \cos \alpha_n)$) y en el collarín de empuje de diámetro medio $d_c$ con coeficiente $\mu_c$ se modela rigurosamente como \cite{shigley2020}:
+\begin{equation}
+    T_{\text{manivela}} = \frac{F_{\text{apriete}} d_m}{2} \tan(\lambda + \phi') + \frac{F_{\text{apriete}} \mu_c d_c}{2} \quad [\si{\newton\cdot\meter}]
+    \label{eq:par_contrapunta}
+\end{equation}
+
+Esta fuerza $F_{\text{apriete}}$ debe calibrarse con precisión: una fuerza insuficiente induce vibraciones dinámicas de cabeceo y pérdida de concentricidad; mientras que una fuerza excesiva somete a la pieza a esfuerzos de compresión axial críticos cercanos al límite de pandeo de Euler ($P_{\text{cr}} = \pi^2 E I / L_w^2$), incrementando el desgaste en el rodamiento del punto giratorio.
+
+\subsubsection{El conjunto del carro: el brazo ejecutor de precisión}
+El conjunto del carro es el sistema mecatrónico que posiciona y mueve la herramienta de corte con precisión micrométrica en tres direcciones \cite{chapman2006}. Está compuesto por varias partes superpuestas que trabajan de forma coordinada:
+\begin{itemize}[itemsep=3pt, topsep=2pt, parsep=0pt]
+    \item \textbf{Carro principal o longitudinal:} Es la base maciza que se desliza a lo largo de las guías de la bancada (eje $Z$). Es el responsable de los movimientos de avance largos en operaciones de cilindrado.
+    \item \textbf{Carro transversal:} Se monta sobre el carro principal y se mueve perpendicularmente al eje de la bancada (eje $X$), permitiendo controlar la profundidad de corte de manera precisa y realizar operaciones de refrentado (aplanar las caras de la pieza).
+    \item \textbf{Carro orientable o charriot:} Situado sobre el carro transversal, su base circular puede girarse y fijarse con tornillos en cualquier ángulo (generalmente de $0\degree$ a $90\degree$). Este movimiento es crucial para mecanizar conos, ángulos y chaflanes complejos de forma manual.
+    \item \textbf{Torreta portaherramientas:} Fijada sobre el charriot, es el dispositivo final que sujeta rígidamente la herramienta de corte. Las torretas cuadradas convencionales permiten montar hasta cuatro herramientas, mientras que los sistemas de cambio rápido modernos (con plaquitas de carburo intercambiables) agilizan enormemente la producción y reducen el tiempo muerto \cite{chapman2006}. El movimiento de estos carros se controla manualmente mediante volantes con tambores graduados (nonios) que permiten al operario realizar desplazamientos con una precisión de centésimas de milímetro, o de forma automática mediante los sistemas de transmisión.
+\end{itemize}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.44\textwidth]{Figuras/figura_extra_carro.jpg}
+    \caption{Estructura cinemática del conjunto del carro: carro longitudinal, carro transversal, charriot orientable y mandos del delantal \cite{chapman2006}.}
+    \label{fig:conjunto_carro}
+\end{figure}
+
+\paragraph{Cinemática y dinámica del mecanismo piñón--cremallera del avance longitudinal.}
+El movimiento manual rápido del carro longitudinal a lo largo del eje $Z$ se logra mediante un tren de engranajes alojado en el delantal acoplado a un mecanismo piñón--cremallera de módulo $m_0$ y radio primitivo del piñón $r_p = \frac{m_0 z_p}{2}$ engarzado con una cremallera prismática rectificada fijada rígidamente bajo el ala frontal de la bancada.
+
+La posición lineal del carro $z(t)$, su velocidad longitudinal $v_z(t)$ y su aceleración $\ddot{z}(t)$ están acopladas unívocamente a la cinemática angular del volante del operador $\theta_p(t)$ mediante las relaciones:
+\begin{equation}
+    z(t) = r_p \cdot \theta_p(t), \qquad v_z(t) = r_p \cdot \dot{\theta}_p(t), \qquad a_z(t) = r_p \cdot \ddot{\theta}_p(t)
+    \label{eq:cinematica_pinon_cremallera}
+\end{equation}
+
+El par dinámico torsor resistente $T_p(t)$ que debe suministrar el operador o el tren de potencia para desplazar el carro en presencia de la fuerza axial de corte $F_{\text{ax}}$, la masa total del conjunto del carro $m_{\text{carro}}$ ($\si{\kilogram}$) y la resistencia por rozamiento en las guías prismáticas (coeficiente de fricción en guías $\mu_g \approx 0.08\text{--}0.12$) se modela dinámicamente mediante la segunda ley de Newton \cite{hibbeler2016}:
+\begin{equation}
+    T_p(t) = \left[ m_{\text{carro}} \ddot{z}(t) + F_{\text{ax}}(t) + \mu_g \left( m_{\text{carro}} g + F_{\text{rad}}(t) \right) \right] \cdot \frac{r_p}{\eta_{\text{eng}}} \quad [\si{\newton\cdot\meter}]
+    \label{eq:dinamica_carro_pinon}
+\end{equation}
+donde $\eta_{\text{eng}} \approx 0.92\text{--}0.95$ es el rendimiento mecánico del tren de reducción del delantal y $F_{\text{rad}}$ es la fuerza radial normal que presiona el carro contra las guías de la bancada.
+
+\subsubsection{Plato de garras (\textit{Chuck}): la sujeción segura de la pieza}
+El plato de garras o \textit{chuck} es el dispositivo que se monta directamente en el husillo para sujetar la pieza de trabajo. Su rendimiento es vital para la seguridad del operario y la precisión del mecanizado \cite{groover2020}. Los tipos más comunes son el plato universal de tres garras autocentrante, ideal para un montaje rápido y eficiente de piezas cilíndricas o hexagonales, y el plato de cuatro garras independientes, donde cada garra se ajusta individualmente, permitiendo un centrado de altísima precisión para piezas irregulares, excéntricas o trabajos que exigen tolerancias muy estrictas. La elección entre uno y otro depende de un balance entre la velocidad de preparación (favor del de 3 garras) y la exactitud y flexibilidad requerida por la operación (favor del de 4 garras) \cite{groover2020, altintas2012}. Para piezas de gran tamaño o formatos especiales se utilizan otros sistemas como platos de garras blandas maquinables, platos magnéticos o puntos entre centros.
+
+\begin{figure}[H]
+    \centering
+    \begin{minipage}[b]{0.46\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{Figuras/figura_extra_plato3.jpg}
+        \caption*{(a) Plato universal de 3 garras}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[b]{0.46\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{Figuras/figura_extra_plato4.jpg}
+        \caption*{(b) Plato de 4 garras independientes}
+    \end{minipage}
+    \caption{Comparativa de sistemas de sujeción: (a) plato universal de 3 garras autocentrante y (b) plato de 4 garras independientes para centrado de precisión \cite{groover2020}.}
+    \label{fig:platos_sujecion}
+\end{figure}
+
+\subsubsection{Sistemas de avance automático y cinemática del tornillo de potencia}
+El avance automático sincronizado del carro para cilindrado, refrentado y roscado se articula a través de dos ejes de transmisión paralelos a la bancada \cite{lascano2015}:
+\begin{itemize}[itemsep=3pt, topsep=2pt, parsep=0pt]
+    \item \textbf{Barra de avance o eje de cilindrar:} Eje ranurado con chavetero longitudinal que transmite par rotatorio al delantal mediante un tornillo sinfín y rueda helicoidal para alimentar los avances automáticos continuos de desbaste y acabado.
+    \item \textbf{Tornillo patrón (tornillo de potencia):} Husillo rectificado de alta precisión con perfil de rosca trapecial (DIN 103) o rosca ACME ($29^\circ$), utilizado exclusivamente para el tallado de roscas mediante el acoplamiento de una tuerca partida o semituerca de bronce.
+\end{itemize}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.64\textwidth]{Figuras/figura_mecanismo_sinfin.png}
+    \caption{Mecanismo de tornillo sinfín y rueda helicoidal utilizado en el delantal para la derivación del avance automático \cite{shigley2020}.}
+    \label{fig:mecanismo_sinfin}
+\end{figure}
+
+\paragraph{Modelo matemático del tornillo patrón de rosca trapecial/ACME.}
+Para un tornillo de potencia de diámetro medio $d_m$, paso $p$, ángulo de avance helicoidal $\lambda = \arctan(p / \pi d_m)$ y ángulo de perfil normal de rosca $\alpha_n = 14.5^\circ$ ($\alpha_n = 15^\circ$ en rosca métrica trapecial), el coeficiente de fricción efectivo corregido por la geometría de los flancos es $\tan \phi' = \frac{\mu}{\cos \alpha_n}$.
+
+El par torsor $T_{\text{rosca}}$ requerido para vencer una fuerza axial de mecanizado $F_{\text{ax}}$ y el rendimiento mecánico intrínseco del tornillo $\eta_{\text{rosca}}$ se calculan rigurosamente mediante las ecuaciones de Shigley \cite{shigley2020}:
+\begin{equation}
+    T_{\text{rosca}} = \frac{F_{\text{ax}} d_m}{2} \left[ \frac{\tan \lambda + \mu \sec \alpha_n}{1 - \mu \tan \lambda \sec \alpha_n} \right] + \frac{F_{\text{ax}} \mu_c d_c}{2} \quad [\si{\newton\cdot\meter}]
+    \label{eq:par_tornillo_potencia}
+\end{equation}
+\begin{equation}
+    \eta_{\text{rosca}} = \frac{F_{\text{ax}} p}{2\pi T_{\text{rosca}}} = \frac{\tan \lambda}{\tan(\lambda + \phi') + \mu_c \frac{d_c}{d_m}}
+    \label{eq:rendimiento_tornillo}
+\end{equation}
+
+\subsubsection{Caja Norton: la caja de cambios de pasos y avances}
+La Caja Norton es la transmisión de engranajes ubicada debajo del cabezal que conecta la rotación del husillo principal con la barra de avance y el tornillo patrón \cite{degarmo2011}. Mediante un sistema de palancas y selectores, permite al operario elegir de forma rápida, precisa y sin esfuerzo una amplia variedad de velocidades de avance ($\si{\milli\meter\per\text{rev}}$) y pasos de rosca ($\si{\milli\meter}$ o hilos por pulgada), sin necesidad de cambiar manualmente los engranajes de una ``lira'' o ``guitarra'' de engranajes intercambiables, como se hacía en los tornos antiguos. La relación cinemática fundamental de roscado que garantiza que la herramienta avance exactamente el paso $p_{\text{rosca}}$ por cada revolución de la pieza ($2\pi\,\si{\radian}$) está dada por:
+\begin{equation}
+    i_{\text{Norton}} = \frac{\omega_{\text{tp}}}{\omega_h} = \frac{p_{\text{rosca}}}{p_{\text{tornillo\_patrón}}}
+    \label{eq:relacion_norton}
+\end{equation}
+Este mecanismo es fundamental para la productividad y versatilidad del torno paralelo, agilizando enormemente los cambios de operación \cite{donado2008, degarmo2011}.
+
+\subsection{Accesorios esenciales de soporte para aplicaciones avanzadas}
+\subsubsection{Lunetas (fija y móvil)}
+Para mecanizar piezas muy largas y delgadas (como ejes de transmisión largos o husillos de máquinas) que podrían flexionarse de manera crítica bajo la presión radial de la herramienta, se utilizan las lunetas \cite{arango2012}. La luneta fija se ancla rígidamente a la bancada para dar un soporte intermedio adicional a la pieza, usualmente en un punto cercano a su centro de gravedad. La luneta móvil, en cambio, se monta directamente sobre el carro principal y se desplaza sincronizadamente junto a la herramienta, ofreciendo un apoyo constante y dinámico justo en el punto de corte, contrarrestando la fuerza de la herramienta en el mismo instante. El uso correcto de estos accesorios, con sus contactos de metal antifricción o bronce adecuadamente lubricados y ajustados, es indispensable para garantizar la rectitud, el diámetro constante y la integridad superficial en ejes de gran longitud, una aplicación común en la industria pesada \cite{arango2012, groover2020}.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.46\textwidth]{Figuras/figura_extra_luneta.png}
+    \caption{Disposición funcional de una luneta de apoyo para el mecanizado estable de piezas esbeltas y prevención de deflexión \cite{arango2012}.}
+    \label{fig:luneta_soporte}
+\end{figure}
+
+% ===========================================================================
+\vspace{4pt}
+\noindent{\color{utablue!30}\rule{\textwidth}{0.5pt}}
+\vspace{2pt}
+\subsection{Particularidades mecánicas y dinámica de corte en el torno para madera}
+\label{sec:torno_madera}
+% ===========================================================================
+
+El torneado de madera presenta características cinemáticas y dinámicas sustancialmente distintas al mecanizado de aleaciones metálicas, derivadas de la baja densidad del material, la estructura celular fibrilar altamente ortótropa y las elevadas velocidades periféricas requeridas \cite{kivimaa1950, franz1958, groover2020}.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.48\textwidth]{Figuras/figura_torno_madera.jpg}
+    \caption{Torno para madera moderno con bancada de fundición gris, cabezal de transmisión por poleas y soporte de apoyo de herramientas orientable \cite{groover2020}.}
+    \label{fig:torno_madera_completo}
+\end{figure}
+
+\subsubsection{Estructura constructiva y cinemática del torno para madera}
+A diferencia de los tornos para metales donde el avance está guiado rígidamente por carros micrométricos, en los tornos convencionales para madera la herramienta de corte (gubias de desbaste, formones oblicuos, raspadores y rascadores de vaciado de acero rápido HSS) se apoja sobre un soporte de apoyo de herramientas (\textit{tool rest}) regulable en altura, ángulo y proximidad a la pieza. La sujeción de la madera se realiza mediante dos modalidades primordiales:
+\begin{enumerate}[itemsep=2pt, topsep=2pt, parsep=0pt]
+    \item \textbf{Torneado entre puntos (torneado longitudinal):} La pieza se sostiene en el cabezal fijo mediante un punto de arrastre de cuatro dientes (\textit{drive spur center}) que transmite el par por penetración mecánica en las fibras, y en el extremo opuesto mediante el punto giratorio de la contrapunta.
+    \item \textbf{Torneado al aire o de platos (torneado transversal / platos frontales):} Utilizado para cuencos, platos y piezas huecas donde la pieza se fija exclusivamente a un plato frontal (\textit{faceplate}) o mandril autocentrante de 4 mordazas en cola de milano montado directamente en el husillo.
+\end{enumerate}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.46\textwidth]{Figuras/figura_torno_madera_operacion.jpg}
+    \caption{Operación de torneado al aire de un cuenco de madera evidenciando el contacto dinámico sobre el soporte de gubias \cite{groover2020}.}
+    \label{fig:torno_madera_operacion}
+\end{figure}
+
+\subsubsection{Mecánica y modelo dinámico de las fuerzas de corte en madera}
+La madera es un material viscoelástico y ortótropo con tres direcciones elásticas principales: longitudinal ($L$, paralela al grano), radial ($R$) y tangencial ($T$). El proceso de corte se clasifica según la orientación relativa del filo de corte y la dirección de las fibras de la madera \cite{kivimaa1950, franz1958, eyma2004, naylor2012}:
+\begin{itemize}[itemsep=2pt, topsep=2pt, parsep=0pt]
+    \item \textbf{Corte longitudinal ($0^\circ\text{--}90^\circ$):} El filo se mueve paralelo a las fibras y corta a través de ellas. Es el modo de menor esfuerzo específico de corte y produce virutas continuas y lisas.
+    \item \textbf{Corte transversal ($90^\circ\text{--}0^\circ$):} El filo se desplaza perpendicular a las fibras cortando a lo largo del grano. Tiende a provocar desgarramiento fibrilar superficial si el ángulo de ataque no es agudo ($\gamma_0 \approx 25^\circ\text{--}40^\circ$).
+    \item \textbf{Corte de testa o tangencial ($90^\circ\text{--}90^\circ$):} El filo corta directamente a través de los extremos de las células madereras, exigiendo la mayor fuerza de corte específica.
+\end{itemize}
+
+La fuerza de corte tangencial principal $F_c$ para el torneado de madera se modela analíticamente mediante la ecuación semiempírica de Kivimaa generalizada por Franz \cite{kivimaa1950, franz1958}:
+\begin{equation}
+    F_c = k_{c1} \cdot b \cdot h_c^{1-z} \cdot C_u \cdot C_\rho \quad [\si{\newton}]
+    \label{eq:kivimaa_madera}
+\end{equation}
+donde $k_{c1}$ es la presión unitaria de corte según la especie ($k_{c1} \approx 18\text{--}28\,\si{\newton\per\milli\meter\squared}$ para maderas blandas como pino/abeto, y $k_{c1} \approx 38\text{--}65\,\si{\newton\per\milli\meter\squared}$ para maderas duras como roble/haya), $b$ es el ancho de corte ($\si{\milli\meter}$), $h_c$ es el espesor de viruta no deformada ($\si{\milli\meter}$), $z \approx 0.15\text{--}0.25$ es el exponente de escala, $C_u = 1 - 0.012(U - 12)$ es el factor de corrección por humedad para un contenido de humedad $U$ (\%), y $C_\rho = (\rho_{\text{mad}} / 500)^{1.2}$ es el factor de densidad aparente \cite{eyma2004, naylor2012}.
+
+\subsubsection{Modelo dinámico de desbalance centrífugo inicial}
+En las etapas iniciales de cilindrado o desbaste de troncos y piezas brutas de madera de sección cuadrada o poligonal irregular, el centro de masa de la pieza $G$ no coincide con el eje de rotación del husillo, presentando una excentricidad radial inicial $e_0$ ($\si{\milli\meter}$). Durante la rotación a velocidad angular $\omega(t)$, esta excentricidad genera una fuerza centrífuga perturbadora oscilatoria de desbalance de alta magnitud \cite{hibbeler2016}:
+\begin{equation}
+    \mathbf{F}_{\text{desb}}(t) = m_{\text{mad}} \cdot e_0 \cdot \omega(t)^2 \begin{bmatrix} \cos(\omega t) \\ \sin(\omega t) \end{bmatrix} \quad [\si{\newton}]
+    \label{eq:fuerza_desbalance}
+\end{equation}
+Esta fuerza centrífuga oscilante se transmite directamente a los cojinetes del cabezal fijo y a la bancada, justificando la necesidad imperativa de iniciar el mecanizado de piezas de madera irregulares a bajas revoluciones ($n \approx 500\text{--}800\,\si{\rpm}$) y aumentar progresivamente la velocidad a $n \approx 2000\text{--}3000\,\si{\rpm}$ una vez que el contorno ha sido regularizado cilíndricamente ($e_0 \to 0$).
+
+% ===========================================================================
+\vspace{4pt}
+\noindent{\color{utablue!30}\rule{\textwidth}{0.5pt}}
+\vspace{2pt}
+\section{Mantenimiento del Torno}
+\label{sec:mantenimiento}
+% ===========================================================================
+
+Para que el torno funcione correctamente se debe realizar un mantenimiento preventivo para prevenir fallas técnicas y prolongar la vida útil del mismo \cite{tecnomaquinaria}.
+
+Los factores que requieren revisión son: seguridad, calibración, mecánica, electricidad, entre otros. Al realizar este análisis nos aseguramos de que la máquina pueda continuar trabajando eficientemente sin poner en riesgo el trabajo y la seguridad del personal.
+
+\subsection{Cuidados básicos}
+Entre los cuidados básicos que se deben aplicar a un torno tenemos \cite{tecnomaquinaria}:
+\begin{description}[itemsep=5pt, topsep=4pt, leftmargin=1.2cm, style=nextline]
+    \item[\textbf{Limpieza:}] Después de cada uso, se debe limpiar el torno para eliminar virutas metálicas, polvo y otros residuos que puedan acumularse en sus componentes. Prestar especial atención a la limpieza de zonas críticas como las guías del carro, el cabezal, el mandril y la torreta, para evitar la acumulación de suciedad que afecte la precisión del mecanizado. Para la limpieza se pueden utilizar lubricantes específicos para tornos, siguiendo las recomendaciones del fabricante.
+    \item[\textbf{Lubricación:}] Es esencial lubricar periódicamente los puntos de fricción del torno, como los cojinetes, engranajes, guías y mecanismos de desplazamiento. Los tornos convencionales suelen tener dispositivos de aceite que deben revisarse periódicamente para asegurar que se mantengan en el nivel adecuado. Se recomienda utilizar aceite de alta calidad específico para tornos, ya que estos aceites están diseñados para soportar las altas presiones y temperaturas que se generan durante el mecanizado.
+    \item[\textbf{Ajuste:}] Con el tiempo, los componentes del torno pueden sufrir desgastes que afectan la precisión del mecanizado. Es importante hacer ajustes periódicos para mantener correctamente las especificaciones del fabricante. Por ello, se recomienda realizar inspecciones visuales de los componentes del torno como engranajes, correas, cojinetes y mandril. También es necesario verificar el apriete correcto de tornillos, tuercas y demás elementos de sujeción del torno. Un apriete deficiente puede provocar vibraciones, movimientos no deseados y daños en la máquina.
+    \item[\textbf{Mantenimiento preventivo:}] Se recomienda establecer un programa de mantenimiento preventivo que incluya las tareas de limpieza, lubricación, ajuste e inspección mencionadas anteriormente. La frecuencia del mantenimiento dependerá del uso que se le dé al torno y de las recomendaciones del fabricante.
+\end{description}
+
+\subsection{Mantenimiento específico para tornos CNC}
+Como se evidenció en la Sección~\ref{subsec:clases_tornos}, existen varios tipos de torno y cada uno tiene cuidados especiales según las recomendaciones del fabricante. Las recomendaciones generales de limpieza, lubricación y ajuste son las mismas; sin embargo, se hace énfasis en cuestión del mantenimiento preventivo \cite{tecnomaquinaria}:
+\begin{itemize}[itemsep=2pt, topsep=2pt, parsep=0pt]
+    \item \textbf{Calibrar sensores:} Los sensores del torno son elementos críticos para la precisión del mecanizado. Se debe realizar una calibración periódica de los sensores, siguiendo las instrucciones del manual del fabricante o utilizando herramientas de calibración específicas.
+    \item \textbf{Actualizar software:} Es importante mantener el software del sistema actualizado con la última versión proporcionada por el fabricante. Las actualizaciones de software suelen incluir correcciones de errores, mejoras de rendimiento y nuevas funciones que pueden optimizar el funcionamiento del torno.
+    \item \textbf{Contratar técnicos especializados:} Para tareas de mantenimiento más complejas, como la reparación de componentes electrónicos, la calibración de sensores o la actualización del software, se recomienda contratar a técnicos especializados con experiencia en el torno que se posee.
+\end{itemize}
+
+% ===========================================================================
+\section{Modelo Matemático y Análisis Dinámico de un Torno Paralelo 16K20}
+\label{sec:modelo_matematico}
+% ===========================================================================
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.55\textwidth]{Figuras/figura8_torno_16k20.jpg}
+    \caption{Torno paralelo 16K20, objeto de estudio para el análisis dinámico y simulación \cite{urinov2024}.}
+    \label{fig:torno_16k20}
+\end{figure}
+
+El torno paralelo 16K20 es un equipo de alta precisión diseñado para el mecanizado de piezas de diversa complejidad y forma. Está equipado con un motor que acciona un husillo y una herramienta que procesa la superficie de la pieza \cite{urinov2024}.
+
+Un factor importante que influye en la eficiencia de un torno paralelo (\textit{screw-cutting lathe}) es la correcta elección del modo de operación. Al elegir un modo de operación, es necesario considerar muchos factores, como el tipo de material a procesar, la forma y el tamaño de la pieza de trabajo, la precisión y rugosidad requeridas, la velocidad de corte, el tipo de herramienta de corte, etc.
+
+\subsection{Ecuación dinámica del motor del husillo}
+\label{subsec:ecuacion_motor}
+
+El modelo matemático de control del motor de la máquina puede representarse como una ecuación diferencial de primer orden \cite{urinov2024}:
+
+\begin{equation}
+    J \frac{d\omega}{dt} = -b\,\omega + u(t) - M_L(t)
+    \label{eq:motor_1er_orden}
+\end{equation}
+
+donde:
+\begin{itemize}[itemsep=1pt, topsep=1pt, parsep=0pt]
+    \item $J$ es el momento de inercia del conjunto motor--husillo--pieza $[\si{\kilo\gram\cdot\meter\squared}]$,
+    \item $\omega$ es la velocidad angular del motor $[\si{\radian\per\second}]$,
+    \item $t$ es el tiempo $[\si{\second}]$,
+    \item $b$ es el coeficiente de amortiguamiento viscoso $[\si{\newton\cdot\meter\cdot\second}]$,
+    \item $u(t)$ es la acción de control (par electromagnético aplicado por el motor) $[\si{\newton\cdot\meter}]$,
+    \item $M_L(t)$ es el par resistente debido a las fuerzas de corte $[\si{\newton\cdot\meter}]$.
+\end{itemize}
+
+Esta ecuación describe la dinámica del motor de la máquina y permite determinar la acción de control necesaria para lograr una velocidad o aceleración de rotación dada. Es una aplicación directa de la Segunda Ley de Newton para rotación: $\sum M = I\alpha$, donde el torque neto sobre el eje es la diferencia entre el torque electromagnético del motor y las resistencias por fricción viscosa y corte \cite{hibbeler2016}.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.70\textwidth]{Figuras/matlab_velocidad_husillo.png}
+    \caption{Simulación en MATLAB de la respuesta transitoria y permanente de la velocidad angular del husillo $\omega(t)$ bajo perturbación por entrada de carga de corte $M_L(t)$.}
+    \label{fig:matlab_velocidad}
+\end{figure}
+
+\subsection{Modelo de carga variable}
+\label{subsec:carga_variable}
+
+Una de las tareas más importantes del control del motor es mantener una velocidad de rotación determinada. Para ello, es necesario calcular no solo la potencia requerida del motor, sino también considerar los cambios en la carga de la máquina, por ejemplo, al procesar diferentes materiales o cambiar la profundidad de corte \cite{urinov2024}. Supongamos que existe un modelo de la carga en la máquina en función del tiempo:
+
+\begin{equation}
+    F(t) = F_0 + A \sin(\omega_f \, t)
+    \label{eq:carga_variable}
+\end{equation}
+
+donde:
+\begin{itemize}[itemsep=1pt, topsep=1pt, parsep=0pt]
+    \item $F_0$ es el componente constante de la carga $[\si{\newton}]$,
+    \item $A$ es la amplitud de la oscilación $[\si{\newton}]$,
+    \item $\omega_f$ es la frecuencia de oscilación de la carga $[\si{\radian\per\second}]$.
+\end{itemize}
+
+\paragraph{Interpretación física del modelo de carga oscilatoria.}
+En la Ecuación~\eqref{eq:carga_variable}, la componente constante $F_0$ representa la fuerza media de corte en régimen cuasiestacionario para un material y profundidad de pasada especificados. Por su parte, el término armónico $A\sin(\omega_f t)$ modela rigurosamente las fluctuaciones dinámicas periódicas causadas por la variación cíclica del espesor de viruta, excentricidades geométricas de la pieza y efectos de vibración regenerativa. Esta formulación permite predecir y evaluar analíticamente la respuesta transitoria y forzada del husillo frente a perturbaciones dinámicas continuas \cite{altintas2012}.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.70\textwidth]{Figuras/matlab_fuerzas_corte.png}
+    \caption{Simulación en MATLAB del modelo dinámico de fuerzas de corte oscilatorias ($F_c$ y $F_f$) con componente armónica de vibración regenerativa.}
+    \label{fig:matlab_fuerzas}
+\end{figure}
+
+\subsection{Ecuación dinámica de segundo orden}
+\label{subsec:ecuacion_2do_orden}
+
+Sea $u(t)$ una señal de control que difiere de cero solo en el intervalo $[0, T]$, donde $T$ es el tiempo de funcionamiento del motor. Entonces, la dinámica del motor se describe mediante la ecuación diferencial de segundo orden \cite{urinov2024}:
+
+\begin{equation}
+    J \frac{d^2\theta}{dt^2} + b \frac{d\theta}{dt} + k\,\theta = K \, u(t)
+    \label{eq:motor_2do_orden}
+\end{equation}
+
+donde:
+\begin{itemize}[itemsep=1pt, topsep=1pt, parsep=0pt]
+    \item $J$ es el momento de inercia del motor $[\si{\kilo\gram\cdot\meter\squared}]$,
+    \item $b$ es el coeficiente de fricción viscosa $[\si{\newton\cdot\meter\cdot\second}]$,
+    \item $k$ es el coeficiente de rigidez torsional $[\si{\newton\cdot\meter\per\radian}]$,
+    \item $\theta$ es el ángulo de rotación del eje del motor $[\si{\radian}]$,
+    \item $K$ es el factor de amplificación del motor [adimensional].
+\end{itemize}
+
+\paragraph{Analogía con sistemas oscilatorios de segundo orden.}
+La Ecuación~\eqref{eq:motor_2do_orden} constituye el análogo rotacional directo del oscilador dinámico de un grado de libertad $m\ddot{x} + c\dot{x} + kx = F(t)$ estudiado en la teoría clásica de vibraciones mecánicas y cinética del cuerpo rígido \cite{hibbeler2016}. En este modelo rotatorio, el momento de inercia polar $J$ representa la inercia másica del conjunto, el coeficiente $b$ cuantifica la disipación viscosa por fricción en cojinetes y guías, y la constante $k$ define la rigidez torsional del tren de transmisión. La solución analítica de esta ecuación diferencial permite determinar con exactitud el sobreimpulso transitorio durante el arranque del motor y el tiempo de establecimiento hacia la velocidad angular de régimen estacionario.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.70\textwidth]{Figuras/matlab_respuesta_2do_orden.png}
+    \caption{Respuesta transitoria en MATLAB del modelo de segundo orden para la posición angular $\theta(t)$ y la velocidad angular $\dot{\theta}(t)$ ante un escalón de control.}
+    \label{fig:matlab_2do_orden}
+\end{figure}
+
+\subsection{Análisis energético del torno}
+\label{subsec:analisis_energetico}
+
+Para evaluar la eficiencia operativa de un torno paralelo, es necesario analizar el consumo de energía y compararlo con los requisitos y normas de consumo energético para un tipo de máquina dado. Para ello, pueden utilizarse modelos matemáticos que permitan estimar el consumo de energía en función del modo de operación de la máquina y otros parámetros \cite{urinov2024}.
+
+La energía consumida por el torno se define como la integral de la potencia en el tiempo:
+
+\begin{equation}
+    E = \int_{t_0}^{t_f} P(t) \, dt
+    \label{eq:energia_total}
+\end{equation}
+
+donde $P(t)$ es la potencia consumida por la máquina en el instante $t$; $t_0$ y $t_f$ son los tiempos inicial y final del proceso. La potencia $P(t)$ puede expresarse a través del par $M(t)$ y la velocidad angular $\omega(t)$:
+
+\begin{equation}
+    P(t) = M(t) \cdot \omega(t) \quad [\si{\watt}]
+    \label{eq:potencia_instantanea}
+\end{equation}
+
+El consumo medio de potencia de un torno puede expresarse como:
+
+\begin{equation}
+    P_{\text{avg}} = \frac{1}{t_f - t_0} \int_{t_0}^{t_f} M(t) \cdot \omega(t) \, dt \quad [\si{\watt}]
+    \label{eq:potencia_media}
+\end{equation}
+
+La energía consumida por el torno durante el intervalo $t_f - t_0$ es igual a:
+
+\begin{equation}
+    E = \int_{t_0}^{t_f} M(t) \cdot \omega(t) \, dt \quad [\si{\joule}]
+    \label{eq:energia_consumida}
+\end{equation}
+
+El coeficiente de eficiencia de la máquina también puede calcularse \cite{urinov2024}:
+
+\begin{equation}
+    \eta = \frac{P_{\text{útil}}}{P_{\text{total}}}
+    \label{eq:eficiencia}
+\end{equation}
+
+donde $P_{\text{útil}}$ es la potencia útil y $P_{\text{total}}$ es la potencia consumida por el torno. La potencia útil se define como el trabajo realizado por el torno por unidad de tiempo:
+
+\begin{equation}
+    P_{\text{útil}} = F_c(t) \cdot v_c(t) \quad [\si{\watt}]
+    \label{eq:potencia_util}
+\end{equation}
+
+donde $v_c(t)$ es la velocidad de corte (velocidad tangencial de la pieza) y $F_c(t)$ es la fuerza de corte principal.
+
+\paragraph{Balance de potencia electromecánica y flujo energético.}
+El rendimiento global $\eta$ de la máquina herramienta integra las pérdidas electromagnéticas en el estator/rotor del motor eléctrico, las pérdidas cinemáticas por fricción en los engranajes de la caja de velocidades y la Caja Norton, la resistencia en los rodamientos de apoyo del husillo, y la energía térmica disipada por fricción en la interfaz herramienta--viruta--pieza. La relación secuencial entre la potencia eléctrica demandada de la red $P_{\text{elec}}$, la potencia mecánica entregada al husillo $P_{\text{husillo}}$ y la potencia neta invertida en el arranque de viruta $P_{\text{corte}}$ se formula como \cite{boothroyd2006}:
+\begin{equation}
+    P_{\text{corte}} = \eta_{\text{motor}} \cdot \eta_{\text{transmisión}} \cdot P_{\text{elec}} = F_c \cdot V_c
+    \label{eq:balance_potencia}
+\end{equation}
+donde para tornos industriales convencionales los valores típicos de eficiencia oscilan en los rangos $\eta_{\text{motor}} \approx 0.85\text{--}0.95$ y $\eta_{\text{transmisión}} \approx 0.70\text{--}0.90$.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.70\textwidth]{Figuras/matlab_balance_energetico.png}
+    \caption{Simulación en MATLAB del balance de potencia instantánea $P(t)$ y la energía total acumulada $E(t) = \int P(t)dt$ en el ciclo de mecanizado.}
+    \label{fig:matlab_energia}
+\end{figure}
+
+% ===========================================================================
+\vspace{4pt}
+\noindent{\color{utablue!30}\rule{\textwidth}{0.5pt}}
+\vspace{2pt}
+\section{Metodología de Simulación Dinámica en SolidWorks Motion y Comparativa de Software}
+\label{sec:simulacion_solidworks}
+% ===========================================================================
+
+La validación numérica y virtual del comportamiento cinemático y dinámico del torno se efectúa mediante herramientas de ingeniería asistida por computadora (CAE). El módulo \textbf{SOLIDWORKS Motion} (integrado en SOLIDWORKS Premium) implementa un entorno de simulación multicuerpo (\textit{Multibody Dynamics} -- MBD) que resuelve las ecuaciones diferenciales no lineales del movimiento considerando inercias de masa reales, restricciones cinemáticas, motores, resortes, contactos de sólidos 3D y fuerzas dinámicas de corte \cite{dassault2023, shabana2020}.
+
+\subsection{Fundamentos teóricos del módulo SolidWorks Motion y solver ADAMS}
+A diferencia de los estudios de \textit{Animación} (cinemática pura basada en fotogramas clave) y \textit{Movimiento Básico} (aproximación física elemental sin deformaciones ni contactos de alta precisión), el modo \textbf{Motion Analysis} utiliza el motor de cálculo numérico de la tecnología ADAMS (\textit{Automatic Dynamic Analysis of Mechanical Systems}) \cite{dassault2023, nikravesh2018, shabana2020}.
+
+El sistema formula y resuelve un conjunto acoplado de ecuaciones diferenciales algebraicas (DAE) de índice 3 de Euler--Lagrange en coordenadas cartesianas generalizadas $\mathbf{q} = [x_1, y_1, z_1, \psi_1, \theta_1, \phi_1, \dots, x_n, y_n, z_n, \psi_n, \theta_n, \phi_n]^T \in \mathbb{R}^{6n}$ para un ensamblaje de $n$ cuerpos rígidos \cite{nikravesh2018, shabana2020}:
+\begin{equation}
+    \mathbf{M}(\mathbf{q}) \ddot{\mathbf{q}} + \boldsymbol{\Phi}_{\mathbf{q}}^T(\mathbf{q}, t) \boldsymbol{\lambda} = \mathbf{Q}_e(\mathbf{q}, \dot{\mathbf{q}}, t)
+    \label{eq:lagrange_dae}
+\end{equation}
+\begin{equation}
+    \boldsymbol{\Phi}(\mathbf{q}, t) = \mathbf{0}
+    \label{eq:restricciones_cinematicas}
+\end{equation}
+donde $\mathbf{M} \in \mathbb{R}^{6n \times 6n}$ es la matriz de masa e inercia diagonal por bloques, $\boldsymbol{\Phi}(\mathbf{q}, t) \in \mathbb{R}^m$ es el vector de $m$ restricciones holónomas impuestas por las relaciones de posición mecánicas (\textit{Mates}), $\boldsymbol{\Phi}_{\mathbf{q}} = \frac{\partial \boldsymbol{\Phi}}{\partial \mathbf{q}}$ es la matriz jacobiana de restricciones, $\boldsymbol{\lambda} \in \mathbb{R}^m$ es el vector de multiplicadores de Lagrange que cuantifica las fuerzas y pares de reacción internos en los apoyos y uniones, y $\mathbf{Q}_e$ es el vector de fuerzas generalizadas externas aplicadas (par motor electromagnético, fuerzas de corte $F_c(t)$, gravedad y fricción).
+
+\subsection{Procedimiento paso a paso para la simulación del torno en SolidWorks Motion}
+Para simular el comportamiento dinámico transitorio y permanente del torno para madera o torno paralelo, se sigue la metodología estandarizada en 7 fases descrita a continuación \cite{dassault2023}:
+
+\subsubsection{Paso 1: Modelado CAD 3D y asignación de propiedades másicas}
+Se modelan paramétricamente en 3D los componentes mecánicos: bastidor/bancada, husillo principal, poleas, plato de garras/arrastre, pieza de trabajo (cilindro de madera de densidad $\rho_{\text{mad}} = 650\,\si{\kilogram\per\cubic\meter}$ o tocho de acero AISI 1045 $\rho = 7850\,\si{\kilogram\per\cubic\meter}$), contrapunta y herramienta de corte. 
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.48\textwidth]{Figuras/figura_sw_paso1_cad.png}
+    \caption{Modelado paramétrico CAD 3D de los componentes mecánicos previo al ensamble dinámico \cite{dassault2023}.}
+    \label{fig:sw_paso1}
+\end{figure}
+
+En el entorno de pieza se asignan los materiales para que SOLIDWORKS calcule automáticamente la masa $m$, el centro de gravedad $\mathbf{r}_G$ y el tensor de momentos de inercia de masa $\mathbf{I}_G = \operatorname{diag}(I_{xx}, I_{yy}, I_{zz})$ requerido por la matriz $\mathbf{M}$ de la Ecuación~(\ref{eq:lagrange_dae}).
+
+\subsubsection{Paso 2: Definición de uniones cinemáticas y relaciones de posición (\textit{Mates})}
+En el entorno de ensamblaje (\textit{Assembly}), se insertan los componentes y se fijan los grados de libertad mediante relaciones de posición mecánicas:
+\begin{itemize}[itemsep=2pt, topsep=2pt, parsep=0pt]
+    \item \textbf{Bancada:} Se define como componente fijo (\textit{Fixed}) respecto al origen global inercial (0 GDL).
+    \item \textbf{Husillo y pieza:} Se establece una relación concéntrica con el alojamiento del cabezal y una relación coincidente axial, formando un par cinemático de revolución (\textit{Revolute Joint} con 1 GDL rotatorio $\theta_z$).
+    \item \textbf{Contrapunta y carro:} Se definen relaciones prismáticas de deslizamiento sobre las guías de la bancada (\textit{Translational Joint} con 1 GDL lineal $z(t)$).
+\end{itemize}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.48\textwidth]{Figuras/figura_sw_relaciones_cinematicas.jpg}
+    \caption{Definición de restricciones cinemáticas, uniones mecánicas y verificación de redundancias en el árbol de operaciones \cite{dassault2023}.}
+    \label{fig:sw_paso2}
+\end{figure}
+
+Se verifica que el número de grados de libertad netos del mecanismo $M$ cumpla el criterio de Grübler--Kutzbach: $M = 6(n - 1) - \sum_{i=1}^j (6 - f_i)$, eliminando restricciones redundantes que puedan inducir singularidades numéricas.
+
+\subsubsection{Paso 3: Activación del complemento y aplicación del motor rotatorio (\textit{Rotary Motor})}
+Se accede a la pestaña inferior \textbf{Motion Study} y se selecciona en el menú desplegable el tipo \textbf{Motion Analysis}. Se hace clic en el icono \textbf{Motor} del gestor de movimiento:
+\begin{enumerate}[itemsep=2pt, topsep=2pt, parsep=0pt]
+    \item Se selecciona la cara cilíndrica del husillo principal para orientar el vector de velocidad angular $\boldsymbol{\omega}$.
+    \item En el PropertyManager se define el perfil de movimiento del motor. Para simular el arranque real de la máquina sin discontinuidades de aceleración infinita ($\ddot{\theta} \to \infty$), se utiliza la función polinómica $\operatorname{STEP}$ disponible en el \textit{Function Builder}:
+    \begin{equation}
+        \omega(t) = \operatorname{STEP}(t, \, 0, \, 0, \, t_{\text{arranque}}, \, \omega_0)
+        \label{eq:funcion_step_motor}
+    \end{equation}
+    donde para $\omega_0 = 1500\,\si{\rpm} = 157.08\,\si{\radian\per\second}$ y un tiempo de aceleración $t_{\text{arranque}} = 1.5\,\si{\second}$, la función garantiza continuidad $C^1$ y $C^2$ en la derivada del par motor.
+\end{enumerate}
+
+\subsubsection{Paso 4: Modelado de fuerzas dinámicas y momentos resistentes de corte}
+Para incorporar la resistencia del arranque de viruta sobre la pieza de madera o metal, se hace clic en la herramienta \textbf{Force} (Fuerza / Momento de acción y reacción):
+\begin{itemize}[itemsep=2pt, topsep=2pt, parsep=0pt]
+    \item Se aplica la fuerza tangencial de corte principal $F_c(t)$ en el punto de contacto entre el filo de la herramienta y la superficie exterior de la pieza, orientada tangencialmente en sentido opuesto a la rotación.
+    \item Si se modela un corte interrumpido o una pieza de madera desbalanceada con excentricidad $e_0$, se introduce una función armónica en el \textit{Function Builder}:
+    \begin{equation}
+        F_c(t) = F_0 + A \sin(\omega_f t)
+        \label{eq:fuerza_sw_armonica}
+    \end{equation}
+    generando el momento resistente instantáneo $M_L(t) = F_c(t) \cdot R(t)$ sobre el eje del husillo.
+\end{itemize}
+
+\subsubsection{Paso 5: Definición del contacto 3D entre sólidos y fricción}
+En operaciones donde la herramienta penetra o hace contacto con el tocho, se activa la opción \textbf{3D Contact} seleccionando los dos cuerpos sólidos interactuantes:
+\begin{equation}
+    F_N = k_{\text{cont}} \cdot \delta^e + c(\delta) \cdot \dot{\delta}
+    \label{eq:contacto_hertz}
+\end{equation}
+donde se aplica el modelo de Impacto de Hertz con rigidez de contacto $k_{\text{cont}} = 1.0 \times 10^5\,\si{\newton\per\milli\meter}$, exponente de penetración no lineal $e = 1.5$, amortiguamiento viscoso máximo $c_{\max} = 100\,\si{\newton\cdot\second\per\meter}$ y coeficientes de fricción dinámica de Coulomb $\mu_s = 0.40$ y $\mu_k = 0.30$.
+
+\subsubsection{Paso 6: Configuración del solver numérico GSTIFF y ejecución del cálculo}
+En el gestor de propiedades del estudio (\textbf{Motion Study Properties}):
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.48\textwidth]{Figuras/figura_sw_dinamica_multicuerpo.png}
+    \caption{Configuración del esquema de integración numérica y parámetros del solver multicuerpo en SolidWorks Motion \cite{dassault2023}.}
+    \label{fig:sw_paso6}
+\end{figure}
+
+\begin{enumerate}[itemsep=2pt, topsep=2pt, parsep=0pt]
+    \item Se fija la tasa de muestreo temporal entre 200 y 500 cuadros por segundo (\textit{Frames per second} -- fps) para capturar oscilaciones transitorias de alta frecuencia.
+    \item Se selecciona el integrador numérico rígido \textbf{GSTIFF} (\textit{Gear Stiff}), optimizado para sistemas mecánicos con alta rigidez estructural y contactos elásticos no lineales.
+    \item Se establecen los parámetros de control del paso de integración: paso máximo $\Delta t_{\max} = 1 \times 10^{-3}\,\si{\second}$, paso mínimo $\Delta t_{\min} = 1 \times 10^{-6}\,\si{\second}$, y tolerancia de convergencia de residuos a $1 \times 10^{-5}$.
+    \item Se pulsa el botón \textbf{Calculate} para ejecutar la integración numérica temporal.
+\end{enumerate}
+
+\newpage
+\subsubsection{Paso 7: Extracción, graficación y análisis de resultados}
+Una vez concluida la simulación, se utiliza el gestor \textbf{Results and Plots} para generar gráficos temporales directos:
+\begin{itemize}[itemsep=2pt, topsep=2pt, parsep=0pt]
+    \item \textbf{Par motor requerido ($T_m(t)$):} Categoría \textit{Forces} $\to$ \textit{Motor Torque} $\to$ Componente de magnitud. Permite verificar el dimensionamiento del motor y la reserva de par durante el corte.
+    \item \textbf{Velocidad angular ($\omega(t)$):} Categoría \textit{Displacement/Velocity/Acceleration} $\to$ \textit{Angular Velocity}. Revela la caída transitoria de RPM (\textit{droop}) provocada por la entrada de la herramienta.
+    \item \textbf{Fuerzas de reacción en rodamientos:} Fuerzas dinámicas radiales y axiales transmitidas a los apoyos del cabezal fijo ($R_A, R_B$), fundamentales para calcular la vida a fatiga de rodamientos de rodillos cónicos.
+    \item \textbf{Potencia mecánica consumida ($P(t)$):} Categoría \textit{Forces} $\to$ \textit{Power Consumption}, permitiendo contrastar el balance energético con el modelo analítico de la Sección~\ref{sec:modelo_matematico}.
+\end{itemize}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.48\textwidth]{Figuras/figura_sw_analisis_frecuencias.jpg}
+    \caption{Curvas dinámicas de respuesta temporal y espectral obtenidas en la etapa de post-procesamiento de la simulación CAE \cite{dassault2023}.}
+    \label{fig:sw_paso7}
+\end{figure}
+
+\clearpage
+\subsection{Comparativa técnica y recomendación de plataformas alternativas de simulación}
+Dependiendo del objetivo específico del análisis de ingeniería (análisis estructural flexible, control mecatrónico o vibraciones autoexcitadas), se dispone de diversas herramientas CAE complementarias. En la Tabla~\ref{tab:comparativa_software} se presenta una evaluación comparativa rigurosa entre las principales plataformas de simulación de maquinaria.
+
+\begingroup
+\setlength{\intextsep}{4pt}
+\begin{table}[H]
+\centering
+\footnotesize
+\setlength{\tabcolsep}{3.5pt}
+\renewcommand{\arraystretch}{0.85}
+\captionsetup{skip=3pt}
+\caption{Evaluación comparativa de plataformas de simulación dinámica para tornos y máquinas herramientas.}
+\label{tab:comparativa_software}
+\begin{tabularx}{\textwidth}{p{2.6cm} p{2.8cm} p{3.4cm} X}
+\toprule
+\textbf{Software / Plataforma} & \textbf{Tipo de Solver / Método} & \textbf{Fortalezas Principales} & \textbf{Aplicación Recomendada en Tornos} \\
+\midrule
+\textbf{SOLIDWORKS Motion} & Multicuerpo rígido/flexible (MBD -- ADAMS DAE) & Integración CAD nativa 1:1, configuración intuitiva de uniones, cálculo rápido de pares y reacciones. & Dimensionamiento de motores, cálculo de cargas dinámicas en rodamientos y cinemática de mecanismos. \\
+\addlinespace[1pt]
+\textbf{ANSYS Mechanical / Transient Dynamics} & Elementos Finitos No Lineales (FEA -- Implícito/Explícito) & Modelado de cuerpos elásticos deformables, análisis modal, tensiones de Von Mises y deformaciones de bancada. & Análisis de rigidez estructural, frecuencias naturales críticas y prevención de resonancia en la bancada. \\
+\addlinespace[1pt]
+\textbf{MATLAB / Simulink / Simscape} & Espacio de estados / Diagramas de bloques / Redes físicas & Simulación multifísica acoplada (motor eléctrico, inversor VFD, lazos de control PID y dinámica de corte). & Diseño y optimización de sistemas de control en lazo cerrado para velocidad y par en tornos CNC. \\
+\addlinespace[1pt]
+\textbf{MSC Adams / Adams Machining} & Dinámica multicuerpo avanzada no lineal & Simulación de mecanismos complejos de alta fidelidad con contactos 3D avanzados y holguras. & Trenes de engranajes complejos de cajas de velocidades y análisis de impacto en torneado interrumpido. \\
+\addlinespace[1pt]
+\textbf{Autodesk Inventor Dynamic Simulation} & Dinámica multicuerpo acoplada a CAD & Facilidad de conversión automática de restricciones de ensamblaje en uniones dinámicas estándar. & Verificación cinemática preliminar y trayectorias de herramientas en etapas tempranas de diseño. \\
+\bottomrule
+\end{tabularx}
+\end{table}
+\endgroup
+
+\noindent\textbf{Recomendación metodológica de ingeniería.} Para un análisis dinámico integral del torno, la práctica recomendada consiste en un enfoque híbrido: emplear \textbf{SOLIDWORKS Motion} para la dinámica de cuerpos rígidos y reacciones en apoyos, acoplar dichas fuerzas a \textbf{ANSYS} para verificar la rigidez estructural, e implementar el modelo en \textbf{MATLAB/Simulink} para sintonizar el control del variador de frecuencia \cite{dassault2023, shabana2020}.
+
+\clearpage
+% ===========================================================================
+\vspace{4pt}
+\noindent{\color{utablue!30}\rule{\textwidth}{0.5pt}}
+\vspace{2pt}
+\section{Conclusiones}
+\label{sec:conclusiones}
+% ===========================================================================
+
+\begin{enumerate}[itemsep=4pt, topsep=3pt, parsep=0pt]
+    \item El torno se distingue como la máquina herramienta más versátil al fabricar componentes rotatorios. Su capacidad de ejecutar una amplia gama de procesos lo posiciona como un recurso clave en la producción de ejes, tornillos, pernos, casquillos y cualquier pieza de forma cilíndrica o cónica.
+
+    \item Permite conseguir medidas exactas y acabados superficiales de calidad. Esto resulta esencial para el buen desempeño de cualquier mecanismo, desde propulsores hasta rotores, donde la exactitud y el ajuste perfecto de los componentes son cruciales para su eficacia y durabilidad.
+
+    \item Aunque la idea básica del torno tiene raíces antiguas, su evolución ha sido notable con el paso de los años. La introducción del Control Numérico Computarizado transformó radicalmente la industria, permitiendo la fabricación masiva de piezas intrincadas con una precisión y uniformidad sin precedentes. Los tornos CNC son ahora una herramienta indispensable para la automatización y el perfeccionamiento de los procesos productivos.
+
+    \item Dominar el torno es una habilidad fundamental para cualquier ingeniero mecánico, técnico o tornero. Comprender a fondo sus principios, abarcando desde la selección de los útiles adecuados hasta la optimización de los parámetros de corte, resulta crucial para diseñar y fabricar componentes de manera eficaz y sin riesgos.
+
+    \item El análisis dinámico del torno paralelo 16K20 y del torno para madera, fundamentado en la ecuación de balance de momentos $J\frac{d\omega}{dt} = -b\omega + u(t) - M_L(t)$ y su extensión de segundo orden, demuestra la aplicación directa de los principios de la cinética del cuerpo rígido al control de máquinas herramientas. La comprensión de la ley de corte ortótropo de Kivimaa y las fuerzas de desbalance centrífugo inicial ($F_{\text{desb}} = m_{\text{mad}} e_0 \omega^2$) justifican la selección escalonada de velocidades en maderas de diversa densidad.
+
+    \item La metodología de simulación en SOLIDWORKS Motion proporciona una vía rigurosa para la cuantificación virtual de pares motores, aceleraciones transitorias y fuerzas de reacción en los rodamientos del husillo sin necesidad de ensayos destructivos. La complementariedad con entornos como ANSYS Mechanical y MATLAB/Simulink conforma el estándar contemporáneo de ingeniería para el diseño, control y optimización de máquinas herramientas de alta precisión.
+\end{enumerate}
+
+% ===========================================================================
+\vspace{4pt}
+\noindent{\color{utablue!30}\rule{\textwidth}{0.5pt}}
+\vspace{2pt}
+\section{Recomendaciones}
+\label{sec:recomendaciones}
+% ===========================================================================
+
+\begin{enumerate}[itemsep=3pt, topsep=2pt, parsep=0pt]
+    \item Es indispensable que durante las operaciones de torneado se haga uso obligatorio de los equipos de protección personal, como gafas de seguridad, mandil y guantes. Asimismo, se debe recordar siempre retirar la llave del mandril antes de encender la máquina de torneado. Estas medidas se deben tomar siempre en cuenta ya que son esenciales para prevenir accidentes o cualquier tipo de riesgo de peligro.
+
+    \item Se recomienda ajustar correctamente la velocidad, el avance y la profundidad de pasada de acuerdo con el material de la pieza y la herramienta de corte que se utilice. La selección apropiada de parámetros no solo asegura un mejor acabado superficial y cumplimiento de tolerancias, sino que también prolonga la vida útil de las herramientas y optimiza los tiempos de mecanizado.
+
+    \item Es aconsejable implementar un plan de mantenimiento preventivo periódico que incluya limpieza, lubricación y ajuste de los componentes críticos. Esta práctica permitirá conservar el torno en buen estado, evitar fallas inesperadas durante el proceso de mecanizado y mantener la precisión requerida en las piezas fabricadas.
+
+    \item Es recomendable incentivar en los estudiantes el sentido de responsabilidad, compromiso y disciplina en el uso de la máquina herramienta, comprendiendo que su adecuado manejo no solo impacta en la calidad de las piezas elaboradas, sino también en la seguridad personal y en la preservación de los equipos.
+
+    \item Mantener el área de trabajo despejada y organizada permite reducir riesgos de accidentes y mejora la productividad. Un entorno limpio y ordenado es parte esencial de una buena práctica en el uso del torno.
+
+    \item Al terminar el trabajo en el torno, se debe apagar la máquina y desconectar la corriente. En entornos de un taller educativo o de producción, es recomendable aplicar procedimientos de señalización para evitar que alguien encienda el equipo accidentalmente.
+
+    \item El uso del torno requiere conocimientos básicos. Es recomendable que todo operador reciba capacitación previa sobre seguridad, funcionamiento y mantenimiento, garantizando así un manejo responsable y seguro del torno.
+\end{enumerate}
+
+% ===========================================================================
+% BIBLIOGRAFÍA
+% ===========================================================================
+\newpage
+{\small
+\begin{thebibliography}{99}
+\setlength{\itemsep}{3pt plus 1pt minus 1pt}
+
+\bibitem{redeweb2021} Redacción Electrónica, ``Qué es un torno, cuál es su funcionamiento y partes,'' \textit{Redeweb}, ago. 2021. [En línea]. Disponible en: \url{https://www.redeweb.com/actualidad/torno/}. [Acceso: sep. 03, 2025].
+
+\bibitem{torno_protocolo} ``TORNO PROTOCOLO --- Curso de Procesos de Manufactura,'' Escuela Colombiana de Ingeniería Julio Garavito. [En línea]. Disponible en: \url{https://escuelaing.s3.amazonaws.com/staging/documents/3474_torno.pdf}. [Acceso: sep. 03, 2025].
+
+\bibitem{groover2020} M. P. Groover, \textit{Fundamentals of Modern Manufacturing: Materials, Processes, and Systems}, 7th ed. Hoboken, NJ: John Wiley \& Sons, 2020.
+
+\bibitem{kalpakjian2020} S. Kalpakjian and S. R. Schmid, \textit{Manufacturing Engineering and Technology}, 8th ed. London, UK: Pearson, 2020.
+
+\bibitem{donado2008} F. G. Donado, \textit{Procesos de Manufactura: Conceptos y Aplicaciones}. Bogotá, Colombia: Publicaciones Universidad de América, 2008.
+
+\bibitem{chapman2006} W. A. J. Chapman, \textit{Workshop Technology, Part 2}, 5th ed. London: Routledge, 2006.
+
+\bibitem{degarmo2011} E. P. DeGarmo, J. T. Black, and R. A. Kohser, \textit{DeGarmo's Materials and Processes in Manufacturing}, 11th ed. Hoboken, NJ: John Wiley \& Sons, 2011.
+
+\bibitem{lascano2015} C. A. Lascano, \textit{Manual de Prácticas de Máquinas Herramientas~I}. Quito, Ecuador: Escuela Politécnica Nacional, Facultad de Ingeniería Mecánica, 2015.
+
+\bibitem{arango2012} P. J. Arango, L. F. Giraldo, y J. D. Osorio, \textit{Manual de Prácticas: Laboratorio de Procesos de Manufactura}. Medellín, Colombia: Fondo Editorial ITM, 2012.
+
+\bibitem{quintero2018} R. Quintero \textit{et al.}, \textit{Tecnología del Montaje y Máquinas Herramientas}. Ciudad de México, México: McGraw-Hill Interamericana, 2018.
+
+\bibitem{tecnomaquinaria} ``Torno CNC: Cuidados y mantenimiento preventivo de tu torno CNC,'' \textit{Tecno Maquinaria}, Guadalajara, Jalisco, México. [En línea]. Disponible en: \url{https://www.tecnomaquinaria.com/torno-cnc-cuidados-y-mantenimiento-preventivo-de-tu-torno-cnc/}. [Acceso: sep. 03, 2025].
+
+\bibitem{cmz_automocion} ``Tornos para automoción,'' CMZ. [En línea]. Disponible en: \url{https://www.cmz.com/es/tornos-para-automocion/}. [Acceso: sep. 03, 2025].
+
+\bibitem{cmz_ingenieria} ``Aplicaciones Tornos,'' CMZ. [En línea]. Disponible en: \url{https://www.cmz.com/es/ingenieria/}. [Acceso: sep. 03, 2025].
+
+\bibitem{urinov2024} N. Urinov, ``Mathematical model and analysis of the dynamics of a system of the screw-cutting lathe,'' in \textit{E3S Web of Conferences}, vol. 548, art. 01015, 2024. DOI: \url{https://doi.org/10.1051/e3sconf/202454801015}.
+
+% === FUENTES CIENTÍFICAS ACTUALIZADAS ===
+
+\bibitem{hibbeler2016} R. C. Hibbeler, \textit{Ingeniería Mecánica: Dinámica}, 14.ª ed. México: Pearson Educación, 2016.
+
+\bibitem{altintas2012} Y. Altintas, \textit{Manufacturing Automation: Metal Cutting Mechanics, Machine Tool Vibrations, and CNC Design}, 2nd ed. Cambridge, UK: Cambridge University Press, 2012.
+
+\bibitem{boothroyd2006} G. Boothroyd and W. A. Knight, \textit{Fundamentals of Machining and Machine Tools}, 3rd ed. Boca Raton, FL: CRC Press/Taylor \& Francis, 2006.
+
+\bibitem{shigley2020} R. G. Budynas and J. K. Nisbett, \textit{Shigley's Mechanical Engineering Design}, 11th ed. New York, NY: McGraw-Hill Education, 2020.
+
+\bibitem{dassault2023} Dassault Systèmes, \textit{SOLIDWORKS Motion Simulation Technical Reference Manual}, Waltham, MA: Dassault Systèmes SolidWorks Corp., 2023.
+
+\bibitem{kivimaa1950} E. Kivimaa, ``Cutting force in woodworking,'' \textit{The State Institute for Technical Research}, Publication no.~18, Helsinki, Finland, 1950.
+
+\bibitem{franz1958} N. C. Franz, \textit{An Analysis of the Wood-Cutting Process}, Engineering Research Institute, University of Michigan, Ann Arbor, MI, USA, 1958.
+
+\bibitem{eyma2004} F. Eyma, P. J. Méausoone, and P. Martin, ``Strains and forces during wood cutting with a single tooth,'' \textit{Annals of Forest Science}, vol. 61, no. 4, pp. 297--305, 2004. DOI: \url{https://doi.org/10.1051/forest:2004022}.
+
+\bibitem{naylor2012} A. Naylor, P. Hackney, and N. Perera, ``Determination of the specific cutting force for wood machining,'' \textit{BioResources}, vol. 7, no. 1, pp. 488--498, 2012.
+
+\bibitem{nikravesh2018} P. E. Nikravesh, \textit{Planar Multibody Dynamics: Formulation, Programming and Applications}, 2nd ed. Boca Raton, FL: CRC Press, 2018.
+
+\bibitem{shabana2020} A. A. Shabana, \textit{Dynamics of Multibody Systems}, 5th ed. Cambridge, UK: Cambridge University Press, 2020.
+
+\end{thebibliography}
+}
+
+\end{document}

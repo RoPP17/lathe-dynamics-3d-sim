@@ -1,0 +1,21 @@
+﻿Cálculo N°,Título,Unidad Temática,Variable,Valor Analítico,Valor Simulado,Unidad,Error Absoluto,Error Relativo (%),Tolerancia (%),Estado
+1,Velocidad Tangencial en la Periferia,Unidad 1 - Cinemática de Partícula,v,7.1209,7.12094,m/s,4.334814e-05,0.0006%,0.05%,APROBADO
+2,Aceleración Normal Centrípeta en Arranque,Unidad 1 - Cinemática de Partícula,a_n,1267.7,1267.7,m/s²,4.458156e-04,0.0000%,0.05%,APROBADO
+3,Desplazamiento Angular en Arranque Amortiguado,Unidad 1 - Cinemática de Partícula,\theta,243.138,243.138,rad,2.369217e-05,0.0000%,0.05%,APROBADO
+4,Longitud de Trayectoria Periférica Barrida,Unidad 1 - Cinemática de Partícula,s_{\text{arco}},9.7255,9.72553,m,3.105231e-05,0.0003%,0.05%,APROBADO
+5,Velocidad de Corte Estandarizada,Unidad 1 - Cinemática de Partícula,v_c,7.1209,7.12094,m/s,4.334814e-05,0.0006%,0.05%,APROBADO
+6,Deslizamiento del Motor de Inducción,Unidad 2 - Cinemática de Cuerpos Rígidos,s,5.5556,5.55556,%,4.444444e-05,0.0008%,0.10%,APROBADO
+7,Campo Lineal de Velocidades a r = 30 mm,Unidad 2 - Cinemática de Cuerpos Rígidos,v(30),5.3407,5.34071,m/s,7.511103e-06,0.0001%,0.05%,APROBADO
+8,Velocidad Relativa entre Partículas A y Q,Unidad 2 - Cinemática de Cuerpos Rígidos,v_{A/Q},3.5605,3.56047,m/s,2.832593e-05,0.0008%,0.05%,APROBADO
+9,Tiempo de Rebaje Radial de 1 mm,Unidad 2 - Cinemática de Cuerpos Rígidos,t_{\text{corte}},14.1176,14.1176,s,4.705882e-05,0.0003%,0.05%,APROBADO
+10,Aceleración Lineal Total en Régimen,Unidad 2 - Cinemática de Cuerpos Rígidos,a_{\text{tot}},1267.7,1267.7,m/s²,4.458255e-04,0.0000%,0.05%,APROBADO
+11,Fuerza Centrífuga por Desbalance Excéntrico,Unidad 3 - Cinética de Partícula,F_u,1.2677,1.2677,N,4.145816e-06,0.0003%,0.05%,APROBADO
+12,Trabajo Aceleratriz para Partícula de 1 g,Unidad 3 - Cinética de Partícula,U_{1-2},0.02535,0.0253539,J,3.917084e-06,0.0155%,0.05%,APROBADO
+13,Potencia Total y Eficiencia de Mecanizado,Unidad 3 - Cinética de Partícula,P_{\text{total}},200.856,200.846,W,1.019585e-02,0.0051%,0.05%,APROBADO
+14,Variación de Momento Angular en el Arranque,Unidad 4 - Cinética de Cuerpos Rígidos,\Delta H_O,0.2138,0.213802,N·m·s,2.064738e-06,0.0010%,0.05%,APROBADO
+15,Reacción Inercial por Desprendimiento de Viruta,Unidad 4 - Cinética de Cuerpos Rígidos,F_{\text{reac}},0.0534,0.0534071,N,7.075111e-06,0.0132%,0.10%,APROBADO
+16,Momento de Inercia Total Equivalente,Unidad 4 - Cinética de Cuerpos Rígidos,I_{\text{tot}},0.00120097,0.00120098,kg·m²,6.074574e-09,0.0005%,0.05%,APROBADO
+17,Coeficiente de Amortiguamiento Viscoso,Unidad 4 - Cinética de Cuerpos Rígidos,b,0.0018436,0.00184357,N·m·s,3.359576e-08,0.0018%,0.05%,APROBADO
+18,Vueltas Remanentes en Parada Libre,Unidad 4 - Cinética de Cuerpos Rígidos,N_\infty,18.4574,18.4575,rev,1.154809e-04,0.0006%,0.10%,APROBADO
+19,Esfuerzo Cortante Máximo en Eje con Chavetero,Unidad 4 - Cinética de Cuerpos Rígidos,\tau_{\text{máx}},0.9504,0.950428,MPa,2.811912e-05,0.0030%,0.05%,APROBADO
+20,Fuerza Manual en Volante del Contrapunto,Unidad 4 - Cinética de Cuerpos Rígidos,F_{\text{mano}},2.8519,2.85153,N,3.739363e-04,0.0131%,0.10%,APROBADO
