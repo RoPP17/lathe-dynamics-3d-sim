@@ -1,0 +1,21 @@
+{
+  "title": "lathe-dynamics-3d-sim: 3D Dynamic Simulation and CAE Mechanical Suite for Didactic Lathe Mechanisms",
+  "upload_type": "software",
+  "description": "Interactive 3D CAE simulation suite for kinematics and dynamics analysis of didactic lathe transmission assemblies. Includes OpenGL 3D visualization, cutting force decomposition, and multibody mechanical analysis.",
+  "creators": [
+    {
+      "name": "Pepe Sánchez, Roberto Andrés",
+      "affiliation": "Universidad Técnica de Ambato"
+    }
+  ],
+  "access_right": "open",
+  "license": "MIT",
+  "keywords": [
+    "mechanical-engineering",
+    "multibody-dynamics",
+    "computer-aided-engineering",
+    "pyqt6",
+    "pyopengl",
+    "python"
+  ]
+}

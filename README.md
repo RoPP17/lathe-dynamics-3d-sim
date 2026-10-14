@@ -1,4 +1,4 @@
-# ⚙️ LatheDynamics 3D — Simulador Dinámico & Suite CAE de un Torno Didáctico
+﻿# ⚙️ LatheDynamics 3D — Simulador Dinámico & Suite CAE de un Torno Didáctico
 
 [![Python](https://img.shields.io/badge/Python-3.10%20%7C%203.11%20%7C%203.12-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/)
 [![PyQt6](https://img.shields.io/badge/GUI-PyQt6-41CD52?style=for-the-badge&logo=qt&logoColor=white)](https://riverbankcomputing.com/software/pyqt/)
@@ -196,3 +196,23 @@ El repositorio incluye en la carpeta [`docs/`](docs/) las memorias técnicas com
 ## 📜 Licencia
 
 Este proyecto está bajo la Licencia [MIT](LICENSE).
+
+---
+
+## 📚 Citación Académica (Citation)
+
+Si utilizas este software o código en investigaciones, docencia o proyectos de ingeniería, por favor cítalo como:
+
+``bibtex
+@software{pepe_sanchez_2026_lathe_dynamics,
+  author       = {Pepe Sánchez, Roberto Andrés},
+  title        = {lathe-dynamics-3d-sim: 3D Dynamic Simulation and CAE Mechanical Suite for Didactic Lathe Mechanisms},
+  month        = oct,
+  year         = 2026,
+  publisher    = {Zenodo},
+  version      = {v1.0.0},
+  url          = {https://github.com/RoPP17/lathe-dynamics-3d-sim}
+}
+``
+
+También puedes citarlo automáticamente usando el botón **"Cite this repository"** en la barra lateral de GitHub o leyendo directamente el archivo [CITATION.cff](./CITATION.cff).
